@@ -7,20 +7,24 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('../views/HomePage.vue')
+    name: 'HomePage',
+    component: () => import('@/views/HomePage.vue')
   },
   
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutPage.vue')
+    path: '/catalog',
+    name: 'CatalogPage',
+    component: () => import('@/views/CatalogPage.vue')
   },
+
+  
+
   {
     path: '/cotact',
-    name: 'contact',
-    component: () => import('../views/ContactPage.vue')
-  }
+    name: 'ContactPage',
+    component: () => import('@/views/ContactPage.vue')
+  },
+  
 ]
 
 const router = new VueRouter({
