@@ -8,7 +8,5 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class HomePage extends Vue {
-  productList: any = this.$store.state.products.productList;
-}
+export default class HomePage extends Vue {}
 </script>

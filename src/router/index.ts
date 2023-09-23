@@ -24,6 +24,15 @@ const routes: Array<RouteConfig> = [
     name: 'ContactPage',
     component: () => import('@/views/ContactPage.vue')
   },
+
+  
+
+  {
+    path: "/content/:id",
+    name: "ContentPage",
+    component: () => import('@/views/ContentPage.vue'),
+    props: true
+  }
   
 ]
 

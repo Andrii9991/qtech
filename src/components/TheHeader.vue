@@ -14,16 +14,23 @@
 
     <h1 class="header__title">Техно-Люкс</h1>
 
-    <input class="header__search" type="text" placeholder="Пошук" />
+    <BaseButton @click.native="login" text="Зареєструватися" />
   </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import BaseButton from "@/components/BaseButton.vue";
 
-@Component
+@Component({
+  components: {
+    BaseButton,
+  },
+})
 export default class TheHeader extends Vue {
-  productList: any = this.$store.state.products.productList;
+  login(): void {
+    console.log("s");
+  }
 }
 </script>
 
