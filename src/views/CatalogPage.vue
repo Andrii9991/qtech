@@ -5,11 +5,20 @@
         <img class="catalog-cart__image" :src="product.images[0]" alt="" />
       </div>
 
-      <h4 class="catalog-cart__title">{{ product.title }}</h4>
+      <h3 class="catalog-cart__title">{{ product.title }}</h3>
       <p class="catalog-cart__description">{{ product.description }}</p>
       <h3 class="catalog-cart__price">
         <span>{{ product.price }} USD</span>
       </h3>
+      <router-link
+        class="catalog-cart__link"
+        :to="{
+          name: 'ContentPage',
+          params: { id: product.id },
+        }"
+      >
+        {{ product.title }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -19,7 +28,9 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class CatalogPage extends Vue {
-  productList: any = this.$store.state.products.productList;
+  get productList(): Array<Record<string, unknown>> {
+    return this.$store.state.products.productList; // створити інтерфейс
+  }
 
   mounted() {
     console.log(this.productList);
@@ -44,13 +55,17 @@ export default class CatalogPage extends Vue {
     align-items: center;
     flex-direction: column;
     min-height: 240px;
-    min-width: 350px;
+    max-width: 450px;
+    background-color: $grey-lite;
     padding: 10px;
     border-radius: 10px;
     transition-property: background-color, box-shadow;
     transition-duration: 0.2s;
-    box-shadow: inset 2px -2px 1.5px 1.5px $black;
     cursor: pointer;
+
+    &:hover {
+      box-shadow: inset 2px -2px 1.5px 1.5px $black;
+    }
 
     &__image-wrap {
       width: 200px;
@@ -60,13 +75,23 @@ export default class CatalogPage extends Vue {
     &__image {
       object-fit: cover;
       object-position: center;
+      height: 200px;
       width: 100%;
-      height: 100%;
       border-radius: 8px;
+      border: 4px solid $black;
+
+      &:hover {
+        height: 210px;
+        border-radius: 16px;
+      }
     }
 
     &__description {
-      padding: 15px 0;
+      padding: 15px 15px;
+    }
+
+    &__link {
+      text-decoration: none;
     }
   }
 }
