@@ -1,45 +1,39 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import store from "@/store";
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
 
+Vue.use(VueRouter);
 
-Vue.use(VueRouter)
+store.commit("initialiseStore");
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'HomePage',
-    component: () => import('@/views/HomePage.vue')
+    path: "/",
+    name: "HomePage",
+    component: () => import("@/views/HomePage.vue"),
   },
-  
   {
-    path: '/catalog',
-    name: 'CatalogPage',
-    component: () => import('@/views/CatalogPage.vue')
+    path: "/catalog",
+    name: "CatalogPage",
+    component: () => import("@/views/CatalogPage.vue"),
   },
-
-  
-
   {
-    path: '/cotact',
-    name: 'ContactPage',
-    component: () => import('@/views/ContactPage.vue')
+    path: "/cotact",
+    name: "ContactPage",
+    component: () => import("@/views/ContactPage.vue"),
   },
-
-  
-
   {
-    path: "/content/:id",
+    path: "/content/:name",
     name: "ContentPage",
-    component: () => import('@/views/ContentPage.vue'),
-    props: true
-  }
-  
-]
+    component: () => import("@/views/ContentPage.vue"),
+    // props: true
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

@@ -1,14 +1,16 @@
 export default {
-    namespaced: true,
-    state: {
-        productList: []
+  namespaced: true,
+  state: {
+    productList: [],
+    currentProduct: {},
+  },
+  getters: {},
+  mutations: {
+    setProducts(state: any, products: Array<Record<string, unknown>>): void {
+      state.productList = [...products];
     },
-    getters: {
+    setCurrentProduct(state: any, product: Array<Record<string, unknown>>) {
+      state.currentProduct = { ...product };
     },
-    mutations: {
-        setProducts(state:any, products: Array<Record<string, unknown>>):void{
-            state.productList = [...products]
-        }
-    },
-    
-  }
+  },
+};

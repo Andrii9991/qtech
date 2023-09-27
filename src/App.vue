@@ -9,6 +9,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import TheHeader from "@/components/TheHeader.vue";
 import { getAllProducts } from "@/api/mainRequests";
+import store from "./store";
 
 @Component({
   components: {
@@ -16,8 +17,25 @@ import { getAllProducts } from "@/api/mainRequests";
   },
 })
 export default class App extends Vue {
+  unSubscribe!: () => void;
+
+  synchronizeStateAndStore() {
+    this.unSubscribe = this.$store.subscribe((mutation, state) => {
+      localStorage.setItem("store", JSON.stringify({ ...state }));
+    });
+  }
+
   async mounted() {
-    console.log(await getAllProducts());
+    await getAllProducts();
+    this.synchronizeStateAndStore();
+    // localStorage.setItem("name", "Kurulo");
+    // const item = localStorage.getItem("name");
+    // localStorage.clear();
+    // console.log(item);
+  }
+
+  destroyed() {
+    this.unSubscribe();
   }
 }
 </script>
