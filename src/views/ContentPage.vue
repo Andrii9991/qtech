@@ -32,6 +32,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
+import { Product } from "@/interface/interface";
 
 @Component({
   components: {
@@ -39,12 +40,12 @@ import BaseButton from "@/components/BaseButton.vue";
   },
 })
 export default class ContentPage extends Vue {
-  product: any = {};
+  product = {};
 
-  get productList(): Array<Record<string, unknown>> {
+  get productList(): Product {
     return this.$store.state.products.productList;
   }
-  get currentProduct(): Array<Record<string, unknown>> {
+  get currentProduct(): Product {
     return this.$store.state.products.currentProduct;
   }
 }
