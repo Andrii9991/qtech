@@ -38,7 +38,6 @@ export default class App extends Vue {
 <style lang="scss">
 #app {
   min-height: 100vh;
-
   background-color: $black;
   font-family: $font-family-default;
   font-style: normal;
