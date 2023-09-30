@@ -16,8 +16,21 @@ import { getAllProducts } from "@/api/mainRequests";
   },
 })
 export default class App extends Vue {
+  unSubscribe!: () => void;
+
+  synchronizeStateAndStore() {
+    this.unSubscribe = this.$store.subscribe((mutation, state) => {
+      localStorage.setItem("store", JSON.stringify({ ...state }));
+    });
+  }
+
   async mounted() {
-    console.log(await getAllProducts());
+    await getAllProducts();
+    this.synchronizeStateAndStore();
+  }
+
+  destroyed() {
+    this.unSubscribe();
   }
 }
 </script>

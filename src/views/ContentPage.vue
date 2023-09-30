@@ -1,22 +1,27 @@
 <template>
   <div class="product-view__wrapper">
-    <h3 class="product-view__title">{{ product.title }}</h3>
-    <p class="product-view__description">{{ product.description }}</p>
+    <h3 class="product-view__title">{{ currentProduct.title }}</h3>
+    <p class="product-view__description">{{ currentProduct.description }}</p>
     <div class="image-wpapper">
-      <img class="image-wpapper__item" :src="product.images[0]" alt="" />
-      <img class="image-wpapper__item" :src="product.images[1]" alt="" />
-      <img class="image-wpapper__item" :src="product.images[2]" alt="" />
+      <img class="image-wpapper__item" :src="currentProduct.images[0]" alt="" />
+      <img class="image-wpapper__item" :src="currentProduct.images[1]" alt="" />
+      <img class="image-wpapper__item" :src="currentProduct.images[2]" alt="" />
     </div>
     <div class="product-view__characteristics">
       <ul class="characteristics">
         <h4>Характеристики:</h4>
-        <li class="characteristics__brand">Бренд: {{ product.brand }}</li>
-        <li class="characteristics__category">
-          Категорія: {{ product.category }}
+        <li class="characteristics__brand">
+          Бренд: {{ currentProduct.brand }}
         </li>
-        <li class="characteristics__ratign">Рейтинг: {{ product.rating }}</li>
+        <li class="characteristics__category">
+          Категорія: {{ currentProduct.category }}
+        </li>
+        <li class="characteristics__ratign">
+          Рейтинг: {{ currentProduct.rating }}
+        </li>
       </ul>
     </div>
+
     <div class="buttons">
       <BaseButton @click.native="login" text="Купити" />
       <BaseButton @click.native="login" text="Додати в кошик" />
@@ -25,8 +30,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
+import { IProduct } from "@/interfaces/products";
 
 @Component({
   components: {
@@ -34,17 +40,8 @@ import BaseButton from "@/components/BaseButton.vue";
   },
 })
 export default class ContentPage extends Vue {
-  product: any = {};
-  get productList(): Array<Record<string, unknown>> {
-    return this.$store.state.products.productList; // створити інтерфейс
-  }
-
-  created() {
-    const productId = this.$route.params.id;
-
-    this.product = this.productList.find(
-      (product) => product.id === parseInt(productId)
-    );
+  get currentProduct(): IProduct {
+    return this.$store.state.products.currentProduct;
   }
 }
 </script>

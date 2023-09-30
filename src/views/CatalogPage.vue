@@ -10,30 +10,39 @@
       <h3 class="catalog-cart__price">
         <span>{{ product.price }} USD</span>
       </h3>
-      <router-link
-        class="catalog-cart__link"
-        :to="{
-          name: 'ContentPage',
-          params: { id: product.id },
-        }"
-      >
-        {{ product.title }}
-      </router-link>
+      <BaseButton
+        @click.native="setProductAsCurrent(product)"
+        text="Детальний опис"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import BaseButton from "@/components/BaseButton.vue";
+import { IProduct } from "@/interfaces/products";
 
-@Component
+@Component({
+  components: {
+    BaseButton,
+  },
+})
 export default class CatalogPage extends Vue {
-  get productList(): Array<Record<string, unknown>> {
-    return this.$store.state.products.productList; // створити інтерфейс
+  get productList(): IProduct[] {
+    return this.$store.state.products.productList;
   }
 
-  mounted() {
-    console.log(this.productList);
+  nameURL(product: IProduct): string {
+    return product.title.toLowerCase().replace(/\s+/g, "-");
+  }
+
+  setProductAsCurrent(product: IProduct): void {
+    this.$router.push({
+      name: "ContentPage",
+      params: { name: this.nameURL(product) },
+    });
+    this.$store.commit("products/setCurrentProduct", product);
   }
 }
 </script>
