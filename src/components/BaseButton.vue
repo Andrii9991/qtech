@@ -26,6 +26,7 @@ export default class BaseButton extends Vue {
   &:hover {
     background-color: $black;
     color: $cream;
+    transform: scale(1.04);
   }
 }
 </style>

@@ -21,7 +21,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
-import { Product } from "@/interface/interface";
+import { IProducts } from "@/interface/interfaces";
 
 @Component({
   components: {
@@ -29,15 +29,15 @@ import { Product } from "@/interface/interface";
   },
 })
 export default class CatalogPage extends Vue {
-  get productList(): Product {
+  get productList(): IProducts[] {
     return this.$store.state.products.productList;
   }
 
-  nameURL(product: Product): string {
+  nameURL(product: IProducts): string {
     return product.title.toLowerCase().replace(/\s+/g, "-");
   }
 
-  setProductAsCurrent(product: Product): void {
+  setProductAsCurrent(product: IProducts): void {
     this.$router.push({
       name: "ContentPage",
       params: { name: this.nameURL(product) },

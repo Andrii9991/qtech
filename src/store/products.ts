@@ -1,3 +1,4 @@
+import { IProducts } from "@/interface/interfaces";
 export default {
   namespaced: true,
   state: {
@@ -6,10 +7,10 @@ export default {
   },
   getters: {},
   mutations: {
-    setProducts(state: any, products: Array<Record<string, unknown>>): void {
+    setProducts(state: any, products: IProducts[]): void {
       state.productList = [...products];
     },
-    setCurrentProduct(state: any, product: Array<Record<string, unknown>>) {
+    setCurrentProduct(state: any, product: IProducts) {
       state.currentProduct = { ...product };
     },
   },

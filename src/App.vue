@@ -9,7 +9,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import TheHeader from "@/components/TheHeader.vue";
 import { getAllProducts } from "@/api/mainRequests";
-import store from "./store";
 
 @Component({
   components: {
@@ -28,10 +27,6 @@ export default class App extends Vue {
   async mounted() {
     await getAllProducts();
     this.synchronizeStateAndStore();
-    // localStorage.setItem("name", "Kurulo");
-    // const item = localStorage.getItem("name");
-    // localStorage.clear();
-    // console.log(item);
   }
 
   destroyed() {
@@ -43,6 +38,7 @@ export default class App extends Vue {
 <style lang="scss">
 #app {
   min-height: 100vh;
+
   background-color: $black;
   font-family: $font-family-default;
   font-style: normal;
