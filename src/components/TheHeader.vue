@@ -21,19 +21,6 @@
         text="Зареєструватися"
       />
     </header>
-    <div class="header2">
-      <img class="test" src="@/design/images/test.png" alt="" />
-
-      <BaseButton class="header2__button" text="Каталог" />
-
-      <div class="header2__search">
-        <input class="header2__search" type="text" placeholder="Пошук" />
-      </div>
-
-      <div class="header2__basket">
-        <a href="">У кошик</a>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -46,19 +33,11 @@ import BaseButton from "@/components/BaseButton.vue";
     BaseButton,
   },
 })
-export default class TheHeader extends Vue {
-  login(): void {
-    this.$router.push({
-      name: "SignUpPage",
-    });
-  }
-}
+export default class TheHeader extends Vue {}
 </script>
 
 <style scoped lang="scss">
 .wrapper__header {
-  max-width: 1330px;
-
   .header {
     display: flex;
     justify-content: space-between;
@@ -80,27 +59,6 @@ export default class TheHeader extends Vue {
       color: $cream;
       min-width: 300px;
     }
-
-    &__search {
-      border-radius: 8px;
-      padding: 8px;
-      box-shadow: inset 0px 0px 0px 2px $black;
-    }
-  }
-
-  .header2 {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1330px;
-    background: #0f0f0f;
-
-    max-height: 55px;
-  }
-
-  .test {
-    max-width: 32px;
-    max-height: 32px;
   }
 }
 </style>

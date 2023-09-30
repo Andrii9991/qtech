@@ -32,7 +32,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
-import { IProducts } from "@/interface/interfaces";
+import { IProduct } from "@/interfaces/products";
 
 @Component({
   components: {
@@ -40,7 +40,7 @@ import { IProducts } from "@/interface/interfaces";
   },
 })
 export default class ContentPage extends Vue {
-  get currentProduct(): IProducts {
+  get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
   }
 }
