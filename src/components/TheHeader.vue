@@ -15,11 +15,7 @@
 
       <h1 class="header__title">Техно-Люкс</h1>
 
-      <BaseButton
-        class="login-btn"
-        @click.native="login"
-        text="Зареєструватися"
-      />
+      <BaseButton class="login-btn" @click.native="login" text="Увійти" />
     </header>
   </div>
 </template>
@@ -33,7 +29,13 @@ import BaseButton from "@/components/BaseButton.vue";
     BaseButton,
   },
 })
-export default class TheHeader extends Vue {}
+export default class TheHeader extends Vue {
+  login(): void {
+    this.$router.push({
+      name: "SignUpPage",
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">
