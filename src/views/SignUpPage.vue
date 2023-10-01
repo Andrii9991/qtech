@@ -1,77 +1,72 @@
 <template>
-  <div class="signup-page">
-    <h2 class="signup-page__title">Реєстрація</h2>
-    <form class="content-window">
-      <div class="content-window__group">
-        <label class="content-window__label" for="name">Ім'я</label>
-        <input
-          class="content-window__input"
-          v-model="name"
-          type="text"
-          placeholder="Введіть ім'я"
-        />
-      </div>
+  <div class="sign-up-page">
+    <h2 class="sign-up-page__title">Реєстрація</h2>
 
-      <div class="content-window__group">
-        <label class="content-window__label" for="email">Email</label>
-        <input
-          class="content-window__input"
-          v-model="email"
-          type="email"
-          placeholder="Введіть Email"
-        />
-      </div>
+    <div class="content">
+      <BaseInput
+        class="content__input"
+        v-model="name"
+        label="Ім'я"
+        placeholder="Введіть ім'я"
+      />
+      <BaseInput
+        class="content__input"
+        v-model="email"
+        label="Email"
+        placeholder="Введіть email"
+        type="email"
+      />
+      <BaseInput
+        class="content__input"
+        v-model="password"
+        label="Пароль"
+        placeholder="Введіть пароль"
+        type="password"
+      />
 
-      <div class="content-window__group">
-        <label class="content-window__label" for="password">Пароль</label>
-        <input
-          class="content-window__input"
-          v-model="password"
-          type="password"
-          placeholder="Введіть пароль"
-        />
+      <div class="sign-up__buttons">
+        <BaseButton text="Зареєструватись" />
+        <BaseButton text="Увійти" />
       </div>
-
-      <div class="content-window__group">
-        <label class="content-window__label" for="password"
-          >Підтвердіть пароль</label
-        >
-        <input
-          class="content-window__input"
-          v-model="password"
-          type="password"
-          placeholder="Підтвердіть пароль"
-        />
-      </div>
-      <div class="signUp__buttons">
-        <BaseButton
-          class="signup-button login-button"
-          text="Зареєструватись"
-        ></BaseButton>
-        <BaseButton
-          class="login-button login-button"
-          text="Увійти"
-        ></BaseButton>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
-import { IProduct } from "@/interfaces/products";
+import BaseInput from "@/components/BaseInput.vue";
 
 @Component({
   components: {
     BaseButton,
+    BaseInput,
   },
 })
-export default class SignUpPage extends Vue {}
+export default class SignUpPage extends Vue {
+  set name(value: string) {
+    this.$store.commit("user/setName", value);
+  }
+  get name(): string {
+    return this.$store.state.user.name;
+  }
+  set email(value: string) {
+    this.$store.commit("user/setEmail", value);
+  }
+  get email(): string {
+    return this.$store.state.user.email;
+  }
+  set password(value: string) {
+    this.$store.commit("user/setPassword", value);
+  }
+  get password(): string {
+    return this.$store.state.user.password;
+  }
+}
 </script>
 
 <style scoped lang="scss">
-.signup-page {
+.sign-up-page {
   background-color: #f8f8f8;
   padding: 20px;
   text-align: center;
@@ -82,7 +77,7 @@ export default class SignUpPage extends Vue {}
     margin-bottom: 20px;
   }
 
-  .content-window {
+  .content {
     background-color: $white;
     border-radius: 8px;
     padding: 20px;
@@ -91,46 +86,30 @@ export default class SignUpPage extends Vue {}
     max-width: 400px;
     margin: 0 auto;
 
-    &__group {
-      margin-bottom: 15px;
-
-      .content-window__label {
-        font-size: 16px;
-        color: $black;
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      .content-window__input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        color: $black;
-        border-radius: 4px;
-        font-size: 16px;
-      }
+    &__input {
+      margin-bottom: 16px;
     }
   }
 }
 
-.signUp__buttons {
+.sign-up__buttons {
   display: flex;
   justify-content: space-between;
 
-  .login-button {
-    background-color: $orange;
-    color: #fff;
-    font-size: 18px;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  // .login-button {
+  //   background-color: $orange;
+  //   color: #fff;
+  //   font-size: 18px;
+  //   border: none;
+  //   border-radius: 4px;
+  //   padding: 10px 20px;
+  //   cursor: pointer;
+  //   transition: background-color 0.3s;
 
-    &:hover {
-      background-color: #e64a19;
-      border-radius: 8px;
-    }
-  }
+  //   &:hover {
+  //     background-color: #e64a19;
+  //     border-radius: 8px;
+  //   }
+  // }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="catalog-wrapper">
+  <div class="catalog-page">
     <div class="catalog-cart" v-for="product in productList" :key="product.id">
       <div class="catalog-cart__image-wrap">
         <img class="catalog-cart__image" :src="product.images[0]" alt="" />
@@ -39,7 +39,7 @@ export default class CatalogPage extends Vue {
 
   setProductAsCurrent(product: IProduct): void {
     this.$router.push({
-      name: "ContentPage",
+      name: "ProductViewPage",
       params: { name: this.nameURL(product) },
     });
     this.$store.commit("products/setCurrentProduct", product);
@@ -47,7 +47,7 @@ export default class CatalogPage extends Vue {
 }
 </script>
 <style scoped lang="scss">
-.catalog-wrapper {
+.catalog-page {
   display: grid;
   padding: 64px 46px;
   grid-template-columns: repeat(4, 1fr);
