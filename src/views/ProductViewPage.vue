@@ -23,8 +23,8 @@
     </div>
 
     <div class="buttons">
-      <BaseButton @click.native="login" text="Купити" />
-      <BaseButton @click.native="login" text="Додати в кошик" />
+      <!-- <BaseButton @click.native="login" text="Купити" />
+      <BaseButton @click.native="login" text="Додати в кошик" /> -->
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ import { IProduct } from "@/interfaces/products";
     BaseButton,
   },
 })
-export default class ContentPage extends Vue {
+export default class ProductViewPage extends Vue {
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
   }
