@@ -5,7 +5,7 @@
       <div class="content-window__group">
         <label class="content-window__label" for="name">Ім'я</label>
         <input
-          class="form-input"
+          class="content-window__input"
           v-model="name"
           type="text"
           placeholder="Введіть ім'я"
@@ -13,9 +13,9 @@
       </div>
 
       <div class="content-window__group">
-        <label class="fcontent-window__label" for="email">Email</label>
+        <label class="content-window__label" for="email">Email</label>
         <input
-          class="form-input"
+          class="content-window__input"
           v-model="email"
           type="email"
           placeholder="Введіть Email"
@@ -25,19 +25,19 @@
       <div class="content-window__group">
         <label class="content-window__label" for="password">Пароль</label>
         <input
-          class="form-input"
+          class="content-window__input"
           v-model="password"
           type="password"
           placeholder="Введіть пароль"
         />
       </div>
 
-      <div class="form-group">
+      <div class="content-window__group">
         <label class="content-window__label" for="password"
           >Підтвердіть пароль</label
         >
         <input
-          class="form-input"
+          class="content-window__input"
           v-model="password"
           type="password"
           placeholder="Підтвердіть пароль"
@@ -45,10 +45,13 @@
       </div>
       <div class="signUp__buttons">
         <BaseButton
-          class="signup-button login-btn"
+          class="signup-button login-button"
           text="Зареєструватись"
         ></BaseButton>
-        <BaseButton class="signin-button login-btn" text="Увійти"></BaseButton>
+        <BaseButton
+          class="login-button login-button"
+          text="Увійти"
+        ></BaseButton>
       </div>
     </form>
   </div>
@@ -90,30 +93,31 @@ export default class SignUpPage extends Vue {}
 
     &__group {
       margin-bottom: 15px;
-    }
-    .content-window__label {
-      font-size: 16px;
-      color: #333;
-      display: block;
-      margin-bottom: 5px;
+
+      .content-window__label {
+        font-size: 16px;
+        color: $black;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .content-window__input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        color: $black;
+        border-radius: 4px;
+        font-size: 16px;
+      }
     }
   }
-}
-
-.form-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  color: $black;
-  border-radius: 4px;
-  font-size: 16px;
 }
 
 .signUp__buttons {
   display: flex;
   justify-content: space-between;
 
-  .login-btn {
+  .login-button {
     background-color: $orange;
     color: #fff;
     font-size: 18px;
