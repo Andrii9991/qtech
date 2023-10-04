@@ -11,6 +11,10 @@ body {
 
 button {
   border: none;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  font-family: $font-family-default;
 }
 
 input {

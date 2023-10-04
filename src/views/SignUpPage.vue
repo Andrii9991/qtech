@@ -24,9 +24,9 @@
         type="password"
       />
 
-      <div class="sign-up__buttons">
-        <BaseButton text="Зареєструватись" />
-        <BaseButton text="Увійти" />
+      <div class="content__buttons">
+        <BaseButton class="signUp-button" text="Зареєструватись" />
+        <BaseButton class="signUp-button" text="Увійти" />
       </div>
     </div>
   </div>
@@ -67,16 +67,15 @@ export default class SignUpPage extends Vue {
 
 <style scoped lang="scss">
 .sign-up-page {
-  background-color: #f8f8f8;
+  background-color: $white;
   padding: 20px;
   text-align: center;
 
   &__title {
-    color: $grey;
+    color: $black;
     font-size: 24px;
     margin-bottom: 20px;
   }
-
   .content {
     background-color: $white;
     border-radius: 8px;
@@ -89,27 +88,12 @@ export default class SignUpPage extends Vue {
     &__input {
       margin-bottom: 16px;
     }
+
+    &__buttons {
+      display: flex;
+      min-height: 32px;
+      justify-content: space-between;
+    }
   }
-}
-
-.sign-up__buttons {
-  display: flex;
-  justify-content: space-between;
-
-  // .login-button {
-  //   background-color: $orange;
-  //   color: #fff;
-  //   font-size: 18px;
-  //   border: none;
-  //   border-radius: 4px;
-  //   padding: 10px 20px;
-  //   cursor: pointer;
-  //   transition: background-color 0.3s;
-
-  //   &:hover {
-  //     background-color: #e64a19;
-  //     border-radius: 8px;
-  //   }
-  // }
 }
 </style>

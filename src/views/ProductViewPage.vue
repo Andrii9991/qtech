@@ -1,5 +1,5 @@
 <template>
-  <div class="product-view__wrapper">
+  <div class="product-view">
     <h3 class="product-view__title">{{ currentProduct.title }}</h3>
     <p class="product-view__description">{{ currentProduct.description }}</p>
     <div class="image-wpapper">
@@ -47,7 +47,7 @@ export default class ProductViewPage extends Vue {
 </script>
 
 <style lang="scss">
-.product-view__wrapper {
+.product-view {
   display: flex;
   flex-direction: column;
   align-items: center;
