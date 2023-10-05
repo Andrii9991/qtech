@@ -1,5 +1,7 @@
 <template>
-  <button class="button">{{ text }}</button>
+  <button :class="['base-button', styleButton]">
+    {{ text }}
+  </button>
 </template>
 
 <script lang="ts">
@@ -8,25 +10,41 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export default class BaseButton extends Vue {
   @Prop({ default: "" }) text!: string;
+  @Prop({ default: "" }) styleButton!: string;
 }
 </script>
 
 <style scoped lang="scss">
-.button {
+.base-button {
   padding: 8px;
   box-shadow: inset 0 0 0 2px $black;
   border: none;
   border-radius: 8px;
   background: none;
-  background-color: $cream;
+  background-color: $white;
   color: $black;
   transition-duration: 0.2s;
+  transition: 0.6s;
   cursor: pointer;
 
   &:hover {
     background-color: $black;
-    color: $cream;
+    color: $white;
     transform: scale(1.04);
+  }
+}
+
+.orange {
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: $orange;
+  color: $black;
+  cursor: pointer;
+  transition: background-color 0.8s, color 0.8s;
+
+  &:hover {
+    background-color: $white;
+    color: $black;
   }
 }
 </style>

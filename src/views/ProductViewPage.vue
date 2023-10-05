@@ -1,13 +1,15 @@
 <template>
-  <div class="product-view__wrapper">
-    <h3 class="product-view__title">{{ currentProduct.title }}</h3>
-    <p class="product-view__description">{{ currentProduct.description }}</p>
+  <div class="product-view-page">
+    <h3 class="product-view-page__title">{{ currentProduct.title }}</h3>
+    <p class="product-view-page__description">
+      {{ currentProduct.description }}
+    </p>
     <div class="image-wpapper">
       <img class="image-wpapper__item" :src="currentProduct.images[0]" alt="" />
       <img class="image-wpapper__item" :src="currentProduct.images[1]" alt="" />
       <img class="image-wpapper__item" :src="currentProduct.images[2]" alt="" />
     </div>
-    <div class="product-view__characteristics">
+    <div class="product-view-page__characteristics">
       <ul class="characteristics">
         <h4>Характеристики:</h4>
         <li class="characteristics__brand">
@@ -47,7 +49,7 @@ export default class ProductViewPage extends Vue {
 </script>
 
 <style lang="scss">
-.product-view__wrapper {
+.product-view-page {
   display: flex;
   flex-direction: column;
   align-items: center;

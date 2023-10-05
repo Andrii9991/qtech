@@ -65,15 +65,14 @@ export default class CatalogPage extends Vue {
     flex-direction: column;
     min-height: 240px;
     max-width: 450px;
-    background-color: $grey-lite;
-    padding: 10px;
-    border-radius: 10px;
+    background-color: $grey;
+    padding: 8px;
     transition-property: background-color, box-shadow;
     transition-duration: 0.2s;
     cursor: pointer;
 
     &:hover {
-      box-shadow: inset 2px -2px 1.5px 1.5px $black;
+      border: 1px solid $white;
     }
 
     &__image-wrap {
@@ -88,6 +87,7 @@ export default class CatalogPage extends Vue {
       width: 100%;
       border-radius: 8px;
       border: 4px solid $black;
+      transition: 0.5s;
 
       &:hover {
         height: 210px;
