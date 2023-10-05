@@ -11,7 +11,6 @@
         <span>{{ product.price }} USD</span>
       </h3>
       <BaseButton
-        class="default-button"
         @click.native="setProductAsCurrent(product)"
         text="Детальний опис"
       />
