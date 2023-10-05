@@ -26,7 +26,7 @@
 
       <div class="content__buttons">
         <BaseButton class="signUp-button" text="Зареєструватись" />
-        <BaseButton class="signUp-button" text="Увійти" />
+        <BaseButton styleButton="true" text="Увійти" />
       </div>
     </div>
   </div>
