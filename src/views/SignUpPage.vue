@@ -25,8 +25,8 @@
       />
 
       <div class="content__buttons">
-        <BaseButton styleButton text="Зареєструватись" />
-        <BaseButton styleButton text="Увійти" />
+        <BaseButton styleButton="orange" text="Зареєструватись" />
+        <BaseButton styleButton="orange" text="Увійти" />
       </div>
     </div>
   </div>

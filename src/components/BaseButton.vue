@@ -1,5 +1,5 @@
 <template>
-  <button :class="['default-button', styleButton]">
+  <button :class="['base-button', styleButton]">
     {{ text }}
   </button>
 </template>
@@ -10,12 +10,12 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export default class BaseButton extends Vue {
   @Prop({ default: "" }) text!: string;
-  @Prop({ default: "signUp-button" }) styleButton!: string;
+  @Prop({ default: "" }) styleButton!: string;
 }
 </script>
 
 <style scoped lang="scss">
-.default-button {
+.base-button {
   padding: 8px;
   box-shadow: inset 0 0 0 2px $black;
   border: none;
@@ -34,7 +34,7 @@ export default class BaseButton extends Vue {
   }
 }
 
-.signUp-button {
+.orange {
   padding: 5px 10px;
   border-radius: 4px;
   background-color: $orange;
