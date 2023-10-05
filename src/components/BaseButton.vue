@@ -1,24 +1,23 @@
 <template>
-  <button :class="['default-button', { 'signUp-button': styleButton }]">
+  <button :class="['default-button', styleButton]">
     {{ text }}
   </button>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { IProduct } from "@/interfaces/products";
 
 @Component
 export default class BaseButton extends Vue {
   @Prop({ default: "" }) text!: string;
-  @Prop({ default: false }) styleButton!: IProduct;
+  @Prop({ default: "signUp-button" }) styleButton!: string;
 }
 </script>
 
 <style scoped lang="scss">
 .default-button {
   padding: 8px;
-  // box-shadow: inset 0 0 0 2px $black;
+  box-shadow: inset 0 0 0 2px $black;
   border: none;
   border-radius: 8px;
   background: none;
