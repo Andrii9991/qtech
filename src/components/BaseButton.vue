@@ -1,5 +1,5 @@
 <template>
-  <button :class="['base-button', styleButton]">
+  <button :class="['base-button', styleButton, size]" :disabled="isDisebled">
     {{ text }}
   </button>
 </template>
@@ -11,6 +11,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 export default class BaseButton extends Vue {
   @Prop({ default: "" }) text!: string;
   @Prop({ default: "" }) styleButton!: string;
+  @Prop({ default: "" }) size!: string;
+  @Prop({ default: false }) isDisebled!: boolean;
 }
 </script>
 
@@ -23,8 +25,7 @@ export default class BaseButton extends Vue {
   background: none;
   background-color: $white;
   color: $black;
-  transition-duration: 0.2s;
-  transition: 0.6s;
+  transition-duration: 0.8s;
   cursor: pointer;
 
   &:hover {
@@ -32,19 +33,35 @@ export default class BaseButton extends Vue {
     color: $white;
     transform: scale(1.04);
   }
+  &:disabled {
+    background-color: $grey-lite;
+    box-shadow: inset 0 0 0 2px $grey-lite;
+    color: $white;
+
+    &:hover {
+      background-color: $grey-lite;
+      box-shadow: inset 0 0 0 2px $grey-lite;
+      color: $white;
+      transform: scale(1);
+      cursor: default;
+    }
+  }
 }
 
 .orange {
-  padding: 5px 10px;
-  border-radius: 4px;
   background-color: $orange;
   color: $black;
-  cursor: pointer;
-  transition: background-color 0.8s, color 0.8s;
 
   &:hover {
     background-color: $white;
     color: $black;
   }
+}
+
+.small {
+  padding: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 4px;
 }
 </style>

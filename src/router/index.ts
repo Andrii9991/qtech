@@ -29,9 +29,15 @@ const routes: Array<RouteConfig> = [
     // props: true
   },
   {
-    path: "/signup",
+    path: "/sign-up",
     name: "SignUpPage",
     component: () => import("@/views/SignUpPage.vue"),
+  },
+
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: () => import("@/views/LoginPage.vue"),
   },
 ];
 

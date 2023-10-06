@@ -14,7 +14,7 @@
 
     <h1 class="header__title">Техно-Люкс</h1>
 
-    <BaseButton @click.native="login" text="Зареєструватись" />
+    <BaseButton @click.native="login" size="small" text="Зареєструватись" />
   </header>
 </template>
 
