@@ -12,9 +12,14 @@
       >
     </nav>
 
-    <h1 class="header__title">Техно-Люкс</h1>
+    <h1 class="header__title">QTech</h1>
 
-    <BaseButton @click.native="login" size="small" text="Зареєструватись" />
+    <BaseButton
+      class="header__button"
+      @click.native="login"
+      size="small"
+      text="Зареєструватись"
+    />
   </header>
 </template>
 
@@ -42,21 +47,26 @@ export default class TheHeader extends Vue {
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
-  color: $orange;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   max-height: 40px;
+  min-width: 1200px;
 
   .navigation {
     &__link {
-      padding: 10px;
+      padding-right: 10px;
       text-decoration: none;
-      min-width: 300px;
     }
   }
 
   &__title {
+    display: flex;
+    justify-content: center;
     color: $cream;
-    min-width: 300px;
+    padding: 10px;
+  }
+
+  &__button {
+    padding: 10px;
   }
 }
 </style>
