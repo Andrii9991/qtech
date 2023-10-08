@@ -26,10 +26,10 @@
 
       <div class="content__buttons">
         <BaseButton class="sign-up-button" styleButton="black" text="Sign Up" />
-        <!-- <BaseButton styleButton="orange" text="Увійти" /> -->
-        <router-link class="sign-in-link" :to="{ name: 'LoginPage' }"
-          >I have an account</router-link
-        >
+
+        <router-link class="sign-in-link" :to="{ name: 'LoginPage' }">
+          I have an account
+        </router-link>
       </div>
     </div>
   </div>

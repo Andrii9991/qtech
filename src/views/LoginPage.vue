@@ -27,9 +27,9 @@
           styleButton="black"
           text="Login"
         />
-        <router-link class="login-link" :to="{ name: 'SignUpPage' }"
-          >Sign up now</router-link
-        >
+        <router-link class="login-link" :to="{ name: 'SignUpPage' }">
+          Sign up now
+        </router-link>
       </div>
     </div>
   </div>

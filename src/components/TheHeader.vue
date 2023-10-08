@@ -5,10 +5,10 @@
         ><img class="logo" src="@/design/images/logo.png" alt="logo"
       /></router-link>
 
-      <router-link class="navigation__link" :to="{ name: 'CatalogPage' }"
-        ><div class="navigation__link__icon-wrapper">
+      <router-link class="navigation__link" :to="{ name: 'CatalogPage' }">
+        <div class="icon-wrapper">
           <img
-            class="catalog-icon"
+            class="icon-wrapper__image"
             src="@/design/images/catalogIcon.png"
             alt=""
           />
@@ -16,9 +16,9 @@
         </div>
       </router-link>
 
-      <router-link class="navigation__link" :to="{ name: 'ContactPage' }"
-        >Contact</router-link
-      >
+      <router-link class="navigation__link" :to="{ name: 'ContactPage' }">
+        Contact
+      </router-link>
     </nav>
 
     <BaseButton
@@ -56,8 +56,6 @@ export default class TheHeader extends Vue {
   background-color: $grey;
   padding: 16px 44px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-height: 56px;
-
   .navigation {
     display: flex;
 
@@ -72,13 +70,13 @@ export default class TheHeader extends Vue {
         height: 27px;
       }
 
-      &__icon-wrapper {
+      .icon-wrapper {
         display: flex;
         padding: 6px;
         border-radius: 8px;
         transition: 0.8s;
 
-        .catalog-icon {
+        &__image {
           width: 24px;
           height: 20px;
           margin-right: 10px;
