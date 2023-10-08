@@ -1,15 +1,13 @@
 <template>
   <div class="catalog-page">
     <div class="catalog-cart" v-for="product in productList" :key="product.id">
-      <div class="catalog-cart__image-wrap">
-        <img class="catalog-cart__image" :src="product.images[0]" alt="" />
+      <div class="image-wrap">
+        <img class="image-wrap__image" :src="product.images[0]" alt="" />
       </div>
 
       <h3 class="catalog-cart__title">{{ product.title }}</h3>
       <p class="catalog-cart__description">{{ product.description }}</p>
-      <h3 class="catalog-cart__price">
-        <span>{{ product.price }} USD</span>
-      </h3>
+      <h3 class="catalog-cart__price">{{ product.price }} USD</h3>
       <BaseButton @click.native="setProductAsCurrent(product)" text="Detail" />
     </div>
   </div>
@@ -72,28 +70,37 @@ export default class CatalogPage extends Vue {
       border: 1px solid $white;
     }
 
-    &__image-wrap {
+    .image-wrap {
       width: 200px;
-      overflow: hidden;
-      margin: 0 auto;
-    }
-    &__image {
-      object-fit: cover;
-      object-position: center;
       height: 200px;
-      width: 100%;
+      overflow: hidden;
+      margin-bottom: 8px;
       border-radius: 8px;
-      border: 4px solid $black;
-      transition: 0.5s;
+      box-shadow: 0 0 0 4px $black;
+      transition-duration: 0.5s;
 
       &:hover {
-        height: 210px;
         border-radius: 16px;
+
+        .image-wrap__image {
+          transform: scale(1.1);
+        }
+      }
+
+      &__image {
+        object-fit: cover;
+        object-position: center;
+        height: 100%;
+        width: 100%;
+        transition: 0.5s;
       }
     }
 
     &__description {
       padding: 15px 15px;
+    }
+    &__price {
+      margin-bottom: 16px;
     }
 
     &__link {

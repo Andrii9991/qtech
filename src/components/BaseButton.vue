@@ -23,7 +23,7 @@ export default class BaseButton extends Vue {
   background: none;
   background-color: $white;
   color: $black;
-  transition-duration: 0.8s;
+  transition-duration: 0.5s;
   padding: 8px 20px;
   cursor: pointer;
 

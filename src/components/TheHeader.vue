@@ -1,23 +1,29 @@
 <template>
   <header class="header">
     <nav class="navigation">
-      <router-link class="navigation__link" :to="{ name: 'HomePage' }">
+      <router-link
+        class="navigation__link"
+        active-class="active-link"
+        :to="{ name: 'HomePage' }"
+      >
         <img class="logo" src="@/design/images/logo.png" alt="logo" />
       </router-link>
 
-      <router-link class="navigation__link" :to="{ name: 'CatalogPage' }">
+      <router-link
+        v-for="link in linksList"
+        :key="link.name"
+        class="navigation__link"
+        :to="{ name: link.name }"
+        active-class="active-link"
+      >
         <div class="icon-wrapper">
           <img
             class="icon-wrapper__image"
-            src="@/design/images/catalogIcon.png"
+            :src="require(`@/design/images/${link.img}.png`)"
             alt=""
           />
-          <p>Catalog</p>
+          <p>{{ link.title }}</p>
         </div>
-      </router-link>
-
-      <router-link class="navigation__link" :to="{ name: 'ContactPage' }">
-        Contact
       </router-link>
     </nav>
 
@@ -40,6 +46,19 @@ import BaseButton from "@/components/BaseButton.vue";
   },
 })
 export default class TheHeader extends Vue {
+  linksList = [
+    {
+      name: "CatalogPage",
+      title: "Catalog",
+      img: "catalogIcon",
+    },
+    {
+      name: "ContactPage",
+      title: "Contact",
+      img: "catalogIcon",
+    },
+  ];
+
   login(): void {
     this.$router.push({
       name: "SignUpPage",
@@ -54,7 +73,8 @@ export default class TheHeader extends Vue {
   justify-content: space-between;
   align-items: center;
   background-color: $grey;
-  padding: 16px 44px;
+  padding: 0 16px;
+  height: 56px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   .navigation {
     display: flex;
@@ -64,6 +84,14 @@ export default class TheHeader extends Vue {
       align-items: center;
       text-decoration: none;
       color: $white;
+      padding: 4px 8px;
+      transition-duration: 0.5s;
+
+      &:hover {
+        background-color: $black;
+        color: $white;
+        border-radius: 40px;
+      }
 
       .logo {
         width: 77px;
@@ -74,24 +102,21 @@ export default class TheHeader extends Vue {
         display: flex;
         padding: 6px;
         border-radius: 8px;
-        transition: 0.8s;
 
         &__image {
           width: 24px;
           height: 20px;
           margin-right: 10px;
         }
-        &:hover {
-          background-color: $black;
-          color: $white;
-          border-radius: 40px;
-          padding: 6px 20px;
-        }
       }
     }
 
     .navigation__link:not(:last-child) {
-      padding-right: 24px;
+      margin-right: 16px;
+    }
+
+    .active-link {
+      color: $red;
     }
   }
 }
