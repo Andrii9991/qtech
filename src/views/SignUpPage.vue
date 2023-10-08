@@ -1,32 +1,35 @@
 <template>
   <div class="sign-up-page">
-    <h2 class="sign-up-page__title">Реєстрація</h2>
+    <h2 class="sign-up-page__title">Create an account</h2>
 
     <div class="content">
       <BaseInput
         class="content__input"
         v-model="name"
-        label="Ім'я"
-        placeholder="Введіть ім'я"
+        label="Name"
+        placeholder="Enter name"
       />
       <BaseInput
         class="content__input"
         v-model="email"
         label="Email"
-        placeholder="Введіть email"
+        placeholder="Enter email"
         type="email"
       />
       <BaseInput
         class="content__input"
         v-model="password"
-        label="Пароль"
-        placeholder="Введіть пароль"
+        label="Password (minimum 8 symbols)"
+        placeholder="Enter password"
         type="password"
       />
 
       <div class="content__buttons">
-        <BaseButton styleButton="orange" text="Зареєструватись" />
-        <BaseButton styleButton="orange" text="Увійти" />
+        <BaseButton class="sign-up-button" styleButton="black" text="Sign Up" />
+        <!-- <BaseButton styleButton="orange" text="Увійти" /> -->
+        <router-link class="sign-in-link" :to="{ name: 'LoginPage' }"
+          >I have an account</router-link
+        >
       </div>
     </div>
   </div>
@@ -72,7 +75,8 @@ export default class SignUpPage extends Vue {
   text-align: center;
 
   &__title {
-    color: $black;
+    color: $white;
+    width: 100%;
     font-size: 24px;
     margin-bottom: 20px;
   }
@@ -91,8 +95,21 @@ export default class SignUpPage extends Vue {
 
     &__buttons {
       display: flex;
+      flex-direction: column;
       min-height: 32px;
       justify-content: space-between;
+      width: 100%;
+
+      .sign-up-button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .sign-in-link {
+        text-align: center;
+        color: $black;
+        text-decoration: none;
+      }
     }
   }
 }

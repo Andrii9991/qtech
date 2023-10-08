@@ -2,23 +2,30 @@
   <header class="header">
     <nav class="navigation">
       <router-link class="navigation__link" :to="{ name: 'HomePage' }"
-        >Home</router-link
-      >
+        ><img class="logo" src="@/design/images/logo.png" alt="logo"
+      /></router-link>
+
       <router-link class="navigation__link" :to="{ name: 'CatalogPage' }"
-        >Catalog</router-link
-      >
+        ><div class="navigation__link__icon-wrapper">
+          <img
+            class="catalog-icon"
+            src="@/design/images/catalogIcon.png"
+            alt=""
+          />
+          <p>Catalog</p>
+        </div>
+      </router-link>
+
       <router-link class="navigation__link" :to="{ name: 'ContactPage' }"
         >Contact</router-link
       >
     </nav>
 
-    <h1 class="header__title">QTech</h1>
-
     <BaseButton
       class="header__button"
       @click.native="login"
       size="small"
-      text="Зареєструватись"
+      text="Sign up"
     />
   </header>
 </template>
@@ -46,27 +53,48 @@ export default class TheHeader extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
+  background-color: $grey;
+  padding: 16px 44px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-height: 40px;
-  min-width: 1200px;
+  max-height: 56px;
 
   .navigation {
-    &__link {
-      padding-right: 10px;
-      text-decoration: none;
-    }
-  }
-
-  &__title {
     display: flex;
-    justify-content: center;
-    color: $cream;
-    padding: 10px;
-  }
 
-  &__button {
-    padding: 10px;
+    &__link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $white;
+
+      .logo {
+        width: 77px;
+        height: 27px;
+      }
+
+      &__icon-wrapper {
+        display: flex;
+        padding: 6px;
+        border-radius: 8px;
+        transition: 0.8s;
+
+        .catalog-icon {
+          width: 24px;
+          height: 20px;
+          margin-right: 10px;
+        }
+        &:hover {
+          background-color: $black;
+          color: $white;
+          border-radius: 40px;
+          padding: 6px 20px;
+        }
+      }
+    }
+
+    .navigation__link:not(:last-child) {
+      padding-right: 24px;
+    }
   }
 }
 </style>

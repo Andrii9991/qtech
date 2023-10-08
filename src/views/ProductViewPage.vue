@@ -11,15 +11,15 @@
     </div>
     <div class="product-view-page__characteristics">
       <ul class="characteristics">
-        <h4>Характеристики:</h4>
+        <h4>Characteristics:</h4>
         <li class="characteristics__brand">
-          Бренд: {{ currentProduct.brand }}
+          Brand: {{ currentProduct.brand }}
         </li>
         <li class="characteristics__category">
-          Категорія: {{ currentProduct.category }}
+          Category: {{ currentProduct.category }}
         </li>
         <li class="characteristics__ratign">
-          Рейтинг: {{ currentProduct.rating }}
+          Ratind: {{ currentProduct.rating }}
         </li>
       </ul>
     </div>

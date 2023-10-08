@@ -10,10 +10,7 @@
       <h3 class="catalog-cart__price">
         <span>{{ product.price }} USD</span>
       </h3>
-      <BaseButton
-        @click.native="setProductAsCurrent(product)"
-        text="Детальний опис"
-      />
+      <BaseButton @click.native="setProductAsCurrent(product)" text="Detail" />
     </div>
   </div>
 </template>

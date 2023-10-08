@@ -44,7 +44,7 @@ export default class BaseInput extends Vue {
     padding: 10px;
     box-shadow: 0 0 0 1px $black;
     color: $black;
-    border-radius: 8px;
+    border-radius: 40px;
     font-size: 16px;
   }
   .error {

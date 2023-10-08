@@ -19,13 +19,12 @@ export default class BaseButton extends Vue {
 <style scoped lang="scss">
 .base-button {
   padding: 8px;
-  box-shadow: inset 0 0 0 2px $black;
-  border: none;
-  border-radius: 8px;
+  border-radius: 40px;
   background: none;
   background-color: $white;
   color: $black;
   transition-duration: 0.8s;
+  padding: 6px 20px;
   cursor: pointer;
 
   &:hover {
@@ -48,20 +47,18 @@ export default class BaseButton extends Vue {
   }
 }
 
-.orange {
-  background-color: $orange;
-  color: $black;
+.black {
+  background-color: $black;
+  color: $white;
 
   &:hover {
-    background-color: $white;
-    color: $black;
+    box-shadow: inset 0 0 0 2px $black;
   }
 }
 
 .small {
-  padding: 6px;
   font-size: 12px;
   line-height: 16px;
-  border-radius: 4px;
+  font-weight: 600;
 }
 </style>

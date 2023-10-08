@@ -1,28 +1,35 @@
 <template>
   <div class="login-page">
-    <h2 class="login-page__title">Реєстрація</h2>
+    <h2 class="login-page__title">Login</h2>
 
     <div class="content">
       <BaseInput
         v-model="name"
         class="content__input"
         :isError="true"
-        label="Ім'я"
-        placeholder="Введіть ім'я"
-        errorMsg="Ім'я повинно бути більше 2-ох символів"
+        label="Name"
+        placeholder="Enter name"
+        errorMsg="The name must be more than 2 characters"
       />
 
       <BaseInput
         class="content__input"
         v-model="password"
-        label="Пароль"
-        placeholder="Введіть пароль"
+        label="Password"
+        placeholder="Enter password"
         type="password"
       />
 
       <div class="content__buttons">
-        <BaseButton styleButton="orange" text="Зареєструватись" />
-        <BaseButton :isDisebled="true" styleButton="orange" text="Увійти" />
+        <BaseButton
+          class="login-button"
+          :isDisebled="true"
+          styleButton="black"
+          text="Login"
+        />
+        <router-link class="login-link" :to="{ name: 'SignUpPage' }"
+          >Sign up now</router-link
+        >
       </div>
     </div>
   </div>
@@ -46,12 +53,7 @@ export default class LoginPage extends Vue {
   get name(): string {
     return this.$store.state.user.name;
   }
-  set email(value: string) {
-    this.$store.commit("user/setEmail", value);
-  }
-  get email(): string {
-    return this.$store.state.user.email;
-  }
+
   set password(value: string) {
     this.$store.commit("user/setPassword", value);
   }
@@ -87,8 +89,18 @@ export default class LoginPage extends Vue {
 
     &__buttons {
       display: flex;
+      flex-direction: column;
       min-height: 32px;
-      justify-content: space-between;
+
+      .login-button {
+        width: 100%;
+      }
+      .login-link {
+        color: $black;
+        text-decoration: none;
+        text-align: center;
+        margin-top: 10px;
+      }
     }
   }
 }
