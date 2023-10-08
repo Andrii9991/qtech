@@ -2,12 +2,13 @@
   <div class="base-input">
     <label class="base-input__label" for="email"> {{ label }} </label>
     <input
-      class="base-input__input"
+      :class="['base-input__input', { error: isError }]"
       @input="onInput"
       :value="value"
       :type="type"
       :placeholder="placeholder"
     />
+    <p v-if="isError" class="base-input__error-msg">{{ errorMsg }}</p>
   </div>
 </template>
 
@@ -20,6 +21,8 @@ export default class BaseInput extends Vue {
   @Prop({ default: "" }) placeholder!: string;
   @Prop({ default: "" }) label!: string;
   @Prop({ default: "text" }) type!: string;
+  @Prop({ default: false }) isError!: boolean;
+  @Prop({ default: "" }) errorMsg!: string;
 
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -41,8 +44,16 @@ export default class BaseInput extends Vue {
     padding: 10px;
     box-shadow: 0 0 0 1px $black;
     color: $black;
-    border-radius: 8px;
+    border-radius: 40px;
     font-size: 16px;
+  }
+  .error {
+    box-shadow: 0 0 0 1px $red;
+  }
+
+  &__error-msg {
+    margin-top: 8px;
+    color: $red;
   }
 }
 </style>

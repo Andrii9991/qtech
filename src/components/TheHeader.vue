@@ -1,20 +1,32 @@
 <template>
   <header class="header">
     <nav class="navigation">
-      <router-link class="navigation__link" :to="{ name: 'HomePage' }"
-        >Home</router-link
-      >
-      <router-link class="navigation__link" :to="{ name: 'CatalogPage' }"
-        >Catalog</router-link
-      >
-      <router-link class="navigation__link" :to="{ name: 'ContactPage' }"
-        >Contact</router-link
-      >
+      <router-link class="navigation__link" :to="{ name: 'HomePage' }">
+        <img class="logo" src="@/design/images/logo.png" alt="logo" />
+      </router-link>
+
+      <router-link class="navigation__link" :to="{ name: 'CatalogPage' }">
+        <div class="icon-wrapper">
+          <img
+            class="icon-wrapper__image"
+            src="@/design/images/catalogIcon.png"
+            alt=""
+          />
+          <p>Catalog</p>
+        </div>
+      </router-link>
+
+      <router-link class="navigation__link" :to="{ name: 'ContactPage' }">
+        Contact
+      </router-link>
     </nav>
 
-    <h1 class="header__title">Техно-Люкс</h1>
-
-    <BaseButton @click.native="login" text="Зареєструватись" />
+    <BaseButton
+      class="header__button"
+      @click.native="login"
+      size="small"
+      text="Sign up"
+    />
   </header>
 </template>
 
@@ -41,22 +53,46 @@ export default class TheHeader extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  color: $orange;
+  background-color: $grey;
+  padding: 16px 44px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-height: 40px;
-
   .navigation {
-    &__link {
-      padding: 10px;
-      text-decoration: none;
-      min-width: 300px;
-    }
-  }
+    display: flex;
 
-  &__title {
-    color: $cream;
-    min-width: 300px;
+    &__link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $white;
+
+      .logo {
+        width: 77px;
+        height: 27px;
+      }
+
+      .icon-wrapper {
+        display: flex;
+        padding: 6px;
+        border-radius: 8px;
+        transition: 0.8s;
+
+        &__image {
+          width: 24px;
+          height: 20px;
+          margin-right: 10px;
+        }
+        &:hover {
+          background-color: $black;
+          color: $white;
+          border-radius: 40px;
+          padding: 6px 20px;
+        }
+      }
+    }
+
+    .navigation__link:not(:last-child) {
+      padding-right: 24px;
+    }
   }
 }
 </style>
