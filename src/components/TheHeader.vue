@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <nav class="navigation">
-      <router-link class="navigation__link" :to="{ name: 'HomePage' }"
-        ><img class="logo" src="@/design/images/logo.png" alt="logo"
-      /></router-link>
+      <router-link class="navigation__link" :to="{ name: 'HomePage' }">
+        <img class="logo" src="@/design/images/logo.png" alt="logo" />
+      </router-link>
 
       <router-link class="navigation__link" :to="{ name: 'CatalogPage' }">
         <div class="icon-wrapper">
