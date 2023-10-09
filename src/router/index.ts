@@ -23,7 +23,7 @@ const routes: Array<RouteConfig> = [
     component: () => import("@/views/ContactPage.vue"),
   },
   {
-    path: "/productiew/:name",
+    path: "/catalog/:name",
     name: "ProductViewPage",
     component: () => import("@/views/ProductViewPage.vue"),
     // props: true
