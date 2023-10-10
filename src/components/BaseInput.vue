@@ -4,6 +4,7 @@
     <input
       :class="['base-input__input', { error: isError }]"
       @input="onInput"
+      @blur="checkField"
       :value="value"
       :type="type"
       :placeholder="placeholder"
@@ -27,6 +28,10 @@ export default class BaseInput extends Vue {
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.$emit("input", target.value);
+  }
+
+  checkField(): void {
+    this.$emit("checkField");
   }
 }
 </script>
