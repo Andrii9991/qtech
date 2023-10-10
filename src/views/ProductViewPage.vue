@@ -1,32 +1,50 @@
 <template>
   <div class="product-view-page">
-    <h3 class="product-view-page__title">{{ currentProduct.title }}</h3>
+    <h2 class="product-view-page__title">{{ currentProduct.title }}</h2>
     <p class="product-view-page__description">
       {{ currentProduct.description }}
     </p>
-    <div class="image-wpapper">
-      <img class="image-wpapper__item" :src="currentProduct.images[0]" alt="" />
-      <img class="image-wpapper__item" :src="currentProduct.images[1]" alt="" />
-      <img class="image-wpapper__item" :src="currentProduct.images[2]" alt="" />
-    </div>
-    <div class="product-view-page__characteristics">
-      <ul class="characteristics">
-        <h4>Characteristics:</h4>
-        <li class="characteristics__brand">
-          Brand: {{ currentProduct.brand }}
-        </li>
-        <li class="characteristics__category">
-          Category: {{ currentProduct.category }}
-        </li>
-        <li class="characteristics__ratign">
-          Ratind: {{ currentProduct.rating }}
-        </li>
-      </ul>
-    </div>
+    <div class="product-view-page__content">
+      <div class="image-wpapper">
+        <img
+          class="image-wpapper__item"
+          :src="currentProduct.images[0]"
+          alt=""
+        />
+        <img
+          class="image-wpapper__item"
+          :src="currentProduct.images[1]"
+          alt=""
+        />
+        <img
+          class="image-wpapper__item"
+          :src="currentProduct.images[2]"
+          alt=""
+        />
+      </div>
+      <div class="content__characteristics">
+        <ul class="characteristics">
+          <h4>About this item:</h4>
+          <li class="characteristics__brand">
+            Brand: {{ currentProduct.brand }}
+          </li>
+          <li class="characteristics__category">
+            Category: {{ currentProduct.category }}
+          </li>
+          <li class="characteristics__ratign">
+            Ratind: {{ currentProduct.rating }}
+          </li>
+        </ul>
 
-    <div class="buttons">
-      <!-- <BaseButton @click.native="login" text="Купити" />
-      <BaseButton @click.native="login" text="Додати в кошик" /> -->
+        <div class="buttons">
+          <BaseButton
+            class="buy-button button"
+            styleButton="red"
+            text="Buy now"
+          />
+          <BaseButton class="bag-button button" text="Add to bag" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -53,25 +71,49 @@ export default class ProductViewPage extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 16px;
+  color: $white;
+  margin-top: 16px;
 
-  .image-wpapper {
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__content {
     display: flex;
-    margin: 10px;
+    justify-content: space-around;
+    margin-top: 24px;
+    width: 100%;
+    height: 100vh;
 
-    &__item {
-      max-width: 240px;
-      height: auto;
-      border-radius: 8px;
-      margin: 20px;
+    .image-wpapper {
+      display: flex;
+      flex-direction: column;
+
+      &__item {
+        max-width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        padding: 10px;
+      }
     }
-  }
+    .content__characteristics {
+      max-width: 350px;
 
-  .characteristics {
-    list-style: none;
-  }
+      .characteristics {
+        width: 100%;
+      }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 20px;
 
-  .buttons {
-    margin: 20px;
+        .button {
+          margin-bottom: 20px;
+        }
+      }
+    }
   }
 }
 </style>

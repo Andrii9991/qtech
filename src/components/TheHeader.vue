@@ -6,7 +6,7 @@
         active-class="active-link"
         :to="{ name: 'HomePage' }"
       >
-        <img class="logo" src="@/design/images/logo.png" alt="logo" />
+        <img class="logo" src="@/design/images/logo.svg" alt="logo" />
       </router-link>
 
       <router-link
@@ -19,7 +19,7 @@
         <div class="icon-wrapper">
           <img
             class="icon-wrapper__image"
-            :src="require(`@/design/images/${link.img}.png`)"
+            :src="require(`@/design/images/${link.img}.svg`)"
             alt=""
           />
           <p>{{ link.title }}</p>
@@ -55,7 +55,7 @@ export default class TheHeader extends Vue {
     {
       name: "ContactPage",
       title: "Contact",
-      img: "catalogIcon",
+      img: "contactIcon",
     },
   ];
 
@@ -87,7 +87,7 @@ export default class TheHeader extends Vue {
       padding: 4px 8px;
       transition-duration: 0.5s;
 
-      &:hover {
+      &:hover:not(:first-child) {
         background-color: $black;
         color: $white;
         border-radius: 40px;
@@ -116,7 +116,7 @@ export default class TheHeader extends Vue {
     }
 
     .active-link {
-      color: $red;
+      color: $blue;
     }
   }
 }

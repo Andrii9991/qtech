@@ -55,6 +55,13 @@ export default class BaseButton extends Vue {
     box-shadow: inset 0 0 0 2px $black;
   }
 }
+.red {
+  background-color: $white;
+
+  &:hover {
+    background-color: $red;
+  }
+}
 
 .small {
   font-size: 12px;

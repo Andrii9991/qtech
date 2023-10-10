@@ -65,7 +65,6 @@ export default class LoginPage extends Vue {
 
 <style scoped lang="scss">
 .login-page {
-  background-color: $white;
   padding: 20px;
   text-align: center;
 
