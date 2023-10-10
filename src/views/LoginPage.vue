@@ -6,24 +6,28 @@
       <BaseInput
         v-model="name"
         class="content__input"
-        :isError="true"
+        @checkField="checkField('name')"
+        :isError="nameError"
         label="Name"
         placeholder="Enter name"
         errorMsg="The name must be more than 2 characters"
       />
 
       <BaseInput
-        class="content__input"
         v-model="password"
+        class="content__input"
+        @checkField="checkField('password')"
+        :isError="passwordError"
         label="Password"
         placeholder="Enter password"
         type="password"
+        errorMsg="The password must be more than 2 characters"
       />
 
       <div class="content__buttons">
         <BaseButton
           class="login-button"
-          :isDisebled="true"
+          :isDisebled="isLoginButtonDisabled"
           styleButton="black"
           text="Login"
         />
@@ -47,6 +51,9 @@ import BaseInput from "@/components/BaseInput.vue";
   },
 })
 export default class LoginPage extends Vue {
+  nameError = false;
+  passwordError = false;
+
   set name(value: string) {
     this.$store.commit("user/setName", value);
   }
@@ -59,6 +66,16 @@ export default class LoginPage extends Vue {
   }
   get password(): string {
     return this.$store.state.user.password;
+  }
+
+  get isLoginButtonDisabled(): boolean {
+    return this.name.length <= 2 || this.password.length <= 2;
+  }
+
+  checkField(field: string): void {
+    if (field === "name") this.nameError = this.name.length <= 2;
+    else if (field === "password")
+      this.passwordError = this.password.length <= 2;
   }
 }
 </script>
