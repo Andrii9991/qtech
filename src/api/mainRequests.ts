@@ -18,7 +18,7 @@ export const login = async (): Promise<void> => {
   const response: any = await instanceApi.post("auth/login", {
     username: "kminchelle",
     password: "0lelplR",
-
-    // store.commit("user/setUsers", response);
   });
+
+  store.commit("user/setUsers", response);
 };
