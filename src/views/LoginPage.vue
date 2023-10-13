@@ -4,9 +4,9 @@
 
     <div class="content">
       <BaseInput
-        v-model="name"
+        v-model="username"
         class="content__input"
-        @checkField="checkField('name')"
+        @checkField="checkField('userName')"
         :isError="nameError"
         label="Name"
         placeholder="Enter name"
@@ -27,6 +27,7 @@
       <div class="content__buttons">
         <BaseButton
           class="login-button"
+          @click.native="loginAction"
           :isDisebled="isLoginButtonDisabled"
           styleButton="black"
           text="Login"
@@ -43,6 +44,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
+import { login } from "@/api/mainRequests";
 
 @Component({
   components: {
@@ -54,11 +56,11 @@ export default class LoginPage extends Vue {
   nameError = false;
   passwordError = false;
 
-  set name(value: string) {
-    this.$store.commit("user/setName", value);
+  set username(value: string) {
+    this.$store.commit("user/setUsername", value);
   }
-  get name(): string {
-    return this.$store.state.user.name;
+  get username(): string {
+    return this.$store.state.user.username;
   }
 
   set password(value: string) {
@@ -69,13 +71,17 @@ export default class LoginPage extends Vue {
   }
 
   get isLoginButtonDisabled(): boolean {
-    return this.name.length <= 2 || this.password.length <= 2;
+    return this.username.length <= 2 || this.password.length <= 2;
   }
 
   checkField(field: string): void {
-    if (field === "name") this.nameError = this.name.length <= 2;
+    if (field === "userName") this.nameError = this.username.length <= 2;
     else if (field === "password")
       this.passwordError = this.password.length <= 2;
+  }
+
+  loginAction(): void {
+    login();
   }
 }
 </script>
