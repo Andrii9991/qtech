@@ -6,7 +6,7 @@
       <BaseInput
         v-model="username"
         class="content__input"
-        @checkField="checkField('userName')"
+        @checkField="checkField('username')"
         :isError="nameError"
         label="Name"
         placeholder="Enter name"

@@ -22,5 +22,5 @@ export const login = async (): Promise<void> => {
   store.commit("user/setUsers", response);
 
   });
-  console.log(response);
+  
 };
