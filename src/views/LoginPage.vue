@@ -75,7 +75,7 @@ export default class LoginPage extends Vue {
   }
 
   checkField(field: string): void {
-    if (field === "userName") this.nameError = this.username.length <= 2;
+    if (field === "username") this.nameError = this.username.length <= 2;
     else if (field === "password")
       this.passwordError = this.password.length <= 2;
   }

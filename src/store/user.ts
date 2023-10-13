@@ -25,7 +25,7 @@ export default {
       state.password = newPassword;
     },
 
-    setUsers(state: any, newUser: IUser) {
+    setUser(state: any, newUser: IUser) {
       state.id = newUser.id;
       state.username = newUser.username;
       state.email = newUser.email;
