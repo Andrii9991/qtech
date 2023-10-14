@@ -1,10 +1,16 @@
 import store from "@/store";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import { instanceApi } from "@/api/instance";
 
 Vue.use(VueRouter);
 
 store.commit("initialiseStore");
+
+const dataToken = store.state.user.token;
+if (dataToken) {
+  instanceApi.defaults.headers.common.Authorization = `Bearer ${dataToken}`;
+}
 
 const routes: Array<RouteConfig> = [
   {
