@@ -15,10 +15,10 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
 };
 
 export const login = async (): Promise<void> => {
-  const response = await instanceApi.post("auth/login", {
+  const { data } = await instanceApi.post("auth/login", {
     username: store.state.user.username,
     password: store.state.user.password,
   });
 
-  store.commit("user/setUser", response);
+  store.commit("user/setUser", data);
 };
