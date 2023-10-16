@@ -7,4 +7,5 @@ export interface IUser {
   gender: string;
   image: string;
   token: string;
+  password: string;
 }

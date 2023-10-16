@@ -37,6 +37,16 @@
         </router-link>
       </div>
     </div>
+    <div v-for="user in userList" :key="user.id">
+      <BaseAccordion
+        title="You can't use created account. Use these credentials instead"
+      >
+      </BaseAccordion>
+
+      <p>Name: {{ user.username }}</p>
+
+      <p>Password: {{ user.password }}</p>
+    </div>
   </div>
 </template>
 
@@ -44,17 +54,25 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import { login } from "@/api/mainRequests";
+import BaseAccordion from "@/components/BaseAccordion.vue";
+import { login, getAllUsers } from "@/api/mainRequests";
+import { IUser } from "@/interfaces/users";
+import store from "@/store";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
+    BaseAccordion,
   },
 })
 export default class LoginPage extends Vue {
   nameError = false;
   passwordError = false;
+
+  get userList(): IUser[] {
+    return this.$store.state.user.userList;
+  }
 
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
@@ -90,6 +108,7 @@ export default class LoginPage extends Vue {
 .login-page {
   padding: 20px;
   text-align: center;
+  color: $white;
 
   &__title {
     color: $black;
@@ -124,6 +143,9 @@ export default class LoginPage extends Vue {
         margin-top: 10px;
       }
     }
+  }
+  .test {
+    color: $white;
   }
 }
 </style>
