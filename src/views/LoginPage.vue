@@ -37,16 +37,18 @@
         </router-link>
       </div>
     </div>
-    <div v-for="user in userList" :key="user.id">
-      <BaseAccordion
-        title="You can't use created account. Use these credentials instead"
-      >
-      </BaseAccordion>
 
-      <p>Name: {{ user.username }}</p>
-
-      <p>Password: {{ user.password }}</p>
-    </div>
+    <BaseAccordion
+      title="You can't use created account. Use these credentials instead"
+    >
+      <template #description>
+        <ul v-for="user in userList" :key="user.username">
+          <p>User №{{ user.id }}</p>
+          <li>Username: {{ user.username }}</li>
+          <li>Password: {{ user.password }}</li>
+        </ul>
+      </template>
+    </BaseAccordion>
   </div>
 </template>
 
@@ -69,6 +71,7 @@ import store from "@/store";
 export default class LoginPage extends Vue {
   nameError = false;
   passwordError = false;
+  isOpen = false;
 
   get userList(): IUser[] {
     return this.$store.state.user.userList;
@@ -109,6 +112,7 @@ export default class LoginPage extends Vue {
   padding: 20px;
   text-align: center;
   color: $white;
+  min-height: 100vh;
 
   &__title {
     color: $black;
@@ -144,8 +148,8 @@ export default class LoginPage extends Vue {
       }
     }
   }
-  .test {
-    color: $white;
+  li {
+    list-style-type: none;
   }
 }
 </style>
