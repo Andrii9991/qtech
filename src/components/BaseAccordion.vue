@@ -1,11 +1,13 @@
 <template>
   <div class="base-accordion">
-    <h5 class="base-accordion__title" @click="toggleAccordion">
+    <h5 class="base-accordion__title" @click="swicthContent">
       {{ title }}
     </h5>
-    <div class="base-accordion__content" v-if="isOpen">
-      <slot class="test" name="description"></slot>
-    </div>
+    <transition name="fade">
+      <div class="base-accordion__content" v-if="isOpened">
+        <slot class="test" name="description"></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -15,10 +17,10 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export default class BaseAccordion extends Vue {
   @Prop({ default: "" }) title!: string;
-  isOpen = false;
+  isOpened = false;
 
-  toggleAccordion() {
-    this.isOpen = !this.isOpen;
+  swicthContent() {
+    this.isOpened = !this.isOpened;
   }
 }
 </script>
@@ -41,5 +43,12 @@ export default class BaseAccordion extends Vue {
       box-shadow: inset 0 0 0 2px $white;
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>

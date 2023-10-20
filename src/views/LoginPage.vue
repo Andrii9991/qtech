@@ -76,7 +76,6 @@ import store from "@/store";
 export default class LoginPage extends Vue {
   nameError = false;
   passwordError = false;
-  isOpen = false;
 
   get userList(): IUser[] {
     return this.$store.state.user.userList;
@@ -157,6 +156,8 @@ export default class LoginPage extends Vue {
     margin-top: 32px;
 
     .user-credentials {
+      display: flex;
+      column-gap: 16px;
       margin: 10px 0;
     }
 
