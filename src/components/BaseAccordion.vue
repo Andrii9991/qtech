@@ -1,8 +1,8 @@
 <template>
   <div class="base-accordion">
-    <h3 class="base-accordion__title" @click="toggleAccordion">
+    <h5 class="base-accordion__title" @click="toggleAccordion">
       {{ title }}
-    </h3>
+    </h5>
     <div class="base-accordion__content" v-if="isOpen">
       <slot class="test" name="description"></slot>
     </div>
@@ -32,13 +32,13 @@ export default class BaseAccordion extends Vue {
   &__title {
     padding: 10px 20px;
     margin-bottom: 8px;
-    border: 2px solid $white;
     border-radius: 8px;
     cursor: pointer;
     transition-duration: 0.5s;
 
     &:hover {
-      transform: scale(0.96);
+      box-shadow: inset 0 0 0 2px $white;
+      transform: scale(0.98);
     }
   }
 }

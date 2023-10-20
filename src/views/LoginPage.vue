@@ -43,8 +43,12 @@
       title="You can't use created account. Use these credentials instead"
     >
       <template #description>
-        <ul v-for="user in userList" :key="user.username">
-          <p>User №{{ user.id }}</p>
+        <ul
+          class="user-credentials"
+          v-for="user in userList"
+          :key="user.username"
+        >
+          <h5>User №{{ user.id }}</h5>
           <li>Username: {{ user.username }}</li>
           <li>Password: {{ user.password }}</li>
         </ul>
@@ -151,6 +155,11 @@ export default class LoginPage extends Vue {
   }
   &__accordion {
     margin-top: 32px;
+
+    .user-credentials {
+      margin: 10px 0;
+    }
+
     li {
       list-style-type: none;
     }
