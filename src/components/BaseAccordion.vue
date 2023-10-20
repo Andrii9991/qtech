@@ -33,12 +33,12 @@ export default class BaseAccordion extends Vue {
     padding: 10px 20px;
     margin-bottom: 8px;
     border-radius: 8px;
+    background-color: $grey;
     cursor: pointer;
     transition-duration: 0.5s;
 
     &:hover {
       box-shadow: inset 0 0 0 2px $white;
-      transform: scale(0.98);
     }
   }
 }

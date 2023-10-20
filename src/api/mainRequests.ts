@@ -1,6 +1,6 @@
 import store from "@/store";
 import { instanceApi } from "./instance";
-import { AxiosResponse, all } from "axios";
+import { AxiosResponse } from "axios";
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
