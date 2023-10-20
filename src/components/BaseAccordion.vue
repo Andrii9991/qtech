@@ -25,8 +25,21 @@ export default class BaseAccordion extends Vue {
 
 <style scoped lang="scss">
 .base-accordion {
-  &:hover {
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+
+  &__title {
+    padding: 10px 20px;
+    margin-bottom: 8px;
+    border: 2px solid $white;
+    border-radius: 8px;
     cursor: pointer;
+    transition-duration: 0.5s;
+
+    &:hover {
+      transform: scale(0.96);
+    }
   }
 }
 </style>

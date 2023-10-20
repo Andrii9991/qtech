@@ -39,6 +39,7 @@
     </div>
 
     <BaseAccordion
+      class="login-page__accordion"
       title="You can't use created account. Use these credentials instead"
     >
       <template #description>
@@ -148,8 +149,11 @@ export default class LoginPage extends Vue {
       }
     }
   }
-  li {
-    list-style-type: none;
+  &__accordion {
+    margin-top: 32px;
+    li {
+      list-style-type: none;
+    }
   }
 }
 </style>
