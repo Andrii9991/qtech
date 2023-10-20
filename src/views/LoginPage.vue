@@ -37,6 +37,23 @@
         </router-link>
       </div>
     </div>
+
+    <BaseAccordion
+      class="login-page__accordion"
+      title="You can't use created account. Use these credentials instead"
+    >
+      <template #description>
+        <ul
+          class="user-credentials"
+          v-for="user in userList"
+          :key="user.username"
+        >
+          <h5>User №{{ user.id }}</h5>
+          <li>Username: {{ user.username }}</li>
+          <li>Password: {{ user.password }}</li>
+        </ul>
+      </template>
+    </BaseAccordion>
   </div>
 </template>
 
@@ -44,17 +61,25 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import { login } from "@/api/mainRequests";
+import BaseAccordion from "@/components/BaseAccordion.vue";
+import { login, getAllUsers } from "@/api/mainRequests";
+import { IUser } from "@/interfaces/users";
+import store from "@/store";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
+    BaseAccordion,
   },
 })
 export default class LoginPage extends Vue {
   nameError = false;
   passwordError = false;
+
+  get userList(): IUser[] {
+    return this.$store.state.user.userList;
+  }
 
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
@@ -90,6 +115,8 @@ export default class LoginPage extends Vue {
 .login-page {
   padding: 20px;
   text-align: center;
+  color: $white;
+  min-height: 100vh;
 
   &__title {
     color: $black;
@@ -123,6 +150,19 @@ export default class LoginPage extends Vue {
         text-align: center;
         margin-top: 10px;
       }
+    }
+  }
+  &__accordion {
+    margin-top: 32px;
+
+    .user-credentials {
+      display: flex;
+      column-gap: 16px;
+      margin: 10px 0;
+    }
+
+    li {
+      list-style-type: none;
     }
   }
 }

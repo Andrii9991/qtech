@@ -70,7 +70,6 @@ export default class SignUpPage extends Vue {
 
 <style scoped lang="scss">
 .sign-up-page {
-  background-color: $white;
   padding: 20px;
   text-align: center;
 
