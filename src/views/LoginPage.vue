@@ -45,7 +45,7 @@
       <template #description>
         <ul
           class="user-credentials"
-          v-for="user in userList"
+          v-for="user in usersList"
           :key="user.username"
         >
           <h5>User №{{ user.id }}</h5>
@@ -77,8 +77,8 @@ export default class LoginPage extends Vue {
   nameError = false;
   passwordError = false;
 
-  get userList(): IUser[] {
-    return this.$store.state.user.userList;
+  get usersList(): IUser[] {
+    return this.$store.state.user.usersList;
   }
 
   set username(value: string) {
@@ -107,6 +107,10 @@ export default class LoginPage extends Vue {
 
   loginAction(): void {
     login();
+  }
+
+  created(): void {
+    getAllUsers();
   }
 }
 </script>

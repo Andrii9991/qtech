@@ -44,6 +44,11 @@ const routes: Array<RouteConfig> = [
     name: "LoginPage",
     component: () => import("@/views/LoginPage.vue"),
   },
+  {
+    path: "/cart",
+    name: "CartPage",
+    component: () => import("@/views/CartPage.vue"),
+  },
 ];
 
 const router = new VueRouter({

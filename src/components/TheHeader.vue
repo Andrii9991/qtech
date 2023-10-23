@@ -26,13 +26,22 @@
         </div>
       </router-link>
     </nav>
+    <div class="actions">
+      <BaseButton
+        class="header__button"
+        @click.native="login"
+        size="small"
+        text="Sign up"
+      />
 
-    <BaseButton
-      class="header__button"
-      @click.native="login"
-      size="small"
-      text="Sign up"
-    />
+      <router-link
+        class="navigation__link"
+        active-class="active-link"
+        :to="{ name: 'CartPage' }"
+      >
+        <img class="logo" src="@/design/images/cartIcon.svg" alt="logo" />
+      </router-link>
+    </div>
   </header>
 </template>
 
@@ -100,12 +109,13 @@ export default class TheHeader extends Vue {
 
       .icon-wrapper {
         display: flex;
+        align-items: center;
         padding: 6px;
         border-radius: 8px;
 
         &__image {
-          width: 24px;
-          height: 20px;
+          width: 30px;
+          height: 24px;
           margin-right: 10px;
         }
       }
@@ -118,6 +128,9 @@ export default class TheHeader extends Vue {
     .active-link {
       color: $blue;
     }
+  }
+  .actions {
+    display: flex;
   }
 }
 </style>
