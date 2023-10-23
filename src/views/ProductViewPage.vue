@@ -42,7 +42,11 @@
             styleButton="red"
             text="Buy now"
           />
-          <BaseButton class="bag-button button" text="Add to bag" />
+          <BaseButton
+            class="bag-button button"
+            @click.native="addToCart"
+            text="Add to bag"
+          />
         </div>
       </div>
     </div>
@@ -62,6 +66,10 @@ import { IProduct } from "@/interfaces/products";
 export default class ProductViewPage extends Vue {
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
+  }
+
+  addToCart(): void {
+    this.$store.commit("cart/addToCart", this.currentProduct);
   }
 }
 </script>

@@ -12,7 +12,7 @@ export default {
     image: "",
     token: "",
     password: "",
-    userList: [],
+    usersList: [],
   },
   getters: {},
   mutations: {
@@ -37,8 +37,8 @@ export default {
       state.token = newUser.token;
     },
 
-    setUserData(state: any, data: IUser[]) {
-      state.userList = [...data];
+    setUserData(state: any, newUsersList: IUser[]) {
+      state.usersList = [...newUsersList];
     },
   },
 };

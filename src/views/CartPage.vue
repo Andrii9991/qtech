@@ -20,4 +20,13 @@ export default class CartPage extends Vue {
   }
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.cart-page {
+  color: $white;
+  .list {
+    &__item {
+      display: flex;
+    }
+  }
+}
+</style>

@@ -24,12 +24,8 @@ export const login = async (): Promise<void> => {
   instanceApi.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 };
 
-export const getAllUsers = async (): Promise<AxiosResponse> => {
-  const response = await instanceApi.get("users?select=username,password");
-  const username = response.data.users.username;
-  const password = response.data.users.password;
+export const getAllUsers = async (): Promise<void> => {
+  const { data } = await instanceApi.get("users?select=username,password");
 
-  store.commit("user/setUserData", response);
-
-  return response;
+  store.commit("user/setUserData", data.users);
 };
