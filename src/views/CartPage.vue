@@ -39,8 +39,6 @@ export default class CartPage extends Vue {
     flex-direction: column;
     width: 1230px;
 
-    // align-items: center;
-
     &__item {
       display: flex;
       align-items: center;
@@ -51,7 +49,6 @@ export default class CartPage extends Vue {
       padding: 0 10px;
       margin: 10px 0;
       .item__image {
-        // display: flex;
         max-width: 150px;
         height: 150px;
         border-radius: 20px;
