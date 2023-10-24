@@ -12,11 +12,11 @@ export default {
       state.userCart.push(cartItem);
     },
     removeFromCart(state: any, cartItem: IProduct) {
-      const id = state.userCart.find(
+      const removeCart = state.userCart.find(
         (item: IProduct) => item.id === cartItem.id
       );
-      if (id !== 0) {
-        state.userCart.splice(id, 1);
+      if (removeCart !== 0) {
+        state.userCart.splice(-1, 1);
       }
     },
   },
