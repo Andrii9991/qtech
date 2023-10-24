@@ -4,11 +4,12 @@
       <div class="user-navigation">
         <img class="user-navigation__image" :src="user.image" alt="" />
         <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+        <BaseButton class="user-navigation__cart" text="My orders"></BaseButton>
       </div>
       <div class="user-information">
-        <h3>Username: {{ user.username }}</h3>
-        <h3>Gender: {{ user.gender }}</h3>
-        <h3>Email: {{ user.email }}</h3>
+        <h3 class="user-information__item">Username: {{ user.username }}</h3>
+        <h3 class="user-information__item">Gender: {{ user.gender }}</h3>
+        <h3 class="user-information__item">Email: {{ user.email }}</h3>
       </div>
     </div>
   </div>
@@ -17,8 +18,13 @@
 <script lang="ts">
 import store from "@/store";
 import { Component, Vue } from "vue-property-decorator";
+import BaseButton from "@/components/BaseButton.vue";
 
-@Component
+@Component({
+  components: {
+    BaseButton,
+  },
+})
 export default class AccountPage extends Vue {
   get user() {
     return this.$store.state.user;
@@ -40,11 +46,14 @@ export default class AccountPage extends Vue {
     background-color: $grey-lite;
     border-radius: 20px;
     box-shadow: 0 5px 15px 0 $grey-lite;
+    padding: 20px 0;
 
     .user-navigation {
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 0 5px 15px 0 $black;
+      border-radius: 20px;
 
       &__image {
         max-width: 200px;
@@ -54,8 +63,18 @@ export default class AccountPage extends Vue {
         margin: 16px;
         padding: 8px;
       }
+
+      &__cart {
+        width: 90%;
+        margin: 8px;
+      }
     }
     .user-information {
+      margin-bottom: 20px;
+
+      &__item:not(:last-child) {
+        margin-bottom: 20px;
+      }
     }
   }
 }
