@@ -2,17 +2,9 @@
   <div class="cart-page">
     <ul class="list">
       <li class="list__item" v-for="item in userCart" :key="item.id">
-        <img class="item__image" :src="item.images[0]" alt="" />
+        <img class="item__image" :src="item.images[1]" alt="" />
         <h3 class="item__title">{{ item.title }}</h3>
-        <div class="action">
-          <h3 class="action__close" @click="removeItem(item)">X</h3>
-          <h5 class="action__counter">{{ item.price }} $</h5>
-          <BaseButton
-            class="action__buy"
-            text="Proceed to checkout"
-            styleButton="red"
-          ></BaseButton>
-        </div>
+        <h3 @click="removeItem(item)">X</h3>
       </li>
     </ul>
   </div>
@@ -21,20 +13,15 @@
 <script lang="ts">
 import { IProduct } from "@/interfaces/products";
 import { Component, Vue } from "vue-property-decorator";
-import BaseButton from "@/components/BaseButton.vue";
 
-@Component({
-  components: {
-    BaseButton,
-  },
-})
+@Component
 export default class CartPage extends Vue {
   get userCart(): IProduct[] {
     return this.$store.state.cart.userCart;
   }
 
   removeItem(item: IProduct): void {
-    this.$store.commit("cart/removeFromCart", item.id);
+    this.$store.commit("cart/removeFromCart", item);
   }
 }
 </script>
@@ -43,7 +30,7 @@ export default class CartPage extends Vue {
   display: flex;
   justify-content: center;
   margin-top: 16px;
-  // background-color: $grey-lite;
+  background-color: $grey-lite;
   color: $white;
   min-height: 100vh;
 
@@ -66,33 +53,6 @@ export default class CartPage extends Vue {
         height: 150px;
         border-radius: 20px;
         padding: 10px;
-      }
-      .action {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-end;
-        height: 100%;
-
-        &__close {
-          display: flex;
-          justify-content: center;
-          margin: 10px 0;
-          cursor: pointer;
-          transition-duration: 0.5s;
-
-          &:hover {
-            transform: scale(1.04);
-          }
-        }
-
-        &__counter {
-          margin: 10px 0;
-        }
-
-        &__buy {
-          margin-bottom: 10px;
-        }
       }
     }
   }
