@@ -107,6 +107,9 @@ export default class LoginPage extends Vue {
 
   loginAction(): void {
     login();
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
 
   created(): void {
