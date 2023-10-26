@@ -1,6 +1,6 @@
 import store from "@/store";
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { NavigationGuardNext, Route, RouteConfig } from "vue-router";
 import { instanceApi } from "@/api/instance";
 
 Vue.use(VueRouter);
@@ -11,6 +11,15 @@ const dataToken = store.state.user.token;
 if (dataToken) {
   instanceApi.defaults.headers.common.Authorization = `Bearer ${dataToken}`;
 }
+
+const accountPageAccess = (
+  to: Route,
+  from: Route,
+  next: NavigationGuardNext
+) => {
+  if (store.state.user.isAuthenticated) next();
+  else next({ name: "LoginPage" });
+};
 
 const routes: Array<RouteConfig> = [
   {
@@ -48,6 +57,12 @@ const routes: Array<RouteConfig> = [
     path: "/cart",
     name: "CartPage",
     component: () => import("@/views/CartPage.vue"),
+  },
+  {
+    path: "/account",
+    name: "AccountPage",
+    component: () => import("@/views/AccountPage.vue"),
+    beforeEnter: accountPageAccess,
   },
 ];
 

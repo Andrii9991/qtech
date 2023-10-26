@@ -13,6 +13,7 @@ export default {
     token: "",
     password: "",
     usersList: [],
+    isAuthenticated: false,
   },
   getters: {},
   mutations: {
@@ -39,6 +40,9 @@ export default {
 
     setUserData(state: any, newUsersList: IUser[]) {
       state.usersList = [...newUsersList];
+    },
+    authUser(state: any) {
+      state.isAuthenticated = true;
     },
   },
 };
