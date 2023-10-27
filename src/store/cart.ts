@@ -4,16 +4,19 @@ export default {
   namespaced: true,
   state: {
     userCart: [],
-    count: "1",
   },
-  getters: {},
+  getters: {
+    getCountsArray(state: any): string[] {
+      return state.userCart.map((item: IProduct) => item.count);
+    },
+  },
   mutations: {
     addToCart(state: any, cartItem: IProduct) {
       const existingCartItem = state.userCart.find(
         (item: IProduct) => item.id === cartItem.id
       );
       if (existingCartItem) {
-        cartItem.count++;
+        cartItem.count = (cartItem.count || 0) + 1;
       } else {
         cartItem.count = 1;
         state.userCart.push(cartItem);
@@ -28,20 +31,23 @@ export default {
         state.userCart.splice(neededIndex, 1);
       }
     },
-    increament(state: any, cartItem: IProduct) {
-      if (state.count) {
-        cartItem.count++;
+
+    increament(state: any, cartItemId: number) {
+      const foundItem = state.userCart.find(
+        (item: IProduct) => item.id === cartItemId
+      );
+      if (foundItem) {
+        foundItem.count++;
       }
     },
 
-    decreament(state: any, cartItem: IProduct) {
-      if (state.count > 0) {
-        cartItem.count--;
+    decreament(state: any, cartItemId: number) {
+      const foundItem = state.userCart.find(
+        (item: IProduct) => item.id === cartItemId
+      );
+      if (foundItem.count > 0) {
+        foundItem.count--;
       }
-    },
-
-    test(state: any, newCount: number) {
-      state.count = newCount;
     },
   },
 };

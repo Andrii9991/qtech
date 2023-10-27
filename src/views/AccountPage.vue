@@ -8,12 +8,14 @@
           class="user-navigation__cart"
           @click.native="myOrders"
           text="My orders"
-        ></BaseButton>
+        >
+        </BaseButton>
         <BaseButton
           class="user-navigation__cart"
           @click.native="logOut"
           text="Log out"
-        ></BaseButton>
+        >
+        </BaseButton>
       </div>
       <div class="user-information">
         <h3 class="user-information__item">Username: {{ user.username }}</h3>
