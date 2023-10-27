@@ -7,4 +7,5 @@ export interface IProduct {
   category: string;
   rating: number;
   id: number;
+  count: number;
 }

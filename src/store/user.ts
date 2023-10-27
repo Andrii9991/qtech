@@ -38,6 +38,19 @@ export default {
       state.token = newUser.token;
     },
 
+    logoutUser(state: any) {
+      state.id = "";
+      state.username = "";
+      state.email = "";
+      state.firstName = "";
+      state.lastName = "";
+      state.gender = "";
+      state.image = "";
+      state.token = "";
+      state.password = "";
+      state.isAuthenticated = false;
+    },
+
     setUserData(state: any, newUsersList: IUser[]) {
       state.usersList = [...newUsersList];
     },

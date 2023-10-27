@@ -6,7 +6,13 @@
         <h3 class="item__title">{{ item.title }}</h3>
         <div class="action">
           <h3 class="action__close" @click="removeItem(item)">X</h3>
-          <h5 class="action__counter">{{ item.price }} $</h5>
+          <div class="action__counter">
+            <BaseButton @click.native="increament(item)" text="+"></BaseButton>
+            <p>{{ item.count }}</p>
+            <BaseButton @click.native="decreamnet(item)" text="-"></BaseButton>
+            <h5 class="price">{{ item.price * item.count }} $</h5>
+          </div>
+
           <BaseButton
             class="action__buy"
             text="Proceed to checkout"
@@ -35,6 +41,14 @@ export default class CartPage extends Vue {
 
   removeItem(item: IProduct): void {
     this.$store.commit("cart/removeFromCart", item.id);
+  }
+
+  increament(item: IProduct): void {
+    this.$store.commit("cart/increament", item);
+  }
+
+  decreamnet(item: IProduct): void {
+    this.$store.commit("cart/decreament", item);
   }
 }
 </script>

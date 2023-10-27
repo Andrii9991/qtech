@@ -9,7 +9,11 @@
           @click.native="myOrders"
           text="My orders"
         ></BaseButton>
-        <BaseButton class="user-navigation__cart" text="My orders"></BaseButton>
+        <BaseButton
+          class="user-navigation__cart"
+          @click.native="logOut"
+          text="Log out"
+        ></BaseButton>
       </div>
       <div class="user-information">
         <h3 class="user-information__item">Username: {{ user.username }}</h3>
@@ -21,7 +25,6 @@
 </template>
 
 <script lang="ts">
-import store from "@/store";
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 
@@ -39,6 +42,13 @@ export default class AccountPage extends Vue {
     this.$router.push({
       name: "CartPage",
     });
+  }
+
+  logOut(): void {
+    this.$router.push({
+      name: "LoginPage",
+    });
+    this.$store.commit("user/logoutUser");
   }
 }
 </script>
