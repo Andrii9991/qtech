@@ -7,8 +7,20 @@
 
       <h3 class="catalog-cart__title">{{ product.title }}</h3>
       <p class="catalog-cart__description">{{ product.description }}</p>
+
       <h3 class="catalog-cart__price">{{ product.price }} USD</h3>
-      <BaseButton @click.native="setProductAsCurrent(product)" text="Detail" />
+      <div class="catalog-cart__buttons">
+        <BaseButton
+          class="button__detail"
+          @click.native="setProductAsCurrent(product)"
+          text="Detail"
+        />
+        <BaseButton
+          class="button__bag"
+          @click.native="addToCart(product)"
+          text="Add to cart"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +44,9 @@ export default class CatalogPage extends Vue {
     return product.title.toLowerCase().replace(/\s+/g, "-");
   }
 
+  addToCart(product: IProduct): void {
+    this.$store.commit("cart/addToCart", product);
+  }
   setProductAsCurrent(product: IProduct): void {
     this.$router.push({
       name: "ProductViewPage",
@@ -102,6 +117,20 @@ export default class CatalogPage extends Vue {
 
     &__link {
       text-decoration: none;
+    }
+
+    &__buttons {
+      display: flex;
+
+      .button__detail {
+        padding: 4px 8px;
+        margin-right: 4px;
+      }
+
+      .button__bag {
+        padding: 4px 8px;
+        margin-left: 4px;
+      }
     }
   }
 }

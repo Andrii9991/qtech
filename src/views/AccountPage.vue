@@ -4,7 +4,17 @@
       <div class="user-navigation">
         <img class="user-navigation__image" :src="user.image" alt="" />
         <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-        <BaseButton class="user-navigation__cart" text="My orders"></BaseButton>
+        <BaseButton
+          class="user-navigation__cart"
+          @click.native="myOrders"
+          text="My orders"
+        />
+
+        <BaseButton
+          class="user-navigation__cart"
+          @click.native="logOut"
+          text="Log out"
+        />
       </div>
       <div class="user-information">
         <h3 class="user-information__item">Username: {{ user.username }}</h3>
@@ -16,7 +26,6 @@
 </template>
 
 <script lang="ts">
-import store from "@/store";
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 
@@ -28,6 +37,19 @@ import BaseButton from "@/components/BaseButton.vue";
 export default class AccountPage extends Vue {
   get user() {
     return this.$store.state.user;
+  }
+
+  myOrders(): void {
+    this.$router.push({
+      name: "CartPage",
+    });
+  }
+
+  logOut(): void {
+    this.$router.push({
+      name: "LoginPage",
+    });
+    this.$store.commit("user/logoutUser");
   }
 }
 </script>
@@ -70,6 +92,9 @@ export default class AccountPage extends Vue {
       }
     }
     .user-information {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       margin-bottom: 20px;
 
       &__item:not(:last-child) {

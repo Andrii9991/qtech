@@ -64,7 +64,6 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAccordion from "@/components/BaseAccordion.vue";
 import { login, getAllUsers } from "@/api/mainRequests";
 import { IUser } from "@/interfaces/users";
-import store from "@/store";
 
 @Component({
   components: {

@@ -49,6 +49,7 @@
           />
         </div>
       </div>
+      <p>{{ currentProduct.count }}</p>
     </div>
   </div>
 </template>
@@ -67,9 +68,13 @@ export default class ProductViewPage extends Vue {
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
   }
+  get count(): IProduct {
+    return this.$store.getters["cart/getCountsArray"];
+  }
 
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
+    this.$forceUpdate();
   }
 }
 </script>

@@ -5,13 +5,19 @@
         <img class="item__image" :src="item.images[0]" alt="" />
         <h3 class="item__title">{{ item.title }}</h3>
         <div class="action">
-          <h3 class="action__close" @click="removeItem(item)">X</h3>
-          <h5 class="action__counter">{{ item.price }} $</h5>
+          <h3 class="action__close" @click="removeItem(item.id)">X</h3>
+          <div class="action__counter">
+            <BaseButton @click.native="increament(item.id)" text="+" />
+            <p>{{ item.count }}</p>
+            <BaseButton @click.native="decreamnet(item.id)" text="-" />
+            <h5 class="price">{{ item.price * (item.count || 1) }} $</h5>
+          </div>
+
           <BaseButton
             class="action__buy"
             text="Proceed to checkout"
             styleButton="red"
-          ></BaseButton>
+          />
         </div>
       </li>
     </ul>
@@ -29,12 +35,24 @@ import BaseButton from "@/components/BaseButton.vue";
   },
 })
 export default class CartPage extends Vue {
+  count = 0;
+
   get userCart(): IProduct[] {
     return this.$store.state.cart.userCart;
   }
 
-  removeItem(item: IProduct): void {
-    this.$store.commit("cart/removeFromCart", item.id);
+  removeItem(itemId: number): void {
+    this.$store.commit("cart/removeFromCart", itemId);
+  }
+
+  increament(itemId: number): void {
+    this.$store.commit("cart/increament", itemId);
+    this.$forceUpdate();
+  }
+
+  decreamnet(itemId: number): void {
+    this.$store.commit("cart/decreament", itemId);
+    this.$forceUpdate();
   }
 }
 </script>

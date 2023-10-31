@@ -29,9 +29,9 @@
     <div class="actions">
       <BaseButton
         class="header__button"
-        @click.native="login"
+        @click.native="authAction"
         size="small"
-        text="Sign up"
+        :text="authButtonText"
       />
 
       <router-link
@@ -68,9 +68,15 @@ export default class TheHeader extends Vue {
     },
   ];
 
-  login(): void {
+  get authButtonText() {
+    return this.$store.state.user.isAuthenticated ? "Profile" : "Sign Up";
+  }
+
+  authAction(): void {
     this.$router.push({
-      name: "SignUpPage",
+      name: `${
+        this.$store.state.user.isAuthenticated ? "AccountPage" : "LoginPage"
+      }`,
     });
   }
 }
