@@ -1,7 +1,7 @@
 <template>
   <div class="cart-page">
     <ul class="list">
-      <li class="list__item" v-for="item in userCart" :key="item.id">
+      <li class="list__item" v-for="(item, index) in userCart" :key="item.id">
         <img class="item__image" :src="item.images[0]" alt="" />
         <h3 class="item__title">{{ item.title }}</h3>
         <div class="action">
@@ -9,7 +9,7 @@
           <div class="action__counter">
             <BaseButton @click.native="increament(item.id)" text="+">
             </BaseButton>
-            <!-- <p>{{ $store.getters["cart/getCountsArray"][index] }}</p> -->
+            <p>{{ $store.getters["cart/getCountsArray"][index] }}</p>
             <BaseButton @click.native="decreamnet(item.id)" text="-">
             </BaseButton>
             <h5 class="price">{{ item.price * (item.count || 1) }} $</h5>
@@ -38,6 +38,8 @@ import BaseButton from "@/components/BaseButton.vue";
   },
 })
 export default class CartPage extends Vue {
+  count = 0;
+
   get userCart(): IProduct[] {
     return this.$store.state.cart.userCart;
   }
@@ -52,6 +54,34 @@ export default class CartPage extends Vue {
 
   decreamnet(itemId: number): void {
     this.$store.commit("cart/decreament", itemId);
+  }
+
+  // created() {
+  //   // Підписка на зміни в корзині
+  //   this.$store.watch(
+  //     () => this.$store.getters["cart/getCountsArray"],
+  //     (newCounts: IProduct, oldCounts: IProduct) => {
+  //       if (newCounts === 0) {
+  //         console.log("ss");
+  //       }
+  //     }
+  //   );
+  // }
+
+  created(): void {
+    // Підписка на зміни в корзині
+    const unsubscribe: any = this.$store.subscribe((mutation, state) => {
+      if (mutation.type.startsWith("cart/")) {
+        // Цей код буде виконуватися при кожній мутації корзини
+        console.log("Зміни в корзині:", mutation.type);
+        // Ви можете робити тут все, що вам потрібно при зміні корзини
+      }
+    });
+  }
+
+  beforeDestroy() {
+    // Скасувати підписку при знищенні компонента
+    this.unsubscribe();
   }
 }
 </script>

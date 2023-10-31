@@ -49,5 +49,14 @@ export default {
         foundItem.count--;
       }
     },
+
+    setItem(state: any, updatedItem: { id: number; count: number }) {
+      const foundItem = state.userCart.find(
+        (item: IProduct) => item.id === updatedItem.id
+      );
+      if (foundItem) {
+        foundItem.count = updatedItem.count + 1;
+      }
+    },
   },
 };
