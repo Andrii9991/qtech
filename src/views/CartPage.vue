@@ -1,17 +1,15 @@
 <template>
   <div class="cart-page">
     <ul class="list">
-      <li class="list__item" v-for="(item, index) in userCart" :key="item.id">
+      <li class="list__item" v-for="item in userCart" :key="item.id">
         <img class="item__image" :src="item.images[0]" alt="" />
         <h3 class="item__title">{{ item.title }}</h3>
         <div class="action">
           <h3 class="action__close" @click="removeItem(item.id)">X</h3>
           <div class="action__counter">
-            <BaseButton @click.native="increament(item.id)" text="+">
-            </BaseButton>
-            <p>{{ $store.getters["cart/getCountsArray"][index] }}</p>
-            <BaseButton @click.native="decreamnet(item.id)" text="-">
-            </BaseButton>
+            <BaseButton @click.native="increament(item.id)" text="+" />
+            <p>{{ item.count }}</p>
+            <BaseButton @click.native="decreamnet(item.id)" text="-" />
             <h5 class="price">{{ item.price * (item.count || 1) }} $</h5>
           </div>
 
@@ -19,8 +17,7 @@
             class="action__buy"
             text="Proceed to checkout"
             styleButton="red"
-          >
-          </BaseButton>
+          />
         </div>
       </li>
     </ul>
@@ -50,38 +47,12 @@ export default class CartPage extends Vue {
 
   increament(itemId: number): void {
     this.$store.commit("cart/increament", itemId);
+    this.$forceUpdate();
   }
 
   decreamnet(itemId: number): void {
     this.$store.commit("cart/decreament", itemId);
-  }
-
-  // created() {
-  //   // Підписка на зміни в корзині
-  //   this.$store.watch(
-  //     () => this.$store.getters["cart/getCountsArray"],
-  //     (newCounts: IProduct, oldCounts: IProduct) => {
-  //       if (newCounts === 0) {
-  //         console.log("ss");
-  //       }
-  //     }
-  //   );
-  // }
-
-  created(): void {
-    // Підписка на зміни в корзині
-    const unsubscribe: any = this.$store.subscribe((mutation, state) => {
-      if (mutation.type.startsWith("cart/")) {
-        // Цей код буде виконуватися при кожній мутації корзини
-        console.log("Зміни в корзині:", mutation.type);
-        // Ви можете робити тут все, що вам потрібно при зміні корзини
-      }
-    });
-  }
-
-  beforeDestroy() {
-    // Скасувати підписку при знищенні компонента
-    this.unsubscribe();
+    this.$forceUpdate();
   }
 }
 </script>

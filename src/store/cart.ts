@@ -6,8 +6,14 @@ export default {
     userCart: [],
   },
   getters: {
-    getCountsArray(state: any): string[] {
-      return state.userCart.map((item: IProduct) => item.count);
+    getCartCount(state: any): number {
+      let cartCount = 0;
+
+      state.userCart.forEach(
+        (item: IProduct) => (cartCount += item.count || 0)
+      );
+
+      return cartCount;
     },
   },
   mutations: {
