@@ -61,7 +61,6 @@ export default class CartPage extends Vue {
   display: flex;
   justify-content: center;
   margin-top: 16px;
-  // background-color: $grey-lite;
   color: $white;
   min-height: 100vh;
 

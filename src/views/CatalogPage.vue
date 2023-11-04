@@ -18,6 +18,7 @@
         <BaseButton
           class="button__bag"
           @click.native="addToCart(product)"
+          :isDisebled="false"
           text="Add to cart"
         />
       </div>
@@ -46,6 +47,7 @@ export default class CatalogPage extends Vue {
 
   addToCart(product: IProduct): void {
     this.$store.commit("cart/addToCart", product);
+    this.$forceUpdate();
   }
   setProductAsCurrent(product: IProduct): void {
     this.$router.push({
