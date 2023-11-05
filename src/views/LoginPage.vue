@@ -163,7 +163,7 @@ export default class LoginPage extends Vue {
 
     .user-credentials {
       display: flex;
-      column-gap: 16px;
+      column-gap: 20px;
       margin: 10px 0;
     }
 

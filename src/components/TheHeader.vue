@@ -39,7 +39,14 @@
         active-class="active-link"
         :to="{ name: 'CartPage' }"
       >
-        <img class="logo" src="@/design/images/cartIcon.svg" alt="logo" />
+        <img
+          class="counter-logo"
+          src="@/design/images/cartIcon.svg"
+          alt="logo"
+        />
+        <h6 class="counter" v-if="countCart > 0">
+          {{ countCart }}
+        </h6>
       </router-link>
     </div>
   </header>
@@ -70,6 +77,10 @@ export default class TheHeader extends Vue {
 
   get authButtonText() {
     return this.$store.state.user.isAuthenticated ? "Profile" : "Sign Up";
+  }
+
+  get countCart() {
+    return this.$store.getters["cart/getCartCount"];
   }
 
   authAction(): void {
@@ -137,6 +148,25 @@ export default class TheHeader extends Vue {
   }
   .actions {
     display: flex;
+
+    .navigation__link {
+      margin-left: 16px;
+      position: relative;
+      .counter-logo {
+        width: 77px;
+        height: 27px;
+      }
+
+      .counter {
+        background-color: $red;
+        border-radius: 50px;
+        padding: 0 6px;
+        // min-width: 12px;
+        position: absolute;
+        right: 20px;
+        top: 0px;
+      }
+    }
   }
 }
 </style>

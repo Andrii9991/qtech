@@ -74,7 +74,6 @@ export default class ProductViewPage extends Vue {
 
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
-    this.$forceUpdate();
   }
 }
 </script>

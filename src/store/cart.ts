@@ -56,13 +56,10 @@ export default {
       }
     },
 
-    setItem(state: any, updatedItem: { id: number; count: number }) {
-      const foundItem = state.userCart.find(
-        (item: IProduct) => item.id === updatedItem.id
+    setItem(state: any, addedItem: IProduct) {
+      const neededItem = state.userCart.find(
+        (item: IProduct) => item.id === addedItem.id
       );
-      if (foundItem) {
-        foundItem.count = updatedItem.count + 1;
-      }
     },
   },
 };

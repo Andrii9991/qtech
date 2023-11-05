@@ -47,12 +47,10 @@ export default class CartPage extends Vue {
 
   increament(itemId: number): void {
     this.$store.commit("cart/increament", itemId);
-    this.$forceUpdate();
   }
 
   decreamnet(itemId: number): void {
     this.$store.commit("cart/decreament", itemId);
-    this.$forceUpdate();
   }
 }
 </script>
@@ -61,7 +59,6 @@ export default class CartPage extends Vue {
   display: flex;
   justify-content: center;
   margin-top: 16px;
-  // background-color: $grey-lite;
   color: $white;
   min-height: 100vh;
 
