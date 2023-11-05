@@ -37,6 +37,7 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class CatalogPage extends Vue {
+  test = true;
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
   }
@@ -47,7 +48,10 @@ export default class CatalogPage extends Vue {
 
   addToCart(product: IProduct): void {
     this.$store.commit("cart/addToCart", product);
-    this.$forceUpdate();
+    if (product) {
+      this.test = true;
+    }
+    console.log(this.test);
   }
   setProductAsCurrent(product: IProduct): void {
     this.$router.push({

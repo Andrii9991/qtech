@@ -45,7 +45,7 @@
           alt="logo"
         />
         <h6 class="counter" v-if="countCart > 0">
-          {{ $store.getters["cart/getCartCount"] }}
+          {{ countCart }}
         </h6>
       </router-link>
     </div>
