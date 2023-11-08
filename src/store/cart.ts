@@ -17,10 +17,12 @@ export default {
     },
   },
   mutations: {
-    addToCart(state: any, cartItem: IProduct) {
+    addToCart(state: any, productItem: IProduct) {
+      const cartItem = { ...productItem };
       const existingCartItem = state.userCart.find(
         (item: IProduct) => item.id === cartItem.id
       );
+
       if (existingCartItem) {
         cartItem.count = (cartItem.count || 0) + 1;
       } else {
@@ -54,12 +56,6 @@ export default {
       if (foundItem.count > 0) {
         foundItem.count--;
       }
-    },
-
-    setItem(state: any, addedItem: IProduct) {
-      const neededItem = state.userCart.find(
-        (item: IProduct) => item.id === addedItem.id
-      );
     },
   },
 };

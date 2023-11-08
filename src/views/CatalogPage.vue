@@ -18,8 +18,8 @@
         <BaseButton
           class="button__bag"
           @click.native="addToCart(product)"
-          :isDisebled="false"
-          text="Add to cart"
+          :isDisebled="(product.count || 0) > 0 ? true : false"
+          :text="(product.count || 0) > 0 ? 'In cart' : 'Add to cart'"
         />
       </div>
     </div>
@@ -37,9 +37,14 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class CatalogPage extends Vue {
-  test = true;
+  // :text="test(product.count || 0) ? 'In cart' : 'Add to cart'" - ':'- якщо умова не виконується
+
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
+  }
+
+  get userCart(): IProduct[] {
+    return this.$store.state.cart.userCart;
   }
 
   nameURL(product: IProduct): string {
@@ -48,11 +53,9 @@ export default class CatalogPage extends Vue {
 
   addToCart(product: IProduct): void {
     this.$store.commit("cart/addToCart", product);
-    if (product) {
-      this.test = true;
-    }
-    console.log(this.test);
+    this.$store.commit("products/increament", product.id);
   }
+
   setProductAsCurrent(product: IProduct): void {
     this.$router.push({
       name: "ProductViewPage",

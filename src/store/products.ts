@@ -8,11 +8,30 @@ export default {
   getters: {},
   mutations: {
     setProducts(state: any, products: IProduct[]): void {
-      products.forEach((item: IProduct) => (item.count = 1));
-      state.productList = [...products];
+      const cartItem = [...products];
+      cartItem.forEach((item: IProduct) => (item.count = 0));
+      state.productList = [...cartItem];
     },
     setCurrentProduct(state: any, product: IProduct) {
       state.currentProduct = { ...product };
+    },
+
+    increament(state: any, cartItemId: number) {
+      const foundItem = state.productList.find(
+        (item: IProduct) => item.id === cartItemId
+      );
+      if (foundItem) {
+        foundItem.count++;
+      }
+    },
+
+    decreament(state: any, cartItemId: number) {
+      const foundItem = state.productList.find(
+        (item: IProduct) => item.id === cartItemId
+      );
+      if (foundItem.count > 0) {
+        foundItem.count--;
+      }
     },
   },
 };
