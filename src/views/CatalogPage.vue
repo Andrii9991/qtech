@@ -39,22 +39,12 @@ import { IProduct } from "@/interfaces/products";
 export default class CatalogPage extends Vue {
   // :text="test(product.count || 0) ? 'In cart' : 'Add to cart'" - ':'- якщо умова не виконується
 
-  clicker = this.$store.state.cart.disabledButtonClicker;
-
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
   }
 
   get userCart(): IProduct[] {
     return this.$store.state.cart.userCart;
-  }
-
-  get cartCount(): IProduct[] {
-    return this.$store.getters["cart/getCartCount"];
-  }
-
-  get cartProduct(): IProduct {
-    return this.$store.state.cart.cartProduct;
   }
 
   nameURL(product: IProduct): string {

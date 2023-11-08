@@ -4,8 +4,6 @@ export default {
   namespaced: true,
   state: {
     userCart: [],
-    cartProduct: {},
-    disabledButton: false,
   },
   getters: {
     getCartCount(state: any): number {
@@ -57,19 +55,6 @@ export default {
       );
       if (foundItem.count > 0) {
         foundItem.count--;
-      }
-    },
-
-    setCartProduct(state: any, product: IProduct) {
-      state.cartProduct = { ...product };
-    },
-
-    searchCountItem(state: any, cartItem: IProduct) {
-      const searchItem = state.userCart.find(
-        (item: IProduct) => item.id === cartItem.id
-      );
-      if (searchItem.count) {
-        state.disabledButton = true;
       }
     },
   },
