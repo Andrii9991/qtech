@@ -19,7 +19,7 @@
           class="button__bag"
           @click.native="addToCart(product)"
           :isDisebled="false"
-          text="Add to cart"
+          :text="(product.count || 0) >= 1 ? 'In cart' : 'Add to cart'"
         />
       </div>
     </div>
@@ -37,9 +37,20 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class CatalogPage extends Vue {
-  test = true;
+  // :text="test(product.count || 0) ? 'In cart' : 'Add to cart'" - ':'- якщо умова не виконується
+
+  clicker = this.$store.state.cart.disabledButtonClicker;
+
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
+  }
+
+  get cartCount(): IProduct[] {
+    return this.$store.getters["cart/getCartCount"];
+  }
+
+  get cartProduct(): IProduct {
+    return this.$store.state.cart.cartProduct;
   }
 
   nameURL(product: IProduct): string {
@@ -48,11 +59,10 @@ export default class CatalogPage extends Vue {
 
   addToCart(product: IProduct): void {
     this.$store.commit("cart/addToCart", product);
-    if (product) {
-      this.test = true;
-    }
-    console.log(this.test);
+    this.$store.commit("cart/setCartProduct", product);
+    console.log(this.cartProduct);
   }
+
   setProductAsCurrent(product: IProduct): void {
     this.$router.push({
       name: "ProductViewPage",
