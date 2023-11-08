@@ -5,7 +5,7 @@ export default {
   state: {
     userCart: [],
     cartProduct: {},
-    disabledButtonClicker: false,
+    disabledButton: false,
   },
   getters: {
     getCartCount(state: any): number {
@@ -31,7 +31,6 @@ export default {
         cartItem.count = 1;
         state.userCart.push(cartItem);
       }
-      state.cartProduct = cartItem;
     },
 
     removeFromCart(state: any, cartId: number) {
@@ -70,9 +69,8 @@ export default {
         (item: IProduct) => item.id === cartItem.id
       );
       if (searchItem.count) {
-        state.disabledButtonClicker = true;
+        state.disabledButton = true;
       }
-      // console.log(searchItem);
     },
   },
 };

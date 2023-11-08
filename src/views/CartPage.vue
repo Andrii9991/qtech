@@ -47,10 +47,12 @@ export default class CartPage extends Vue {
 
   increament(itemId: number): void {
     this.$store.commit("cart/increament", itemId);
+    this.$store.commit("products/increament", itemId);
   }
 
   decreamnet(itemId: number): void {
     this.$store.commit("cart/decreament", itemId);
+    this.$store.commit("products/decreament", itemId);
   }
 }
 </script>
