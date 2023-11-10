@@ -104,8 +104,10 @@ export default class LoginPage extends Vue {
       this.passwordError = this.password.length <= 2;
   }
 
-  loginAction(): void {
-    login();
+  async loginAction(): Promise<void> {
+    await login();
+    console.log("logined");
+
     this.$router.push({
       name: "AccountPage",
     });
@@ -163,7 +165,8 @@ export default class LoginPage extends Vue {
 
     .user-credentials {
       display: flex;
-      column-gap: 20px;
+
+      column-gap: 16px;
       margin: 10px 0;
     }
 

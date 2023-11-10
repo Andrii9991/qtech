@@ -22,6 +22,7 @@ export const login = async (): Promise<void> => {
 
   store.commit("user/setUser", data);
   store.commit("user/authUser");
+
   instanceApi.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 };
 
