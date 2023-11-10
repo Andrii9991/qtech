@@ -22,6 +22,7 @@ export default {
       );
       if (foundItem) {
         foundItem.count++;
+        state.currentProduct.count++;
       }
     },
 
