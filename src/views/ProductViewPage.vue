@@ -73,10 +73,6 @@ export default class ProductViewPage extends Vue {
     return this.$store.getters["cart/getCountsArray"];
   }
 
-  get test(): IProduct {
-    return this.$store.getters["products/getTest"];
-  }
-
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
     this.$store.commit("products/increament", this.currentProduct.id);

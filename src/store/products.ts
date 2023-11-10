@@ -23,7 +23,6 @@ export default {
       if (foundItem) {
         foundItem.count++;
       }
-      // state.currentProduct.count++;
     },
 
     decreament(state: any, cartItemId: number) {

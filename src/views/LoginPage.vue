@@ -106,7 +106,6 @@ export default class LoginPage extends Vue {
 
   async loginAction(): Promise<void> {
     await login();
-    console.log("logined");
 
     this.$router.push({
       name: "AccountPage",
@@ -165,7 +164,6 @@ export default class LoginPage extends Vue {
 
     .user-credentials {
       display: flex;
-
       column-gap: 16px;
       margin: 10px 0;
     }
