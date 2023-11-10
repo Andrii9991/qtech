@@ -45,7 +45,8 @@
           <BaseButton
             class="bag-button button"
             @click.native="addToCart"
-            text="Add to bag"
+            :isDisebled="(currentProduct.count || 0) > 0 ? true : false"
+            :text="(currentProduct.count || 0) > 0 ? 'In cart' : 'Add to cart'"
           />
         </div>
       </div>
@@ -74,6 +75,7 @@ export default class ProductViewPage extends Vue {
 
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
+    this.$store.commit("products/increament", this.currentProduct.id);
   }
 }
 </script>
