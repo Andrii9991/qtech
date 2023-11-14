@@ -73,6 +73,8 @@ import { IUser } from "@/interfaces/users";
   },
 })
 export default class LoginPage extends Vue {
+  isActive = false;
+
   nameError = false;
   passwordError = false;
 
@@ -115,6 +117,11 @@ export default class LoginPage extends Vue {
   created(): void {
     getAllUsers();
   }
+
+  toggle(): void {
+    this.isActive = !this.isActive;
+    console.log(this.usersList);
+  }
 }
 </script>
 
@@ -122,8 +129,10 @@ export default class LoginPage extends Vue {
 .login-page {
   padding: 20px;
   text-align: center;
+  background-color: $black;
   color: $white;
-  min-height: 100vh;
+  overflow: hidden;
+  height: 100vh;
 
   &__title {
     color: $black;
@@ -166,6 +175,10 @@ export default class LoginPage extends Vue {
       display: flex;
       column-gap: 16px;
       margin: 10px 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     li {
