@@ -5,28 +5,21 @@
       {{ currentProduct.description }}
     </p>
     <div class="product-view-page__content">
-      <div class="image-wpapper">
-        <img
-          class="image-wpapper__item"
-          :src="currentProduct.images[0]"
-          alt=""
-        />
-        <img
-          class="image-wpapper__item"
-          :src="currentProduct.images[1]"
-          alt=""
-        />
-        <img
-          class="image-wpapper__item"
-          :src="currentProduct.images[2]"
-          alt=""
-        />
+      <div class="carousel__wrapper">
+        <carousel :perPage="1" :value="currentSlide" class="image-wpapper">
+          <slide v-for="image in currentProduct.images" :key="image">
+            <img class="image-wpapper__item" :src="image" alt="product-image" />
+          </slide>
+        </carousel>
+        <BaseButton @click.native="deacreamnet" text="<" />
+        <BaseButton @click.native="increament" text=">" />
       </div>
+
       <div class="content__characteristics">
         <ul class="characteristics">
           <h4>About this item:</h4>
           <li class="characteristics__brand">
-            Brand: {{ currentProduct.brand }}
+            Brand: {{ currentProduct.brand }}vue
           </li>
           <li class="characteristics__category">
             Category: {{ currentProduct.category }}
@@ -59,13 +52,17 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import { IProduct } from "@/interfaces/products";
+import { Carousel, Slide } from "vue-carousel";
 
 @Component({
   components: {
     BaseButton,
+    Carousel,
+    Slide,
   },
 })
 export default class ProductViewPage extends Vue {
+  currentSlide = 0;
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
   }
@@ -76,6 +73,16 @@ export default class ProductViewPage extends Vue {
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
     this.$store.commit("products/increament", this.currentProduct.id);
+  }
+
+  increament(): void {
+    if (this.currentSlide === this.currentProduct.images.length - 1)
+      this.currentSlide = 0;
+    else this.currentSlide++;
+  }
+
+  deacreamnet(): void {
+    if (this.currentSlide > 0) this.currentSlide--;
   }
 }
 </script>
@@ -105,8 +112,8 @@ export default class ProductViewPage extends Vue {
       flex-direction: column;
 
       &__item {
-        max-width: 150px;
-        height: 150px;
+        max-width: 250px;
+        height: 250px;
         border-radius: 8px;
         padding: 10px;
       }
