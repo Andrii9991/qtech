@@ -175,6 +175,10 @@ export default class LoginPage extends Vue {
       display: flex;
       column-gap: 16px;
       margin: 10px 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     li {

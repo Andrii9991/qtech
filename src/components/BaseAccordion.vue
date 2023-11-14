@@ -8,7 +8,7 @@
       </div>
       <transition name="fade">
         <div class="base-accordion__content" :class="{ visible: isActive }">
-          <slot class="test" name="description"></slot>
+          <slot name="description"></slot>
         </div>
       </transition>
     </div>
@@ -40,63 +40,62 @@ export default class BaseAccordion extends Vue {
   &__container {
     border: 4px white solid;
     border-radius: 20px;
+  }
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: $grey;
+    cursor: pointer;
+    transition-duration: 0.5s;
+    border-radius: 20px;
 
-    .base-accordion__title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
+    .icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-left: 10px;
+      transition: 0.5s;
+
+      &:hover {
+        transform: scale(1.04);
+        background-color: $grey-lite;
+      }
+    }
+  }
+
+  &__content {
+    padding-left: 8px;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: opacity 0.1s, height 0.5s, padding 0.3s, visibility 0.3s;
+  }
+
+  .visible {
+    visibility: visible;
+    opacity: 1;
+    padding: 0 20px;
+    height: 250px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 16px;
       background-color: $grey;
-      cursor: pointer;
-      transition-duration: 0.5s;
       border-radius: 20px;
-
-      .icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        margin-left: 10px;
-        transition: 0.5s;
-
-        &:hover {
-          transform: scale(1.04);
-          background-color: $grey-lite;
-        }
-      }
     }
 
-    .base-accordion__content {
-      padding-left: 8px;
-      visibility: hidden;
-      opacity: 0;
-      height: 0;
-      transition: opacity 0.1s, height 0.5s, padding 0.3s, visibility 0.3s;
+    &::-webkit-scrollbar-track {
+      background-color: $grey;
+      margin-block: 3px;
+      border-radius: 100vw;
     }
 
-    .visible {
-      visibility: visible;
-      opacity: 1;
-      padding: 0 20px;
-      height: 250px;
-      overflow-y: auto;
-
-      &::-webkit-scrollbar {
-        width: 16px;
-        background-color: $grey;
-        border-radius: 20px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background-color: $grey;
-        margin-block: 3px;
-        border-radius: 100vw;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $white;
-        border: 4px $grey solid;
-        border-radius: 20px;
-      }
+    &::-webkit-scrollbar-thumb {
+      background-color: $white;
+      border: 4px $grey solid;
+      border-radius: 20px;
     }
   }
 }
