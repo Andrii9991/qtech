@@ -19,7 +19,7 @@
         <ul class="characteristics">
           <h4>About this item:</h4>
           <li class="characteristics__brand">
-            Brand: {{ currentProduct.brand }}vue
+            Brand: {{ currentProduct.brand }}
           </li>
           <li class="characteristics__category">
             Category: {{ currentProduct.category }}
