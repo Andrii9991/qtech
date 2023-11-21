@@ -84,6 +84,7 @@ export default class TheHeader extends Vue {
   }
 
   authAction(): void {
+    if (this.$route.name === "LoginPage") return;
     this.$router.push({
       name: `${
         this.$store.state.user.isAuthenticated ? "AccountPage" : "LoginPage"

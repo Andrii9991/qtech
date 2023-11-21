@@ -1,0 +1,75 @@
+<template>
+  <div class="base-select">
+    <h5
+      class="base-select__title"
+      @click="areOptionsVisible = !areOptionsVisible"
+    >
+      {{ selected }}
+    </h5>
+
+    <div class="base-select__options" v-if="areOptionsVisible">
+      <p
+        class="option"
+        v-for="option in options"
+        :key="option.value"
+        @click="selectOption(option)"
+      >
+        {{ option.name }}
+      </p>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component
+export default class BaseSelect extends Vue {
+  @Prop({ default: "" }) title!: string;
+  @Prop({ default: "" }) options!: any;
+  @Prop({ default: "" }) selected!: string;
+  areOptionsVisible = false;
+
+  selectOption(option: string): void {
+    this.$emit("select", option);
+    this.areOptionsVisible = false;
+  }
+
+  hideSelect(): void {
+    this.areOptionsVisible = false;
+  }
+}
+</script>
+<style scoped lang="scss">
+.base-select {
+  position: relative;
+  width: 200px;
+  cursor: pointer;
+  margin-left: 10px;
+
+  &__title {
+    border-radius: 10px;
+    border: solid 1px $white;
+    padding: 6px;
+  }
+
+  &__options {
+    border: 1px solid $white;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+    border-radius: 10px;
+    padding: 10px;
+
+    .option {
+      transition: 0.5s;
+      padding-top: 10px;
+      &:hover {
+        transform: scale(1.04);
+      }
+    }
+  }
+}
+</style>

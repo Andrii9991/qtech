@@ -1,7 +1,7 @@
 <template>
   <div class="base-accordion">
-    <div class="base-accordion__container" @click="swicthContent">
-      <div class="base-accordion__title">
+    <div class="base-accordion__container">
+      <div class="base-accordion__title" @click="swicthContent">
         <h5>{{ title }}</h5>
         <h3 class="icon" v-if="!isActive">+</h3>
         <h3 class="icon" v-else>></h3>
@@ -37,10 +37,10 @@ export default class BaseAccordion extends Vue {
   border-radius: 20px;
   transition: 0.5s;
 
-  &__container {
-    border: 4px white solid;
-    border-radius: 20px;
-  }
+  // &__container {
+  //   border: 4px white solid;
+  //   border-radius: 20px;
+  // }
   &__title {
     display: flex;
     justify-content: space-between;
