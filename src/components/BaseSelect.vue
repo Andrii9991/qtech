@@ -1,12 +1,26 @@
 <template>
   <div class="base-select">
-    <h5
+    <div
       class="base-select__title"
       @click="areOptionsVisible = !areOptionsVisible"
     >
-      {{ selected }}
-    </h5>
+      <h5>
+        {{ selected }}
+      </h5>
 
+      <img
+        class="select-logo"
+        src="@/design/images/openCtegoryIcon.svg"
+        alt=""
+        v-if="areOptionsVisible"
+      />
+      <img
+        class="select-logo"
+        src="@/design/images/closeCategoryIcon.svg"
+        alt=""
+        v-else
+      />
+    </div>
     <div class="base-select__options" v-if="areOptionsVisible">
       <p
         class="option"
@@ -48,9 +62,18 @@ export default class BaseSelect extends Vue {
   margin-left: 10px;
 
   &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-radius: 10px;
     border: solid 1px $white;
     padding: 6px;
+
+    .select-logo {
+      height: 10px;
+      width: 10px;
+      margin-right: 10px;
+    }
   }
 
   &__options {
