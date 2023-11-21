@@ -80,9 +80,6 @@ export default class CatalogPage extends Vue {
 </script>
 <style scoped lang="scss">
 .catalog-page {
-  // padding: 25px;
-  // margin: 0 auto 25px;
-  // min-width: 150px;
   position: relative;
   color: $white;
   display: flex;
@@ -93,7 +90,7 @@ export default class CatalogPage extends Vue {
     padding: 0px;
   }
 
-  .catalog-page__container {
+  &__container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 30px;

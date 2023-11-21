@@ -11,13 +11,13 @@
       <img
         class="select-logo"
         src="@/design/images/openCtegoryIcon.svg"
-        alt=""
+        alt="select"
         v-if="areOptionsVisible"
       />
       <img
         class="select-logo"
         src="@/design/images/closeCategoryIcon.svg"
-        alt=""
+        alt="select"
         v-else
       />
     </div>

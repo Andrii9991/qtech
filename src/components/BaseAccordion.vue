@@ -37,10 +37,6 @@ export default class BaseAccordion extends Vue {
   border-radius: 20px;
   transition: 0.5s;
 
-  // &__container {
-  //   border: 4px white solid;
-  //   border-radius: 20px;
-  // }
   &__title {
     display: flex;
     justify-content: space-between;
@@ -103,7 +99,8 @@ export default class BaseAccordion extends Vue {
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
