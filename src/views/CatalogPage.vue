@@ -1,11 +1,11 @@
 <template>
   <div class="catalog-page">
-    <TheFilters class="catalog-page__filters" />
+    <TheFilters class="catalog-page__filters" @sort="onSort" />
 
     <div class="catalog-page__container">
       <div
         class="catalog-cart"
-        v-for="product in productList"
+        v-for="product in filtredProductList"
         :key="product.id"
       >
         <div class="image-wrap">
@@ -40,7 +40,6 @@ import BaseButton from "@/components/BaseButton.vue";
 import BaseSelect from "@/components/BaseSelect.vue";
 import TheFilters from "@/components/TheFilters.vue";
 import { IProduct } from "@/interfaces/products";
-import { filter } from "vue/types/umd";
 
 @Component({
   components: {
@@ -51,6 +50,7 @@ import { filter } from "vue/types/umd";
 })
 export default class CatalogPage extends Vue {
   // :text="test(product.count || 0) ? 'In cart' : 'Add to cart'" - ':'- якщо умова не виконується
+  filtredProductList: IProduct[] = [...this.productList];
 
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
@@ -75,6 +75,13 @@ export default class CatalogPage extends Vue {
       params: { name: this.nameURL(product) },
     });
     this.$store.commit("products/setCurrentProduct", product);
+  }
+
+  onSort(category: string): void {
+    const filtredProducts = this.productList.filter(
+      (item: IProduct) => item.category === category
+    );
+    this.filtredProductList = [...filtredProducts];
   }
 }
 </script>

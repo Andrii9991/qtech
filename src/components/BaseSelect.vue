@@ -5,7 +5,7 @@
       @click="areOptionsVisible = !areOptionsVisible"
     >
       <h5>
-        {{ selected }}
+        {{ selectedOptionName || placeholder }}
       </h5>
 
       <img
@@ -25,7 +25,7 @@
       <p
         class="option"
         v-for="option in options"
-        :key="option.value"
+        :key="option.name"
         @click="selectOption(option)"
       >
         {{ option.name }}
@@ -36,16 +36,26 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { IOption } from "@/interfaces/options";
 
 @Component
 export default class BaseSelect extends Vue {
-  @Prop({ default: "" }) title!: string;
-  @Prop({ default: "" }) options!: any;
-  @Prop({ default: "" }) selected!: string;
+  @Prop({ default: [] }) options!: IOption[];
+  @Prop({ default: {} }) value!: IOption;
+  @Prop({ default: "" }) placeholder!: string;
+
   areOptionsVisible = false;
 
-  selectOption(option: string): void {
-    this.$emit("select", option);
+  get selectedOptionName() {
+    const selectedOpton = this.options.find(
+      (item: IOption) => item.id === this.value.id
+    );
+    return selectedOpton?.name;
+  }
+
+  selectOption(option: IOption): void {
+    this.$emit("update:value", option);
+
     this.areOptionsVisible = false;
   }
 

@@ -1,10 +1,9 @@
 <template>
   <div class="filters">
     <BaseSelect
-      title="Categories"
+      :value.sync="selectedOption"
       :options="Categories"
-      :selected="selected"
-      @select="sortByCategories"
+      placeholder="Category"
     >
     </BaseSelect>
 
@@ -14,10 +13,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
 import { IProduct } from "@/interfaces/products";
+import { IOption } from "@/interfaces/options";
 
 @Component({
   components: {
@@ -26,34 +26,20 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class TheFilters extends Vue {
-  selected = "Category";
-  sortedProducts: IProduct[] = [];
+  selectedOption: any = {};
 
   Categories = [
-    { name: "smartphones", value: "S" },
-    { name: "laptops", value: "L" },
+    { id: 1, name: "smartphones" },
+    { id: 2, name: "laptops" },
   ];
 
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
   }
 
-  get filterProducts(): IProduct[] {
-    if (this.sortedProducts.length) {
-      return this.sortedProducts;
-    } else {
-      return this.productList;
-    }
-  }
-
-  sortByCategories(category: any) {
-    this.sortedProducts = [];
-
-    this.productList.map((item: IProduct) => {
-      if (item.category === category.name) {
-        this.sortedProducts.push(item);
-      }
-    });
+  @Watch("selectedOption")
+  watchSelectedOption() {
+    this.$emit("sort", this.selectedOption.name);
   }
 }
 </script>
