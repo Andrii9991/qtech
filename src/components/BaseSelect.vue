@@ -12,13 +12,7 @@
         class="select-logo"
         src="@/design/images/openCtegoryIcon.svg"
         alt="select"
-        v-if="areOptionsVisible"
-      />
-      <img
-        class="select-logo"
-        src="@/design/images/closeCategoryIcon.svg"
-        alt="select"
-        v-else
+        :class="{ openSelect: areOptionsVisible }"
       />
     </div>
     <div class="base-select__options" v-if="areOptionsVisible">
@@ -83,6 +77,10 @@ export default class BaseSelect extends Vue {
       height: 10px;
       width: 10px;
       margin-right: 10px;
+    }
+
+    .openSelect {
+      transform: rotate(180deg);
     }
   }
 
