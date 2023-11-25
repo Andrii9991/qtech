@@ -42,7 +42,7 @@ export default class BaseSelect extends Vue {
 
   get selectedOptionName() {
     const selectedOpton = this.options?.find(
-      (item: IOption) => item.id === this.value.id
+      (item: IOption) => item.id === this.value?.id
     );
     return selectedOpton?.name;
   }
@@ -93,7 +93,7 @@ export default class BaseSelect extends Vue {
     z-index: 2;
     border-radius: 10px;
     padding: 10px;
-
+    background-color: $grey-lite;
     .option {
       transition: 0.5s;
       padding-top: 10px;

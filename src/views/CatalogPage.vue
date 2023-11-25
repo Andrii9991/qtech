@@ -1,6 +1,10 @@
 <template>
   <div class="catalog-page">
-    <TheFilters class="catalog-page__filters" @sort="onSort" />
+    <TheFilters
+      class="catalog-page__filters"
+      @sortCategory="onSortCategory"
+      @sortPrice="onSortPrice"
+    />
 
     <div class="catalog-page__container">
       <div
@@ -49,26 +53,42 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class CatalogPage extends Vue {
-  sortType = "";
+  get sortCategory(): string {
+    return this.$store.state.filters.sortCategory;
+  }
+  set sortCategory(value: string) {
+    this.$store.commit("filters/setCategory", value);
+  }
+
+  get sortPrice(): string {
+    return this.$store.state.filters.sortPrice;
+  }
+  set sortPrice(value: string) {
+    this.$store.commit("filters/setPrice", value);
+  }
 
   get productList(): IProduct[] {
     const storeProdcuts = this.$store.state.products.productList;
+    let filtredProducts;
 
-    // const productListPrices = storeProdcuts.map((item: IProduct) => item.price);
-
-    const filtredProducts = storeProdcuts.filter(
-      (item: IProduct) => item.category === this.sortType
-    );
-
-    if (this.sortType === "Price high to low") {
-      storeProdcuts.sort((a: IProduct, b: IProduct) => a.price - b.price);
-    } else if (this.sortType === "Price low to high") {
-      storeProdcuts.sort((a: IProduct, b: IProduct) => b.price - a.price);
-    } else if (this.sortType === "All") {
-      storeProdcuts;
+    if (
+      this.sortCategory === "smartphones" ||
+      this.sortCategory === "laptops"
+    ) {
+      filtredProducts = storeProdcuts.filter(
+        (item: IProduct) => item.category === this.sortCategory
+      );
+    } else if (this.sortPrice === "Price high to low") {
+      filtredProducts = [...storeProdcuts];
+      filtredProducts.sort((a: IProduct, b: IProduct) => a.price - b.price);
+    } else if (this.sortPrice === "Price low to high") {
+      filtredProducts = [...storeProdcuts];
+      filtredProducts.sort((a: IProduct, b: IProduct) => b.price - a.price);
+    } else if (this.sortPrice === "All") {
+      filtredProducts = [];
     }
 
-    return filtredProducts.length > 0 ? filtredProducts : storeProdcuts;
+    return filtredProducts?.length > 0 ? filtredProducts : storeProdcuts;
   }
 
   get userCart(): IProduct[] {
@@ -92,8 +112,15 @@ export default class CatalogPage extends Vue {
     this.$store.commit("products/setCurrentProduct", product);
   }
 
-  onSort(category: string): void {
-    this.sortType = category;
+  onSortCategory(category: string): void {
+    this.sortCategory = category;
+    this.sortPrice = "Recommended";
+    console.log("category");
+  }
+
+  onSortPrice(price: string): void {
+    this.sortPrice = price;
+    this.sortCategory = "All";
   }
 }
 </script>
