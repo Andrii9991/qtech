@@ -7,7 +7,12 @@
     >
     </BaseSelect>
 
-    <BaseSelect> </BaseSelect>
+    <BaseSelect
+      :value.sync="selectedOption"
+      :options="Prices"
+      placeholder="Sort By price"
+    >
+    </BaseSelect>
     <BaseRange></BaseRange>
   </div>
 </template>
@@ -16,8 +21,6 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
-import { IProduct } from "@/interfaces/products";
-import { IOption } from "@/interfaces/options";
 
 @Component({
   components: {
@@ -29,13 +32,16 @@ export default class TheFilters extends Vue {
   selectedOption: any = {};
 
   Categories = [
-    { id: 1, name: "smartphones" },
-    { id: 2, name: "laptops" },
+    { id: 1, name: "All" },
+    { id: 2, name: "smartphones" },
+    { id: 3, name: "laptops" },
   ];
 
-  get productList(): IProduct[] {
-    return this.$store.state.products.productList;
-  }
+  Prices = [
+    { id: 4, name: "All" },
+    { id: 5, name: "Price high to low" },
+    { id: 6, name: "Price low to high" },
+  ];
 
   @Watch("selectedOption")
   watchSelectedOption() {

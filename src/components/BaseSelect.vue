@@ -12,7 +12,7 @@
         class="select-logo"
         src="@/design/images/openCtegoryIcon.svg"
         alt="select"
-        :class="{ openSelect: areOptionsVisible }"
+        :class="{ 'open-select': areOptionsVisible }"
       />
     </div>
     <div class="base-select__options" v-if="areOptionsVisible">
@@ -20,7 +20,7 @@
         class="option"
         v-for="option in options"
         :key="option.name"
-        @click="selectOption(option)"
+        @click.stop="selectOption(option)"
       >
         {{ option.name }}
       </p>
@@ -34,14 +34,14 @@ import { IOption } from "@/interfaces/options";
 
 @Component
 export default class BaseSelect extends Vue {
-  @Prop({ default: [] }) options!: IOption[];
-  @Prop({ default: {} }) value!: IOption;
+  @Prop() options!: IOption[];
+  @Prop() value!: IOption;
   @Prop({ default: "" }) placeholder!: string;
 
   areOptionsVisible = false;
 
   get selectedOptionName() {
-    const selectedOpton = this.options.find(
+    const selectedOpton = this.options?.find(
       (item: IOption) => item.id === this.value.id
     );
     return selectedOpton?.name;
@@ -79,7 +79,7 @@ export default class BaseSelect extends Vue {
       margin-right: 10px;
     }
 
-    .openSelect {
+    .open-select {
       transform: rotate(180deg);
     }
   }

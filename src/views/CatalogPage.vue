@@ -5,7 +5,7 @@
     <div class="catalog-page__container">
       <div
         class="catalog-cart"
-        v-for="product in filtredProductList"
+        v-for="product in productList"
         :key="product.id"
       >
         <div class="image-wrap">
@@ -49,11 +49,26 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class CatalogPage extends Vue {
-  // :text="test(product.count || 0) ? 'In cart' : 'Add to cart'" - ':'- якщо умова не виконується
-  filtredProductList: IProduct[] = [...this.productList];
+  sortType = "";
 
   get productList(): IProduct[] {
-    return this.$store.state.products.productList;
+    const storeProdcuts = this.$store.state.products.productList;
+
+    // const productListPrices = storeProdcuts.map((item: IProduct) => item.price);
+
+    const filtredProducts = storeProdcuts.filter(
+      (item: IProduct) => item.category === this.sortType
+    );
+
+    if (this.sortType === "Price high to low") {
+      storeProdcuts.sort((a: IProduct, b: IProduct) => a.price - b.price);
+    } else if (this.sortType === "Price low to high") {
+      storeProdcuts.sort((a: IProduct, b: IProduct) => b.price - a.price);
+    } else if (this.sortType === "All") {
+      storeProdcuts;
+    }
+
+    return filtredProducts.length > 0 ? filtredProducts : storeProdcuts;
   }
 
   get userCart(): IProduct[] {
@@ -78,10 +93,7 @@ export default class CatalogPage extends Vue {
   }
 
   onSort(category: string): void {
-    const filtredProducts = this.productList.filter(
-      (item: IProduct) => item.category === category
-    );
-    this.filtredProductList = [...filtredProducts];
+    this.sortType = category;
   }
 }
 </script>
