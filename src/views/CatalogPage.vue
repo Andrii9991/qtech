@@ -57,15 +57,18 @@ export default class CatalogPage extends Vue {
     return this.$store.state.filters.sortCategory;
   }
   set sortCategory(value: string) {
-    this.$store.commit("filters/setCategory", value);
+    this.$store.commit("filters/setSortCategory", value);
   }
 
   get sortPrice(): string {
     return this.$store.state.filters.sortPrice;
   }
   set sortPrice(value: string) {
-    this.$store.commit("filters/setPrice", value);
+    this.$store.commit("filters/setSortPrice", value);
   }
+
+  // sortCategory = "";
+  // sortPrice = "";
 
   get productList(): IProduct[] {
     const storeProdcuts = this.$store.state.products.productList;
@@ -115,7 +118,6 @@ export default class CatalogPage extends Vue {
   onSortCategory(category: string): void {
     this.sortCategory = category;
     this.sortPrice = "Recommended";
-    console.log("category");
   }
 
   onSortPrice(price: string): void {

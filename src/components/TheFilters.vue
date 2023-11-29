@@ -4,7 +4,6 @@
       :value.sync="selectedOptionCategory"
       :options="Categories"
       placeholder="Category"
-      @update:value="onUpdateCategory"
     >
     </BaseSelect>
 
@@ -22,7 +21,7 @@
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
-import { IOption } from "@/interfaces/options";
+// import { IOption } from "@/interfaces/options";
 
 @Component({
   components: {
@@ -31,15 +30,17 @@ import { IOption } from "@/interfaces/options";
   },
 })
 export default class TheFilters extends Vue {
-  @Prop() selectedOptionCategory!: string;
-  @Prop() selectedOptionPrice!: IOption;
+  // // @Prop() selectedOptionCategory!: IOption;
+  // // @Prop() selectedOptionPrice!: IOption;
+  selectedOptionCategory: any = {};
+  selectedOptionPrice: any = {};
 
-  get sortCategory(): string {
-    return this.$store.state.filters.sortCategory;
-  }
-  get sortPrice(): string {
-    return this.$store.state.filters.sortPrice;
-  }
+  // get sortCategory(): string {
+  //   return this.$store.state.filters.sortCategory;
+  // }
+  // get sortPrice(): string {
+  //   return this.$store.state.filters.sortPrice;
+  // }
 
   Categories = [
     { id: 1, name: "All" },
@@ -48,14 +49,14 @@ export default class TheFilters extends Vue {
   ];
 
   Prices = [
-    { id: 1, name: "Recommended" },
-    { id: 2, name: "Price high to low" },
-    { id: 3, name: "Price low to high" },
+    { id: 4, name: "Recommended" },
+    { id: 5, name: "Price high to low" },
+    { id: 6, name: "Price low to high" },
   ];
 
-  onUpdateCategory(value: IOption) {
-    this.$emit("update:selectedOptionCategory", value);
-  }
+  // onUpdateCategory(value: IOption) {
+  //   this.$emit("update:selectedOptionCategory", value);
+  // }
 
   @Watch("selectedOptionCategory")
   watchSelectedOptionCategory() {
