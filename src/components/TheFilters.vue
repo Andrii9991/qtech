@@ -18,11 +18,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
-
-// import { IOption } from "@/interfaces/options";
 
 @Component({
   components: {
@@ -48,22 +46,12 @@ export default class TheFilters extends Vue {
 
   @Watch("selectedOptionCategory")
   watchSelectedOptionCategory() {
-    // if (this.selectedOptionCategory) {
-    //   this.$emit("sortCategory", "Category");
-    // } else {
-    //   this.$emit("sortCategory", this.selectedOptionCategory.name);
-    // }
-
     this.$emit("sortCategory", this.selectedOptionCategory.name);
-    // console.log(this.selectedOptionCategory.id);
-    console.log(this.selectedOptionPrice.name);
   }
 
   @Watch("selectedOptionPrice")
   watchSelectedOptionPrice() {
     this.$emit("sortPrice", this.selectedOptionPrice.name);
-    // console.log(this.selectedOptionPrice.id);
-    console.log(this.selectedOptionCategory.name);
   }
 }
 </script>
