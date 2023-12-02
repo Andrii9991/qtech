@@ -21,6 +21,7 @@
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
+
 // import { IOption } from "@/interfaces/options";
 
 @Component({
@@ -30,17 +31,8 @@ import BaseRange from "@/components/BaseRange.vue";
   },
 })
 export default class TheFilters extends Vue {
-  // // @Prop() selectedOptionCategory!: IOption;
-  // // @Prop() selectedOptionPrice!: IOption;
   selectedOptionCategory: any = {};
   selectedOptionPrice: any = {};
-
-  // get sortCategory(): string {
-  //   return this.$store.state.filters.sortCategory;
-  // }
-  // get sortPrice(): string {
-  //   return this.$store.state.filters.sortPrice;
-  // }
 
   Categories = [
     { id: 1, name: "All" },
@@ -54,13 +46,13 @@ export default class TheFilters extends Vue {
     { id: 6, name: "Price low to high" },
   ];
 
-  // onUpdateCategory(value: IOption) {
-  //   this.$emit("update:selectedOptionCategory", value);
-  // }
-
   @Watch("selectedOptionCategory")
   watchSelectedOptionCategory() {
-    this.$emit("sortCategory", this.selectedOptionCategory.name);
+    if (this.selectedOptionCategory) {
+      this.$emit("sortCategory", "Category");
+    } else {
+      this.$emit("sortCategory", this.selectedOptionCategory.name);
+    }
   }
 
   @Watch("selectedOptionPrice")

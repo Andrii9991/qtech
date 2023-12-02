@@ -67,9 +67,6 @@ export default class CatalogPage extends Vue {
     this.$store.commit("filters/setSortPrice", value);
   }
 
-  // sortCategory = "";
-  // sortPrice = "";
-
   get productList(): IProduct[] {
     const storeProdcuts = this.$store.state.products.productList;
     let filtredProducts;
