@@ -120,7 +120,6 @@ export default class LoginPage extends Vue {
 
   toggle(): void {
     this.isActive = !this.isActive;
-    console.log(this.usersList);
   }
 }
 </script>

@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import products from "./products";
 import user from "./user";
 import cart from "./cart";
+import filters from "./filters";
 
 Vue.use(Vuex);
 
@@ -22,5 +23,6 @@ export default new Vuex.Store({
     products,
     user,
     cart,
+    filters,
   },
 });
