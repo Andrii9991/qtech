@@ -90,7 +90,6 @@ export default class ProductViewPage extends Vue {
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
     this.$store.commit("products/increament", this.currentProduct.id);
-    console.log(this.allComments);
   }
 
   increament(): void {
@@ -156,7 +155,6 @@ export default class ProductViewPage extends Vue {
   }
   &__comments {
     .comment {
-      // box-shadow: 0 0 0 1px $white inset;
       margin-bottom: 10px;
       padding: 8px;
       color: $white;
