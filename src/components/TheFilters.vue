@@ -3,6 +3,9 @@
     <BaseSelect
       :value.sync="selectedOptionCategory"
       :options="Categories"
+      :areOptionsVisible.sync="areOptionsVisibleCategory"
+      @update:areOptionsVisible="toggleOptionCategory"
+      @update:value="onCategoryUpdate"
       placeholder="Category"
     >
     </BaseSelect>
@@ -10,6 +13,9 @@
     <BaseSelect
       :value.sync="selectedOptionPrice"
       :options="Prices"
+      :areOptionsVisible.sync="areOptionsVisiblePrice"
+      @update:areOptionsVisible="toggleOptionPrice"
+      @update:value="onPriceUpdate"
       placeholder="Sort By price"
     >
     </BaseSelect>
@@ -18,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
 
@@ -32,6 +38,9 @@ export default class TheFilters extends Vue {
   selectedOptionCategory: any = {};
   selectedOptionPrice: any = {};
 
+  areOptionsVisibleCategory = false;
+  areOptionsVisiblePrice = false;
+
   Categories = [
     { id: 1, name: "All" },
     { id: 2, name: "smartphones" },
@@ -44,14 +53,22 @@ export default class TheFilters extends Vue {
     { id: 6, name: "Price low to high" },
   ];
 
-  @Watch("selectedOptionCategory")
-  watchSelectedOptionCategory() {
+  onCategoryUpdate() {
     this.$emit("sortCategory", this.selectedOptionCategory.name);
+    this.selectedOptionPrice = {};
   }
 
-  @Watch("selectedOptionPrice")
-  watchSelectedOptionPrice() {
+  onPriceUpdate() {
     this.$emit("sortPrice", this.selectedOptionPrice.name);
+    this.selectedOptionCategory = {};
+  }
+
+  toggleOptionCategory() {
+    this.areOptionsVisiblePrice = false;
+  }
+
+  toggleOptionPrice() {
+    this.areOptionsVisibleCategory = false;
   }
 }
 </script>

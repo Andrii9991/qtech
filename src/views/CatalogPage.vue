@@ -53,19 +53,8 @@ import { IProduct } from "@/interfaces/products";
   },
 })
 export default class CatalogPage extends Vue {
-  get sortCategory(): string {
-    return this.$store.state.filters.sortCategory;
-  }
-  set sortCategory(value: string) {
-    this.$store.commit("filters/setSortCategory", value);
-  }
-
-  get sortPrice(): string {
-    return this.$store.state.filters.sortPrice;
-  }
-  set sortPrice(value: string) {
-    this.$store.commit("filters/setSortPrice", value);
-  }
+  sortCategory = "";
+  sortPrice = "";
 
   get productList(): IProduct[] {
     const storeProdcuts = this.$store.state.products.productList;
@@ -78,10 +67,10 @@ export default class CatalogPage extends Vue {
       filtredProducts = storeProdcuts.filter(
         (item: IProduct) => item.category === this.sortCategory
       );
-    } else if (this.sortPrice === "Price high to low") {
+    } else if (this.sortPrice === "Price low to high") {
       filtredProducts = [...storeProdcuts];
       filtredProducts.sort((a: IProduct, b: IProduct) => a.price - b.price);
-    } else if (this.sortPrice === "Price low to high") {
+    } else if (this.sortPrice === "Price high to low") {
       filtredProducts = [...storeProdcuts];
       filtredProducts.sort((a: IProduct, b: IProduct) => b.price - a.price);
     } else if (this.sortPrice === "All") {
