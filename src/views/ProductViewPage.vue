@@ -156,7 +156,9 @@ export default class ProductViewPage extends Vue {
   }
   &__comments {
     .comment {
-      box-shadow: 0 0 0 2px $white inset;
+      // box-shadow: 0 0 0 1px $white inset;
+      margin-bottom: 10px;
+      padding: 8px;
       color: $white;
     }
   }
