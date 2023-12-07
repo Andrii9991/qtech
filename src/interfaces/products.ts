@@ -8,4 +8,5 @@ export interface IProduct {
   rating: number;
   id: number;
   count?: number;
+  body: string;
 }

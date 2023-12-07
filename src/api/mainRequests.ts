@@ -31,3 +31,9 @@ export const getAllUsers = async (): Promise<void> => {
 
   store.commit("user/setUserData", data.users);
 };
+
+export const getAllComments = async (): Promise<void> => {
+  const { data } = await instanceApi.get("comments");
+
+  store.commit("comments/setAllComments", data.comments);
+};

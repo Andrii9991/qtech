@@ -45,6 +45,11 @@
       </div>
       <p>{{ currentProduct.count }}</p>
     </div>
+    <div class="product-view-page__comments">
+      <div class="comment" v-for="comment in randomComments" :key="comment.id">
+        <p>{{ comment.body }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,9 +75,22 @@ export default class ProductViewPage extends Vue {
     return this.$store.getters["cart/getCountsArray"];
   }
 
+  get allComments(): any {
+    return this.$store.state.comments.allComments;
+  }
+
+  get randomComments() {
+    const randomComments = [...this.allComments];
+
+    randomComments.sort(() => Math.random() - 0.5);
+
+    return randomComments.slice(0, 5);
+  }
+
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
     this.$store.commit("products/increament", this.currentProduct.id);
+    console.log(this.allComments);
   }
 
   increament(): void {
@@ -134,6 +152,12 @@ export default class ProductViewPage extends Vue {
           margin-bottom: 20px;
         }
       }
+    }
+  }
+  &__comments {
+    .comment {
+      box-shadow: 0 0 0 2px $white inset;
+      color: $white;
     }
   }
 }
