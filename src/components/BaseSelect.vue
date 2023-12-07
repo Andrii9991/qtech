@@ -1,9 +1,6 @@
 <template>
   <div class="base-select">
-    <div
-      class="base-select__title"
-      @click="areOptionsVisible = !areOptionsVisible"
-    >
+    <div class="base-select__title" @click="toggleOption">
       <h5>
         {{ selectedOptionName || placeholder }}
       </h5>
@@ -37,8 +34,7 @@ export default class BaseSelect extends Vue {
   @Prop() options!: IOption[];
   @Prop() value!: IOption;
   @Prop({ default: "" }) placeholder!: string;
-
-  areOptionsVisible = false;
+  @Prop({ default: false }) areOptionsVisible!: boolean;
 
   get selectedOptionName() {
     const selectedOpton = this.options?.find(
@@ -49,12 +45,15 @@ export default class BaseSelect extends Vue {
 
   selectOption(option: IOption): void {
     this.$emit("update:value", option);
-
-    this.areOptionsVisible = false;
+    this.$emit("update:areOptionsVisible", false);
   }
 
   hideSelect(): void {
-    this.areOptionsVisible = false;
+    this.$emit("update:areOptionsVisible", false);
+  }
+
+  toggleOption(): void {
+    this.$emit("update:areOptionsVisible", !this.areOptionsVisible);
   }
 }
 </script>
