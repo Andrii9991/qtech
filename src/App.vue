@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import TheHeader from "@/components/TheHeader.vue";
-import { getAllProducts } from "@/api/mainRequests";
+import { getAllProducts, getAllComments } from "@/api/mainRequests";
 
 @Component({
   components: {
@@ -26,6 +26,7 @@ export default class App extends Vue {
 
   async mounted() {
     await getAllProducts();
+    await getAllComments();
     this.synchronizeStateAndStore();
   }
 

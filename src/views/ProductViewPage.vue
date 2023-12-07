@@ -45,6 +45,11 @@
       </div>
       <p>{{ currentProduct.count }}</p>
     </div>
+    <div class="product-view-page__comments">
+      <div class="comment" v-for="comment in randomComments" :key="comment.id">
+        <p>{{ comment.body }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -68,6 +73,18 @@ export default class ProductViewPage extends Vue {
   }
   get count(): IProduct {
     return this.$store.getters["cart/getCountsArray"];
+  }
+
+  get allComments(): any {
+    return this.$store.state.comments.allComments;
+  }
+
+  get randomComments() {
+    const randomComments = [...this.allComments];
+
+    randomComments.sort(() => Math.random() - 0.5);
+
+    return randomComments.slice(0, 5);
   }
 
   addToCart(): void {
@@ -134,6 +151,13 @@ export default class ProductViewPage extends Vue {
           margin-bottom: 20px;
         }
       }
+    }
+  }
+  &__comments {
+    .comment {
+      margin-bottom: 10px;
+      padding: 8px;
+      color: $white;
     }
   }
 }
