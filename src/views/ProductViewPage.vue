@@ -46,8 +46,10 @@
       <p>{{ currentProduct.count }}</p>
     </div>
     <div class="product-view-page__comments">
+      <h2>Comments</h2>
       <div class="comment" v-for="comment in randomComments" :key="comment.id">
-        <p>{{ comment.body }}</p>
+        <h3 class="comment__user">{{ comment.user.username }}:</h3>
+        <p class="comment__body">{{ comment.body }}</p>
       </div>
     </div>
   </div>
@@ -57,6 +59,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import { IProduct } from "@/interfaces/products";
+import { IComment } from "@/interfaces/comments";
 import { Carousel, Slide } from "vue-carousel";
 
 @Component({
@@ -68,6 +71,7 @@ import { Carousel, Slide } from "vue-carousel";
 })
 export default class ProductViewPage extends Vue {
   currentSlide = 1;
+
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
   }
@@ -75,7 +79,7 @@ export default class ProductViewPage extends Vue {
     return this.$store.getters["cart/getCountsArray"];
   }
 
-  get allComments(): any {
+  get allComments(): IComment[] {
     return this.$store.state.comments.allComments;
   }
 
@@ -90,6 +94,7 @@ export default class ProductViewPage extends Vue {
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
     this.$store.commit("products/increament", this.currentProduct.id);
+    console.log(this.allComments);
   }
 
   increament(): void {
@@ -122,7 +127,7 @@ export default class ProductViewPage extends Vue {
     justify-content: space-around;
     margin-top: 24px;
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
 
     .image-wpapper {
       display: flex;
@@ -155,9 +160,16 @@ export default class ProductViewPage extends Vue {
   }
   &__comments {
     .comment {
+      box-shadow: 0 0 0 1px $white inset;
       margin-bottom: 10px;
+      border-radius: 8px;
+      width: 100vh;
       padding: 8px;
       color: $white;
+
+      &__user {
+        margin-bottom: 10px;
+      }
     }
   }
 }
