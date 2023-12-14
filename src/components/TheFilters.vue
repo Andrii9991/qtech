@@ -19,7 +19,13 @@
       placeholder="Sort By price"
     >
     </BaseSelect>
-    <BaseRange @minPrice="minValue" @maxPrice="maxValue"> </BaseRange>
+    <BaseRange
+      v-model="priceValue"
+      @input="onPriceChange"
+      :min="minPrice"
+      :max="maxPrice"
+    >
+    </BaseRange>
   </div>
 </template>
 
@@ -56,6 +62,10 @@ export default class TheFilters extends Vue {
     { id: 6, name: "Price low to high" },
   ];
 
+  minPrice = 0;
+  maxPrice = 1750;
+  priceValue = [this.minPrice, this.maxPrice];
+
   onCategoryUpdate() {
     this.$emit("sortCategory", this.selectedOptionCategory.name);
     this.selectedOptionPrice = {};
@@ -74,12 +84,8 @@ export default class TheFilters extends Vue {
     this.areOptionsVisibleCategory = false;
   }
 
-  minValue(value: number): void {
-    this.$emit("minPriceValue", value);
-  }
-
-  maxValue(value: number): void {
-    this.$emit("maxPriceValue", value);
+  onPriceChange(value: number): void {
+    this.$emit("priceChange", value);
   }
 }
 </script>

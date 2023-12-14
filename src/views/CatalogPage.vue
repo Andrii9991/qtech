@@ -4,8 +4,7 @@
       class="catalog-page__filters"
       @sortCategory="onSortCategory"
       @sortPrice="onSortPrice"
-      @minPriceValue="minimumPrice"
-      @maxPriceValue="maximumPrice"
+      @priceChange="onPriceChange"
     />
 
     <div class="catalog-page__container">
@@ -122,12 +121,9 @@ export default class CatalogPage extends Vue {
     this.sortCategory = "All";
   }
 
-  minimumPrice(value: number): void {
-    this.minRangePrice = value;
-  }
-
-  maximumPrice(value: number): void {
-    this.maxRangePrice = value;
+  onPriceChange(value: Array<number>): void {
+    this.minRangePrice = value[0];
+    this.maxRangePrice = value[1];
   }
 }
 </script>
