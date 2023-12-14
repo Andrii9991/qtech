@@ -13,7 +13,6 @@
           :autoplay="true"
           :autoplayTimeout="4000"
           :loop="true"
-          :navigationEnabled="true"
           v-model="currentSlide"
           class="image-wpapper"
         >
@@ -144,9 +143,10 @@ export default class ProductViewPage extends Vue {
       flex-direction: column;
 
       &__item {
-        max-width: 250px;
-        height: 250px;
+        max-width: 350px;
+        height: 350px;
         border-radius: 8px;
+        border-radius: 16px;
         padding: 10px;
       }
     }
