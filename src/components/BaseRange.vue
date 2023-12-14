@@ -23,8 +23,6 @@
       <p>Min: {{ minPrice }}</p>
       <p>Max: {{ maxPrice }}</p>
     </div>
-
-    <!-- <BaseButton @click.native="setRangeSlider" text="btn" /> -->
   </div>
 </template>
 

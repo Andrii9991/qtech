@@ -54,9 +54,9 @@
       <p>{{ currentProduct.count }}</p>
     </div>
     <div class="product-view-page__comments">
-      <h2>Comments</h2>
+      <h3>Comments</h3>
       <div class="comment" v-for="comment in randomComments" :key="comment.id">
-        <h3 class="comment__user">{{ comment.user.username }}:</h3>
+        <h5 class="comment__user">{{ comment.user.username }}:</h5>
         <p class="comment__body">{{ comment.body }}</p>
       </div>
     </div>
