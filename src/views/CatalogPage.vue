@@ -4,6 +4,8 @@
       class="catalog-page__filters"
       @sortCategory="onSortCategory"
       @sortPrice="onSortPrice"
+      @minPriceValue="minimumPrice"
+      @maxPriceValue="maximumPrice"
     />
 
     <div class="catalog-page__container">
@@ -56,6 +58,9 @@ export default class CatalogPage extends Vue {
   sortCategory = "";
   sortPrice = "";
 
+  minRangePrice = 0;
+  maxRangePrice = 0;
+
   get productList(): IProduct[] {
     const storeProdcuts = this.$store.state.products.productList;
     let filtredProducts;
@@ -75,6 +80,12 @@ export default class CatalogPage extends Vue {
       filtredProducts.sort((a: IProduct, b: IProduct) => b.price - a.price);
     } else if (this.sortPrice === "All") {
       filtredProducts = [];
+    } else if (this.minRangePrice !== 0) {
+      filtredProducts = storeProdcuts.filter((item: IProduct) => {
+        return (
+          item.price >= this.minRangePrice && item.price <= this.maxRangePrice
+        );
+      });
     }
 
     return filtredProducts?.length > 0 ? filtredProducts : storeProdcuts;
@@ -110,6 +121,14 @@ export default class CatalogPage extends Vue {
     this.sortPrice = price;
     this.sortCategory = "All";
   }
+
+  minimumPrice(value: number): void {
+    this.minRangePrice = value;
+  }
+
+  maximumPrice(value: number): void {
+    this.maxRangePrice = value;
+  }
 }
 </script>
 <style scoped lang="scss">
@@ -118,6 +137,7 @@ export default class CatalogPage extends Vue {
   color: $white;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   &__filters {
     margin: 0px;

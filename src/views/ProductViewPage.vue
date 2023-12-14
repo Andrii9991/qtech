@@ -6,13 +6,21 @@
     </p>
     <div class="product-view-page__content">
       <div class="carousel__wrapper">
-        <carousel :perPage="1" v-model="currentSlide" class="image-wpapper">
+        <carousel
+          :perPage="1"
+          paginationColor="#ffffff"
+          paginationActiveColor="#ffffff"
+          :autoplay="true"
+          :autoplayTimeout="4000"
+          :loop="true"
+          :navigationEnabled="true"
+          v-model="currentSlide"
+          class="image-wpapper"
+        >
           <slide v-for="image in currentProduct.images" :key="image">
             <img class="image-wpapper__item" :src="image" alt="product-image" />
           </slide>
         </carousel>
-        <BaseButton @click.native="deacreamnet" text="<" />
-        <BaseButton @click.native="increament" text=">" />
       </div>
 
       <div class="content__characteristics">
@@ -94,7 +102,6 @@ export default class ProductViewPage extends Vue {
   addToCart(): void {
     this.$store.commit("cart/addToCart", this.currentProduct);
     this.$store.commit("products/increament", this.currentProduct.id);
-    console.log(this.allComments);
   }
 
   increament(): void {
@@ -127,7 +134,10 @@ export default class ProductViewPage extends Vue {
     justify-content: space-around;
     margin-top: 24px;
     width: 100%;
-    // height: 100vh;
+
+    .carousel__wrapper {
+      max-width: 400px;
+    }
 
     .image-wpapper {
       display: flex;
@@ -159,6 +169,7 @@ export default class ProductViewPage extends Vue {
     }
   }
   &__comments {
+    margin-top: 20px;
     .comment {
       box-shadow: 0 0 0 1px $white inset;
       margin-bottom: 10px;
