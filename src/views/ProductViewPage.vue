@@ -6,13 +6,20 @@
     </p>
     <div class="product-view-page__content">
       <div class="carousel__wrapper">
-        <carousel :perPage="1" v-model="currentSlide" class="image-wpapper">
+        <carousel
+          :perPage="1"
+          paginationColor="#ffffff"
+          paginationActiveColor="#ffffff"
+          :autoplay="true"
+          :autoplayTimeout="4000"
+          :loop="true"
+          v-model="currentSlide"
+          class="image-wpapper"
+        >
           <slide v-for="image in currentProduct.images" :key="image">
             <img class="image-wpapper__item" :src="image" alt="product-image" />
           </slide>
         </carousel>
-        <BaseButton @click.native="deacreamnet" text="<" />
-        <BaseButton @click.native="increament" text=">" />
       </div>
 
       <div class="content__characteristics">
@@ -46,8 +53,10 @@
       <p>{{ currentProduct.count }}</p>
     </div>
     <div class="product-view-page__comments">
+      <h3>Comments</h3>
       <div class="comment" v-for="comment in randomComments" :key="comment.id">
-        <p>{{ comment.body }}</p>
+        <h5 class="comment__user">{{ comment.user.username }}:</h5>
+        <p class="comment__body">{{ comment.body }}</p>
       </div>
     </div>
   </div>
@@ -57,6 +66,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import { IProduct } from "@/interfaces/products";
+import { IComment } from "@/interfaces/comments";
 import { Carousel, Slide } from "vue-carousel";
 
 @Component({
@@ -68,6 +78,7 @@ import { Carousel, Slide } from "vue-carousel";
 })
 export default class ProductViewPage extends Vue {
   currentSlide = 1;
+
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
   }
@@ -75,7 +86,7 @@ export default class ProductViewPage extends Vue {
     return this.$store.getters["cart/getCountsArray"];
   }
 
-  get allComments(): any {
+  get allComments(): IComment[] {
     return this.$store.state.comments.allComments;
   }
 
@@ -122,16 +133,20 @@ export default class ProductViewPage extends Vue {
     justify-content: space-around;
     margin-top: 24px;
     width: 100%;
-    height: 100vh;
+
+    .carousel__wrapper {
+      max-width: 400px;
+    }
 
     .image-wpapper {
       display: flex;
       flex-direction: column;
 
       &__item {
-        max-width: 250px;
-        height: 250px;
+        max-width: 350px;
+        height: 350px;
         border-radius: 8px;
+        border-radius: 16px;
         padding: 10px;
       }
     }
@@ -154,10 +169,18 @@ export default class ProductViewPage extends Vue {
     }
   }
   &__comments {
+    margin-top: 20px;
     .comment {
+      box-shadow: 0 0 0 1px $white inset;
       margin-bottom: 10px;
+      border-radius: 8px;
+      width: 100vh;
       padding: 8px;
       color: $white;
+
+      &__user {
+        margin-bottom: 10px;
+      }
     }
   }
 }

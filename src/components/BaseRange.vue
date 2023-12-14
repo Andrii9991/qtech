@@ -1,65 +1,47 @@
 <template>
   <div class="base-range">
-    <input
-      class="price"
-      type="range"
-      min="0 "
-      max="2000"
-      step="10"
-      v-model.number="minPrice"
-    />
-    <input
-      class="price"
-      type="range"
-      min="0 "
-      max="2000"
-      step="10"
-      v-model.number="maxPrice"
-    />
-
-    <div class="range-values">
-      <p>Min: {{ minPrice }}</p>
-      <p>Max: {{ maxPrice }}</p>
-    </div>
+    <vue-slider
+      :value="value"
+      :min="min"
+      :max="max"
+      :enableCross="false"
+      :interval="10"
+      width="200"
+      height="4"
+      @change="onChange"
+    >
+    </vue-slider>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
+import BaseButton from "./BaseButton.vue";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/default.css";
 
-@Component
+type Value = number | string | Array<number | string>;
+
+@Component({
+  components: {
+    BaseButton,
+    VueSlider,
+  },
+})
 export default class BaseRange extends Vue {
-  minPrice = 100;
-  maxPrice = 2000;
+  @Prop({ default: 0 }) value!: Value;
+  @Prop({ default: 0 }) min!: number;
+  @Prop({ default: 100 }) max!: number;
+
+  onChange(value: Value) {
+    this.$emit("input", value);
+  }
 }
 </script>
+
 <style scoped lang="scss">
 .base-range {
   width: 200px;
-  margin: auto 16px;
-  text-align: center;
-  position: relative;
-
-  .price {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-
-  .price::-webkit-slider-thumb {
-    z-index: 2;
-    position: relative;
-    top: 2px;
-    margin-top: -7px;
-  }
-
-  .range-values {
-    display: flex;
-    margin-bottom: 16px;
-  }
-
-  .range-values p {
-    margin-right: 10px;
-  }
+  background-color: $black;
 }
 </style>

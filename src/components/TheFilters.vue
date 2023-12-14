@@ -19,7 +19,13 @@
       placeholder="Sort By price"
     >
     </BaseSelect>
-    <BaseRange></BaseRange>
+    <BaseRange
+      v-model="priceValue"
+      @input="onPriceChange"
+      :min="minPrice"
+      :max="maxPrice"
+    >
+    </BaseRange>
   </div>
 </template>
 
@@ -27,6 +33,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
+import { IOption } from "@/interfaces/options";
 
 @Component({
   components: {
@@ -35,8 +42,10 @@ import BaseRange from "@/components/BaseRange.vue";
   },
 })
 export default class TheFilters extends Vue {
-  selectedOptionCategory: any = {};
-  selectedOptionPrice: any = {};
+  selectedOptionCategory: IOption = {};
+  selectedOptionPrice: IOption = {};
+
+  test: IOption = { name: "sads", id: 2 };
 
   areOptionsVisibleCategory = false;
   areOptionsVisiblePrice = false;
@@ -52,6 +61,10 @@ export default class TheFilters extends Vue {
     { id: 5, name: "Price high to low" },
     { id: 6, name: "Price low to high" },
   ];
+
+  minPrice = 0;
+  maxPrice = 1750;
+  priceValue = [this.minPrice, this.maxPrice];
 
   onCategoryUpdate() {
     this.$emit("sortCategory", this.selectedOptionCategory.name);
@@ -69,6 +82,10 @@ export default class TheFilters extends Vue {
 
   toggleOptionPrice() {
     this.areOptionsVisibleCategory = false;
+  }
+
+  onPriceChange(value: number): void {
+    this.$emit("priceChange", value);
   }
 }
 </script>
