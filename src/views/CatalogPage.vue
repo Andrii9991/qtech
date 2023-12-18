@@ -79,7 +79,7 @@ export default class CatalogPage extends Vue {
       filtredProducts.sort((a: IProduct, b: IProduct) => b.price - a.price);
     } else if (this.sortPrice === "All") {
       filtredProducts = [];
-    } else if (this.minRangePrice !== 0) {
+    } else if (this.minRangePrice >= 0) {
       filtredProducts = storeProdcuts.filter((item: IProduct) => {
         return (
           item.price >= this.minRangePrice && item.price <= this.maxRangePrice
