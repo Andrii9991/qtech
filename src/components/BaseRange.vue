@@ -29,7 +29,7 @@ import BaseButton from "./BaseButton.vue";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
 
-type Value = number | string | Array<number | string>;
+type Value = Array<number | string>;
 
 @Component({
   components: {
@@ -48,43 +48,9 @@ export default class BaseRange extends Vue {
 }
 </script>
 
-<style scope lang="scss">
+<style lang="scss">
 .base-range {
   width: 200px;
-  .vue-slider-rail {
-    border-radius: 15px;
-    background-color: $grey;
-  }
-
-  .vue-slider-process {
-    background-color: $white;
-    border-radius: 15px;
-  }
-
-  .vue-slider-dot-handle {
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: $white;
-    box-sizing: border-box;
-    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
-  }
-  .vue-slider-dot-handle-focus {
-    box-shadow: 0px 0px 1px 2px $black;
-  }
-
-  .vue-slider-dot-tooltip-inner {
-    font-size: 14px;
-    white-space: nowrap;
-    padding: 2px 5px;
-    min-width: 20px;
-    text-align: center;
-    color: $white;
-    border-radius: 4px;
-    background-color: $grey-lite;
-    box-sizing: content-box;
-  }
 
   &__value {
     display: flex;
@@ -94,5 +60,40 @@ export default class BaseRange extends Vue {
       margin-right: 20px;
     }
   }
+}
+
+.vue-slider-rail {
+  border-radius: 15px;
+  background-color: $grey;
+}
+
+.vue-slider-process {
+  background-color: $white;
+  border-radius: 15px;
+}
+
+.vue-slider-dot-handle {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: $white;
+  box-sizing: border-box;
+  box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+}
+.vue-slider-dot-handle-focus {
+  box-shadow: 0px 0px 1px 2px $black;
+}
+
+.vue-slider-dot-tooltip-inner {
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 2px 5px;
+  min-width: 20px;
+  text-align: center;
+  color: $white;
+  border-radius: 4px;
+  background-color: $grey-lite;
+  box-sizing: content-box;
 }
 </style>
