@@ -4,13 +4,13 @@
 
     <div class="content">
       <BaseInput
-        v-model="username"
+        v-model="email"
         class="content__input"
-        @checkField="checkField('username')"
-        :isError="nameError"
-        label="Name"
-        placeholder="Enter name"
-        errorMsg="The name must be more than 2 characters"
+        @checkField="checkField('email')"
+        :isError="emailError"
+        label="Email"
+        placeholder="Enter email"
+        errorMsg="The email must be more than 6 characters"
       />
 
       <BaseInput
@@ -75,7 +75,7 @@ import { IUser } from "@/interfaces/users";
 export default class LoginPage extends Vue {
   isActive = false;
 
-  nameError = false;
+  emailError = false;
   passwordError = false;
 
   get usersList(): IUser[] {
@@ -89,6 +89,13 @@ export default class LoginPage extends Vue {
     return this.$store.state.user.username;
   }
 
+  set email(value: string) {
+    this.$store.commit("user/setEmail", value);
+  }
+  get email(): string {
+    return this.$store.state.user.email;
+  }
+
   set password(value: string) {
     this.$store.commit("user/setPassword", value);
   }
@@ -97,11 +104,12 @@ export default class LoginPage extends Vue {
   }
 
   get isLoginButtonDisabled(): boolean {
-    return this.username.length <= 2 || this.password.length <= 2;
+    return this.email.length <= 2 || this.password.length <= 2;
   }
 
   checkField(field: string): void {
-    if (field === "username") this.nameError = this.username.length <= 2;
+    // if (field === "username") this.nameError = this.username.length <= 2;
+    if (field === "email") this.emailError = this.email.length <= 2;
     else if (field === "password")
       this.passwordError = this.password.length <= 2;
   }

@@ -8,7 +8,6 @@ export default {
     email: "",
     firstName: "",
     lastName: "",
-    gender: "",
     image: "",
     token: "",
     password: "",
@@ -33,7 +32,6 @@ export default {
       state.email = newUser.email;
       state.firstName = newUser.firstName;
       state.lastName = newUser.lastName;
-      state.gender = newUser.gender;
       state.image = newUser.image;
       state.token = newUser.token;
     },
@@ -44,7 +42,6 @@ export default {
       state.email = "";
       state.firstName = "";
       state.lastName = "";
-      state.gender = "";
       state.image = "";
       state.token = "";
       state.password = "";

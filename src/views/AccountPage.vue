@@ -17,8 +17,7 @@
         />
       </div>
       <div class="user-information">
-        <h3 class="user-information__item">Username: {{ user.username }}</h3>
-        <h3 class="user-information__item">Gender: {{ user.gender }}</h3>
+        <h3 class="user-information__item">Username: {{ user.email }}</h3>
         <h3 class="user-information__item">Email: {{ user.email }}</h3>
       </div>
     </div>

@@ -1,6 +1,11 @@
 import store from "@/store";
 import { instanceApi } from "./instance";
 import { AxiosResponse } from "axios";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
@@ -15,15 +20,30 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
 };
 
 export const login = async (): Promise<void> => {
-  const { data } = await instanceApi.post("auth/login", {
-    username: store.state.user.username,
-    password: store.state.user.password,
-  });
+  try {
+    const { user } = await signInWithEmailAndPassword(
+      getAuth(),
+      store.state.user.email,
+      store.state.user.password
+    );
 
-  store.commit("user/setUser", data);
-  store.commit("user/authUser");
+    store.commit("user/setEmail", user.email);
+    store.commit("user/authUser");
+    instanceApi.defaults.headers.common.Authorization = `Bearer ${user.accessToken}`;
+  } catch (error) {}
+};
 
-  instanceApi.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+export const registration = async (): Promise<void> => {
+  try {
+    const { user } = await createUserWithEmailAndPassword(
+      getAuth(),
+      store.state.user.email,
+      store.state.user.password
+    );
+
+    store.commit("user/setEmail", user.email);
+    store.commit("user/authUser");
+  } catch (error) {}
 };
 
 export const getAllUsers = async (): Promise<void> => {

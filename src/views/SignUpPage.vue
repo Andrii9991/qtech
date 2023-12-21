@@ -5,12 +5,6 @@
     <div class="content">
       <BaseInput
         class="content__input"
-        v-model="name"
-        label="Name"
-        placeholder="Enter name"
-      />
-      <BaseInput
-        class="content__input"
         v-model="email"
         label="Email"
         placeholder="Enter email"
@@ -25,7 +19,12 @@
       />
 
       <div class="content__buttons">
-        <BaseButton class="sign-up-button" styleButton="black" text="Sign Up" />
+        <BaseButton
+          class="sign-up-button"
+          @click.native="signUp"
+          styleButton="black"
+          text="Sign Up"
+        />
 
         <router-link class="sign-in-link" :to="{ name: 'LoginPage' }">
           I have an account
@@ -39,6 +38,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
+import { registration } from "@/api/mainRequests";
 
 @Component({
   components: {
@@ -64,6 +64,9 @@ export default class SignUpPage extends Vue {
   }
   get password(): string {
     return this.$store.state.user.password;
+  }
+  signUp(): void {
+    registration();
   }
 }
 </script>
