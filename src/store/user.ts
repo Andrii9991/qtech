@@ -8,8 +8,7 @@ export default {
     email: "",
     firstName: "",
     lastName: "",
-    image: "",
-    token: "",
+
     password: "",
     usersList: [],
     isAuthenticated: false,
