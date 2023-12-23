@@ -5,6 +5,36 @@
     <div class="content">
       <BaseInput
         class="content__input"
+        v-model="username"
+        label="Username"
+        placeholder="Enter username"
+        type="username"
+      />
+      <BaseInput
+        class="content__input"
+        v-model="firstName"
+        label="First name"
+        placeholder="Enter first name"
+        type="firstName"
+      />
+
+      <BaseInput
+        class="content__input"
+        v-model="lastName"
+        label="Last name"
+        placeholder="Enter last name"
+        type="lastName"
+      />
+      <BaseInput
+        class="content__input"
+        v-model="phoneNumber"
+        label="Phone"
+        placeholder="Enter phone"
+        type="phone"
+      />
+
+      <BaseInput
+        class="content__input"
         v-model="email"
         label="Email"
         placeholder="Enter email"
@@ -38,7 +68,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import { registration } from "@/api/mainRequests";
+import { registration, login } from "@/api/mainRequests";
 
 @Component({
   components: {
@@ -47,12 +77,34 @@ import { registration } from "@/api/mainRequests";
   },
 })
 export default class SignUpPage extends Vue {
-  set name(value: string) {
-    this.$store.commit("user/setName", value);
+  set username(value: string) {
+    this.$store.commit("user/setUsername", value);
   }
-  get name(): string {
-    return this.$store.state.user.name;
+  get username(): string {
+    return this.$store.state.user.username;
   }
+
+  set firstName(value: string) {
+    this.$store.commit("user/setFirstName", value);
+  }
+  get firstName(): string {
+    return this.$store.state.user.firstName;
+  }
+
+  set lastName(value: string) {
+    this.$store.commit("user/setLastName", value);
+  }
+  get lastName(): string {
+    return this.$store.state.user.lastName;
+  }
+
+  set phoneNumber(value: string) {
+    this.$store.commit("user/setPhoneNumber", value);
+  }
+  get phoneNumber(): string {
+    return this.$store.state.user.phoneNumber;
+  }
+
   set email(value: string) {
     this.$store.commit("user/setEmail", value);
   }
@@ -65,8 +117,13 @@ export default class SignUpPage extends Vue {
   get password(): string {
     return this.$store.state.user.password;
   }
-  signUp(): void {
-    registration();
+  async signUp(): Promise<void> {
+    await registration();
+    await login();
+
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
 }
 </script>

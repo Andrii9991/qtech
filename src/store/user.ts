@@ -3,8 +3,8 @@ import { IUser } from "@/interfaces/users";
 export default {
   namespaced: true,
   state: {
-    id: "",
     username: "",
+    phoneNumber: "",
     email: "",
     firstName: "",
     lastName: "",
@@ -18,6 +18,15 @@ export default {
   mutations: {
     setUsername(state: any, newUsername: string) {
       state.username = newUsername;
+    },
+    setPhoneNumber(state: any, newPhoneNumber: string) {
+      state.phoneNumber = newPhoneNumber;
+    },
+    setFirstName(state: any, newFirstName: string) {
+      state.firstName = newFirstName;
+    },
+    setLastName(state: any, newLastName: string) {
+      state.lastName = newLastName;
     },
     setEmail(state: any, newEmail: string) {
       state.email = newEmail;
