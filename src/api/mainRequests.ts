@@ -66,7 +66,6 @@ export const registration = async (): Promise<void> => {
     store.commit("user/setEmail", user.email);
     store.commit("user/setUsername", user.displayName);
     store.commit("user/authUser");
-    console.log(userRef);
   } catch (error) {
     console.log(error);
   }
