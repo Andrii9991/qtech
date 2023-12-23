@@ -3,14 +3,8 @@ import { IUser } from "@/interfaces/users";
 export default {
   namespaced: true,
   state: {
-    id: "",
     username: "",
     email: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    image: "",
-    token: "",
     password: "",
     usersList: [],
     isAuthenticated: false,
@@ -20,6 +14,7 @@ export default {
     setUsername(state: any, newUsername: string) {
       state.username = newUsername;
     },
+
     setEmail(state: any, newEmail: string) {
       state.email = newEmail;
     },
@@ -31,22 +26,11 @@ export default {
       state.id = newUser.id;
       state.username = newUser.username;
       state.email = newUser.email;
-      state.firstName = newUser.firstName;
-      state.lastName = newUser.lastName;
-      state.gender = newUser.gender;
-      state.image = newUser.image;
-      state.token = newUser.token;
     },
 
     logoutUser(state: any) {
-      state.id = "";
       state.username = "";
       state.email = "";
-      state.firstName = "";
-      state.lastName = "";
-      state.gender = "";
-      state.image = "";
-      state.token = "";
       state.password = "";
       state.isAuthenticated = false;
     },

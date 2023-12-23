@@ -5,10 +5,12 @@
     <div class="content">
       <BaseInput
         class="content__input"
-        v-model="name"
-        label="Name"
-        placeholder="Enter name"
+        v-model="username"
+        label="Username"
+        placeholder="Enter username"
+        type="username"
       />
+
       <BaseInput
         class="content__input"
         v-model="email"
@@ -25,7 +27,12 @@
       />
 
       <div class="content__buttons">
-        <BaseButton class="sign-up-button" styleButton="black" text="Sign Up" />
+        <BaseButton
+          class="sign-up-button"
+          @click.native="signUp"
+          styleButton="black"
+          text="Sign Up"
+        />
 
         <router-link class="sign-in-link" :to="{ name: 'LoginPage' }">
           I have an account
@@ -39,6 +46,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
+import { registration, login } from "@/api/mainRequests";
 
 @Component({
   components: {
@@ -47,12 +55,13 @@ import BaseInput from "@/components/BaseInput.vue";
   },
 })
 export default class SignUpPage extends Vue {
-  set name(value: string) {
-    this.$store.commit("user/setName", value);
+  set username(value: string) {
+    this.$store.commit("user/setUsername", value);
   }
-  get name(): string {
-    return this.$store.state.user.name;
+  get username(): string {
+    return this.$store.state.user.username;
   }
+
   set email(value: string) {
     this.$store.commit("user/setEmail", value);
   }
@@ -64,6 +73,13 @@ export default class SignUpPage extends Vue {
   }
   get password(): string {
     return this.$store.state.user.password;
+  }
+  async signUp(): Promise<void> {
+    await registration();
+
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
 }
 </script>

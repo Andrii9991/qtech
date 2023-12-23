@@ -1,6 +1,14 @@
 import store from "@/store";
 import { instanceApi } from "./instance";
 import { AxiosResponse } from "axios";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+
+const auth = getAuth();
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
@@ -15,15 +23,51 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
 };
 
 export const login = async (): Promise<void> => {
-  const { data } = await instanceApi.post("auth/login", {
-    username: store.state.user.username,
-    password: store.state.user.password,
-  });
+  try {
+    const { user } = await signInWithEmailAndPassword(
+      auth,
+      store.state.user.email,
+      store.state.user.password
+    );
 
-  store.commit("user/setUser", data);
-  store.commit("user/authUser");
+    store.commit("user/setEmail", user.email);
+    store.commit("user/setUsername", user.displayName);
+    store.commit("user/authUser");
 
-  instanceApi.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    instanceApi.defaults.headers.common.Authorization = `Bearer ${user.uid}`;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const registration = async (): Promise<void> => {
+  try {
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      store.state.user.email,
+      store.state.user.password
+    );
+
+    await updateProfile(user, {
+      displayName: store.state.user.username,
+    });
+
+    // // Додавання додаткових полів до бази даних
+    // const database = getDatabase();
+    // const userRef = ref(database, `users/${user.uid}`);
+
+    // // Оновлення або додавання полів до існуючого об'єкта
+    // await set(userRef, {
+    //   username: user.displayName,
+    //   email: user.email,
+    // });
+
+    store.commit("user/setEmail", user.email);
+    store.commit("user/setUsername", user.displayName);
+    store.commit("user/authUser");
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getAllUsers = async (): Promise<void> => {
