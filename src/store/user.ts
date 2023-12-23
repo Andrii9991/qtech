@@ -4,11 +4,7 @@ export default {
   namespaced: true,
   state: {
     username: "",
-    phoneNumber: "",
     email: "",
-    firstName: "",
-    lastName: "",
-
     password: "",
     usersList: [],
     isAuthenticated: false,
@@ -18,15 +14,7 @@ export default {
     setUsername(state: any, newUsername: string) {
       state.username = newUsername;
     },
-    setPhoneNumber(state: any, newPhoneNumber: string) {
-      state.phoneNumber = newPhoneNumber;
-    },
-    setFirstName(state: any, newFirstName: string) {
-      state.firstName = newFirstName;
-    },
-    setLastName(state: any, newLastName: string) {
-      state.lastName = newLastName;
-    },
+
     setEmail(state: any, newEmail: string) {
       state.email = newEmail;
     },
@@ -38,20 +26,11 @@ export default {
       state.id = newUser.id;
       state.username = newUser.username;
       state.email = newUser.email;
-      state.firstName = newUser.firstName;
-      state.lastName = newUser.lastName;
-      state.image = newUser.image;
-      state.token = newUser.token;
     },
 
     logoutUser(state: any) {
-      state.id = "";
       state.username = "";
       state.email = "";
-      state.firstName = "";
-      state.lastName = "";
-      state.image = "";
-      state.token = "";
       state.password = "";
       state.isAuthenticated = false;
     },

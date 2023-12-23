@@ -10,28 +10,6 @@
         placeholder="Enter username"
         type="username"
       />
-      <BaseInput
-        class="content__input"
-        v-model="firstName"
-        label="First name"
-        placeholder="Enter first name"
-        type="firstName"
-      />
-
-      <BaseInput
-        class="content__input"
-        v-model="lastName"
-        label="Last name"
-        placeholder="Enter last name"
-        type="lastName"
-      />
-      <BaseInput
-        class="content__input"
-        v-model="phoneNumber"
-        label="Phone"
-        placeholder="Enter phone"
-        type="phone"
-      />
 
       <BaseInput
         class="content__input"
@@ -89,20 +67,6 @@ export default class SignUpPage extends Vue {
   }
   get firstName(): string {
     return this.$store.state.user.firstName;
-  }
-
-  set lastName(value: string) {
-    this.$store.commit("user/setLastName", value);
-  }
-  get lastName(): string {
-    return this.$store.state.user.lastName;
-  }
-
-  set phoneNumber(value: string) {
-    this.$store.commit("user/setPhoneNumber", value);
-  }
-  get phoneNumber(): string {
-    return this.$store.state.user.phoneNumber;
   }
 
   set email(value: string) {

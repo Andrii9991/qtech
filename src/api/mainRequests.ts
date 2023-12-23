@@ -31,7 +31,6 @@ export const login = async (): Promise<void> => {
 
     store.commit("user/setEmail", user.email);
     store.commit("user/setUsername", user.displayName);
-
     store.commit("user/authUser");
 
     instanceApi.defaults.headers.common.Authorization = `Bearer ${user.accessToken}`;
@@ -60,19 +59,14 @@ export const registration = async (): Promise<void> => {
 
     // Оновлення або додавання полів до існуючого об'єкта
     await set(userRef, {
-      firstName: store.state.user.firstName,
-      lastName: store.state.user.lastName,
-      phoneNumber: store.state.user.phoneNumber,
       username: user.displayName,
       email: user.email,
     });
 
     store.commit("user/setEmail", user.email);
     store.commit("user/setUsername", user.displayName);
-    store.commit("user/setPhoneNumber", store.state.user.phoneNumber);
-    store.commit("user/setFirstName", store.state.user.firstName);
-    store.commit("user/setLastName", store.state.user.lastName);
     store.commit("user/authUser");
+    console.log(userRef);
   } catch (error) {
     console.log(error);
   }
