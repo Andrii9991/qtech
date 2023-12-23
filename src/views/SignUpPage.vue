@@ -62,13 +62,6 @@ export default class SignUpPage extends Vue {
     return this.$store.state.user.username;
   }
 
-  set firstName(value: string) {
-    this.$store.commit("user/setFirstName", value);
-  }
-  get firstName(): string {
-    return this.$store.state.user.firstName;
-  }
-
   set email(value: string) {
     this.$store.commit("user/setEmail", value);
   }
@@ -83,7 +76,6 @@ export default class SignUpPage extends Vue {
   }
   async signUp(): Promise<void> {
     await registration();
-    await login();
 
     this.$router.push({
       name: "AccountPage",
