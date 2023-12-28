@@ -55,7 +55,7 @@
       </template>
     </BaseAccordion>
 
-    <InformationPopUp v-if="isPopUpVisible" :text="PopUpText" />
+    <InformationPopUp v-if="isPopUpVisible" :text="popUpText" />
   </div>
 </template>
 
@@ -79,7 +79,7 @@ import InformationPopUp from "@/components/InformationPopUp.vue";
 export default class LoginPage extends Vue {
   isActive = false;
   isPopUpVisible = false;
-  PopUpText = "";
+  popUpText = "";
   emailError = false;
   passwordError = false;
 
@@ -120,8 +120,8 @@ export default class LoginPage extends Vue {
   }
 
   async loginAction(): Promise<void> {
-    const result = await login();
-    this.PopUpText = result.message;
+    const { message } = await login();
+    this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
     this.$router.push({
       name: "AccountPage",

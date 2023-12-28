@@ -21,7 +21,7 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
   return responsePhones;
 };
 
-export const login = async (): Promise<Record<string, any>> => {
+export const login = async (): Promise<Record<string, unknown>> => {
   try {
     const { user } = await signInWithEmailAndPassword(
       getAuth(),
@@ -94,7 +94,7 @@ export const getAllUsers = async (): Promise<void> => {
 
     store.commit("user/setUserData", usersArray);
   } catch (error) {
-    console.error("No data available");
+    console.error(error);
   }
 };
 
