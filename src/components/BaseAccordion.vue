@@ -32,16 +32,17 @@ export default class BaseAccordion extends Vue {
 <style scoped lang="scss">
 .base-accordion {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 500px;
   background-color: $grey;
   border-radius: 20px;
   transition: 0.5s;
 
   &__title {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
+    margin-left: 20px;
     background-color: $grey;
     cursor: pointer;
     transition-duration: 0.5s;
@@ -51,7 +52,7 @@ export default class BaseAccordion extends Vue {
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      margin-left: 10px;
+      margin-left: 20px;
       transition: 0.5s;
 
       &:hover {

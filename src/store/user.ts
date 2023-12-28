@@ -8,6 +8,7 @@ export default {
     password: "",
     usersList: [],
     isAuthenticated: false,
+    message: "",
   },
   getters: {},
   mutations: {
@@ -40,6 +41,9 @@ export default {
     },
     authUser(state: any) {
       state.isAuthenticated = true;
+    },
+    setMessage(state: any, newMessage: string) {
+      state.message = newMessage;
     },
   },
 };

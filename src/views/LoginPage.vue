@@ -40,20 +40,22 @@
 
     <BaseAccordion
       class="login-page__accordion"
-      title="You can't use created account. Use these credentials instead"
+      title="You can use this credentials to log in!"
     >
       <template #description>
         <ul
           class="user-credentials"
-          v-for="user in usersList"
+          v-for="(user, idnex) in usersList"
           :key="user.username"
         >
-          <h5>User №{{ user.id }}</h5>
-          <li>Username: {{ user.username }}</li>
+          <p class="user-index">{{ idnex + 1 }}.</p>
+          <li>Email: {{ user.email }}</li>
           <li>Password: {{ user.password }}</li>
         </ul>
       </template>
     </BaseAccordion>
+
+    <InformationPopUp v-if="isPopUpVisible" :text="isPopUpText" />
   </div>
 </template>
 
@@ -64,19 +66,26 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAccordion from "@/components/BaseAccordion.vue";
 import { login, getAllUsers } from "@/api/mainRequests";
 import { IUser } from "@/interfaces/users";
+import InformationPopUp from "@/components/InformationPopUp.vue";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
     BaseAccordion,
+    InformationPopUp,
   },
 })
 export default class LoginPage extends Vue {
   isActive = false;
-
+  isPopUpVisible = false;
+  isPopUpText = "";
   emailError = false;
   passwordError = false;
+
+  // get text(): any {
+  //   return login().then((e) => e.message);
+  // }
 
   get usersList(): IUser[] {
     return this.$store.state.user.usersList;
@@ -115,8 +124,9 @@ export default class LoginPage extends Vue {
   }
 
   async loginAction(): Promise<void> {
-    await login();
-
+    const result = await login();
+    this.isPopUpText = result.message;
+    this.isPopUpVisible = !this.isPopUpVisible;
     this.$router.push({
       name: "AccountPage",
     });
@@ -179,17 +189,24 @@ export default class LoginPage extends Vue {
     margin-top: 32px;
 
     .user-credentials {
+      position: relative;
       display: flex;
+      justify-content: space-around;
       column-gap: 16px;
       margin: 10px 0;
 
       &:first-child {
         margin-top: 0;
       }
-    }
+      li {
+        list-style-type: none;
+      }
 
-    li {
-      list-style-type: none;
+      .user-index {
+        position: absolute;
+        left: 2px;
+        top: 4px;
+      }
     }
   }
 }

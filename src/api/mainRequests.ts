@@ -7,8 +7,8 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-
-const auth = getAuth();
+import { getDatabase, ref, set, onValue, child, get } from "firebase/database";
+import user from "@/store/user";
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
@@ -22,10 +22,10 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
   return responsePhones;
 };
 
-export const login = async (): Promise<void> => {
+export const login = async (): Promise<Record<string, any>> => {
   try {
     const { user } = await signInWithEmailAndPassword(
-      auth,
+      getAuth(),
       store.state.user.email,
       store.state.user.password
     );
@@ -35,15 +35,24 @@ export const login = async (): Promise<void> => {
     store.commit("user/authUser");
 
     instanceApi.defaults.headers.common.Authorization = `Bearer ${user.uid}`;
+
+    return {
+      responseType: "success",
+      message: "User has been successfully created",
+    };
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    return {
+      responseType: "error",
+      message: error,
+    };
   }
 };
 
 export const registration = async (): Promise<void> => {
   try {
     const { user } = await createUserWithEmailAndPassword(
-      auth,
+      getAuth(),
       store.state.user.email,
       store.state.user.password
     );
@@ -52,15 +61,17 @@ export const registration = async (): Promise<void> => {
       displayName: store.state.user.username,
     });
 
-    // // Додавання додаткових полів до бази даних
-    // const database = getDatabase();
-    // const userRef = ref(database, `users/${user.uid}`);
+    // Додавання додаткових полів до бази даних
+    const database = getDatabase();
+    const userRef = ref(database, `users/` + user.uid);
 
-    // // Оновлення або додавання полів до існуючого об'єкта
-    // await set(userRef, {
-    //   username: user.displayName,
-    //   email: user.email,
-    // });
+    // Оновлення або додавання полів до існуючого об'єкта
+    await set(userRef, {
+      id: user.uid,
+      username: user.displayName,
+      email: user.email,
+      password: "123456",
+    });
 
     store.commit("user/setEmail", user.email);
     store.commit("user/setUsername", user.displayName);
@@ -71,9 +82,18 @@ export const registration = async (): Promise<void> => {
 };
 
 export const getAllUsers = async (): Promise<void> => {
-  const { data } = await instanceApi.get("users?select=username,password");
+  try {
+    const dbRef = ref(getDatabase());
 
-  store.commit("user/setUserData", data.users);
+    const allUsers = await get(child(dbRef, `/users`[0])).then((snapshot) => {
+      return snapshot.val().users;
+    });
+    const usersArray = Object.values(allUsers);
+
+    store.commit("user/setUserData", usersArray);
+  } catch (error) {
+    console.log("ss");
+  }
 };
 
 export const getAllComments = async (): Promise<void> => {
