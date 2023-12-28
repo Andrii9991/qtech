@@ -40,7 +40,7 @@ export const login = async (): Promise<Record<string, any>> => {
       message: "User has been successfully created",
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {
       responseType: "error",
       message: error,
