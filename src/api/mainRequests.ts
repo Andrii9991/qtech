@@ -68,9 +68,9 @@ export const registration = async (): Promise<void> => {
     // Оновлення або додавання полів до існуючого об'єкта
     await set(userRef, {
       id: user.uid,
-      username: user.displayName,
-      email: user.email,
-      password: "123456",
+      username: store.state.user.username,
+      email: store.state.user.email,
+      password: store.state.user.password,
       photoURL: "https://robohash.org/Z73.png?set=set2",
     });
 
@@ -94,7 +94,7 @@ export const getAllUsers = async (): Promise<void> => {
 
     store.commit("user/setUserData", usersArray);
   } catch (error) {
-    console.log("No data available");
+    console.error("No data available");
   }
 };
 
