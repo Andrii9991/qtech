@@ -132,7 +132,7 @@ export default class LoginPage extends Vue {
     });
   }
 
-  created(): void {
+  mounted(): void {
     getAllUsers();
   }
 

@@ -9,6 +9,7 @@ export default {
     usersList: [],
     isAuthenticated: false,
     message: "",
+    image: "",
   },
   getters: {},
   mutations: {
@@ -21,6 +22,9 @@ export default {
     },
     setPassword(state: any, newPassword: string) {
       state.password = newPassword;
+    },
+    setImage(state: any, newImage: string) {
+      state.image = newImage;
     },
 
     setUser(state: any, newUser: IUser) {
