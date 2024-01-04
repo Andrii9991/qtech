@@ -7,7 +7,9 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { getDatabase, ref, set, onValue, child, get } from "firebase/database";
+import { collection, query, onSnapshot, addDoc } from "firebase/firestore";
+import { db } from "@/FireBase/Config";
+import { IUser } from "@/interfaces/users";
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
@@ -60,17 +62,10 @@ export const registration = async (): Promise<Record<string, unknown>> => {
       photoURL: "https://robohash.org/Z73.png?set=set2",
     });
 
-    // Додавання додаткових полів до бази даних
-    const database = getDatabase();
-    const userRef = ref(database, `users/` + user.displayName);
-
-    // Оновлення або додавання полів до існуючого об'єкта
-    await set(userRef, {
-      id: user.uid,
-      username: store.state.user.username,
+    addDoc(collection(db, "users"), {
       email: store.state.user.email,
+      username: store.state.user.username,
       password: store.state.user.password,
-      photoURL: "https://robohash.org/Z73.png?set=set2",
     });
 
     store.commit("user/setEmail", user.email);
@@ -91,14 +86,18 @@ export const registration = async (): Promise<Record<string, unknown>> => {
 
 export const getAllUsers = async (): Promise<Record<string, unknown>> => {
   try {
-    const dbRef = ref(getDatabase());
-
-    const allUsers = await get(child(dbRef, `/users`[0])).then((snapshot) => {
-      return snapshot.val().users;
+    const q = query(collection(db, "users"));
+    onSnapshot(q, (querySnapshot) => {
+      const tempUser: IUser[] = [];
+      querySnapshot.forEach((doc) => {
+        tempUser.push({
+          id: doc.id,
+          ...doc.data(),
+        } as any);
+        store.commit("user/setUserData", tempUser);
+      });
     });
-    const usersArray = Object.values(allUsers);
 
-    store.commit("user/setUserData", usersArray);
     return {
       responseType: "",
       message: "",
