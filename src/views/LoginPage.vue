@@ -55,7 +55,7 @@
       </template>
     </BaseAccordion>
 
-    <InformationPopUp v-if="isPopUpVisible" :text="popUpText" />
+    <InformationPopUp :isPopUpVisible.sync="isPopUpVisible" :text="popUpText" />
   </div>
 </template>
 
@@ -123,13 +123,18 @@ export default class LoginPage extends Vue {
     const { message } = await login();
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
+    this.$parent?.$emit("popUpTriggired");
     this.$router.push({
       name: "AccountPage",
     });
   }
 
-  created(): void {
-    getAllUsers();
+  async created(): Promise<void> {
+    const result = await getAllUsers();
+    if (result.message) {
+      this.popUpText = result.message as string;
+      this.isPopUpVisible = !this.isPopUpVisible;
+    }
   }
 
   toggle(): void {

@@ -39,6 +39,11 @@
         </router-link>
       </div>
     </div>
+    <InformationPopUp
+      :isPopUpVisible.sync="isPopUpVisible"
+      :visualStyle="popUpVisualStyle"
+      :text="popUpText"
+    />
   </div>
 </template>
 
@@ -46,15 +51,21 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import { registration, login } from "@/api/mainRequests";
+import { registration } from "@/api/mainRequests";
+import InformationPopUp from "@/components/InformationPopUp.vue";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
+    InformationPopUp,
   },
 })
 export default class SignUpPage extends Vue {
+  isPopUpVisible = false;
+  popUpText = "";
+  popUpVisualStyle = ""; // в залежності який responseType такий буде і колір
+
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
   }
@@ -75,7 +86,15 @@ export default class SignUpPage extends Vue {
     return this.$store.state.user.password;
   }
   async signUp(): Promise<void> {
-    await registration();
+    const { message, responseType } = await registration();
+    if (responseType !== "succses") {
+      this.popUpVisualStyle = "red";
+    } else {
+      this.popUpVisualStyle = "green";
+    }
+    //якщо саксес то пусті. або червоний колір
+    this.popUpText = message as string;
+    this.isPopUpVisible = !this.isPopUpVisible;
 
     this.$router.push({
       name: "AccountPage",

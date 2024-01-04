@@ -37,10 +37,9 @@ export const login = async (): Promise<Record<string, unknown>> => {
 
     return {
       responseType: "success",
-      message: "User has been successfully created",
+      message: "You have successfully logged in",
     };
   } catch (error) {
-    console.error(error);
     return {
       responseType: "error",
       message: error,
@@ -48,7 +47,7 @@ export const login = async (): Promise<Record<string, unknown>> => {
   }
 };
 
-export const registration = async (): Promise<void> => {
+export const registration = async (): Promise<Record<string, unknown>> => {
   try {
     const { user } = await createUserWithEmailAndPassword(
       getAuth(),
@@ -78,12 +77,19 @@ export const registration = async (): Promise<void> => {
     store.commit("user/setUsername", user.displayName);
     store.commit("user/setImage", user.photoURL);
     store.commit("user/authUser");
+    return {
+      responseType: "success",
+      message: "User has been successfully created",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      responseType: "error",
+      message: error,
+    };
   }
 };
 
-export const getAllUsers = async (): Promise<void> => {
+export const getAllUsers = async (): Promise<Record<string, unknown>> => {
   try {
     const dbRef = ref(getDatabase());
 
@@ -93,8 +99,15 @@ export const getAllUsers = async (): Promise<void> => {
     const usersArray = Object.values(allUsers);
 
     store.commit("user/setUserData", usersArray);
+    return {
+      responseType: "",
+      message: "",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      responseType: "error",
+      message: error,
+    };
   }
 };
 

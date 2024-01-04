@@ -1,5 +1,5 @@
 <template>
-  <div :class="['information-popup', { visualStyle }]">
+  <div v-if="isPopUpVisible" :class="['information-popup', { visualStyle }]">
     <p>{{ text }}</p>
   </div>
 </template>
@@ -11,6 +11,13 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class InformationPopUp extends Vue {
   @Prop({ default: "" }) text!: string;
   @Prop({ default: "" }) visualStyle!: string;
+  @Prop({ default: false }) isPopUpVisible!: boolean;
+
+  created(): void {
+    setTimeout(() => {
+      this.$emit("update:isPopUpVisible", false);
+    }, 3000);
+  }
 }
 </script>
 
