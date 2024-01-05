@@ -44,9 +44,6 @@ import { IOption } from "@/interfaces/options";
 export default class TheFilters extends Vue {
   selectedOptionCategory: IOption = {};
   selectedOptionPrice: IOption = {};
-
-  test: IOption = { name: "sads", id: 2 };
-
   areOptionsVisibleCategory = false;
   areOptionsVisiblePrice = false;
 

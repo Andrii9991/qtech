@@ -21,7 +21,7 @@
       <BaseInput
         class="content__input"
         v-model="password"
-        label="Password (minimum 8 symbols)"
+        label="Password (minimum 6 symbols)"
         placeholder="Enter password"
         type="password"
       />
@@ -39,6 +39,11 @@
         </router-link>
       </div>
     </div>
+    <InformationPopUp
+      :isPopUpVisible.sync="isPopUpVisible"
+      :visualStyle="popUpVisualStyle"
+      :text="popUpText"
+    />
   </div>
 </template>
 
@@ -46,15 +51,22 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import { registration, login } from "@/api/mainRequests";
+import { registration } from "@/api/mainRequests";
+import InformationPopUp from "@/components/InformationPopUp.vue";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
+    InformationPopUp,
   },
 })
 export default class SignUpPage extends Vue {
+  isPopUpVisible = false;
+  popUpText = "";
+  popUpVisualStyle = "red";
+  timeOut: undefined | number = undefined;
+
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
   }
@@ -75,11 +87,25 @@ export default class SignUpPage extends Vue {
     return this.$store.state.user.password;
   }
   async signUp(): Promise<void> {
-    await registration();
+    const { message, responseType } = await registration();
 
-    this.$router.push({
-      name: "AccountPage",
-    });
+    if (responseType === "success") {
+      this.popUpVisualStyle = "green";
+    } else {
+      this.popUpVisualStyle = "red";
+    }
+
+    this.popUpText = message as string;
+    this.isPopUpVisible = !this.isPopUpVisible;
+
+    this.timeOut = setTimeout(() => {
+      this.$router.push({
+        name: "AccountPage",
+      });
+    }, 1500);
+  }
+  beforeDestroy() {
+    clearTimeout(this.timeOut);
   }
 }
 </script>

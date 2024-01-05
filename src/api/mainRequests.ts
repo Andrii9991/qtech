@@ -7,8 +7,9 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-
-const auth = getAuth();
+import { collection, query, onSnapshot, addDoc } from "firebase/firestore";
+import { db } from "@/FireBase/Config";
+import { IUser } from "@/interfaces/users";
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
@@ -22,10 +23,10 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
   return responsePhones;
 };
 
-export const login = async (): Promise<void> => {
+export const login = async (): Promise<Record<string, unknown>> => {
   try {
     const { user } = await signInWithEmailAndPassword(
-      auth,
+      getAuth(),
       store.state.user.email,
       store.state.user.password
     );
@@ -35,45 +36,79 @@ export const login = async (): Promise<void> => {
     store.commit("user/authUser");
 
     instanceApi.defaults.headers.common.Authorization = `Bearer ${user.uid}`;
+
+    return {
+      responseType: "success",
+      message: "You have successfully logged in",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      responseType: "error",
+      message: "There was an error",
+    };
   }
 };
 
-export const registration = async (): Promise<void> => {
+export const registration = async (): Promise<Record<string, unknown>> => {
   try {
     const { user } = await createUserWithEmailAndPassword(
-      auth,
+      getAuth(),
       store.state.user.email,
       store.state.user.password
     );
 
     await updateProfile(user, {
       displayName: store.state.user.username,
+      photoURL: "https://robohash.org/Z73.png?set=set2",
     });
 
-    // // Додавання додаткових полів до бази даних
-    // const database = getDatabase();
-    // const userRef = ref(database, `users/${user.uid}`);
-
-    // // Оновлення або додавання полів до існуючого об'єкта
-    // await set(userRef, {
-    //   username: user.displayName,
-    //   email: user.email,
-    // });
+    addDoc(collection(db, "users"), {
+      email: store.state.user.email,
+      username: store.state.user.username,
+      password: store.state.user.password,
+      photoURL: "https://robohash.org/Z73.png?set=set2",
+    });
 
     store.commit("user/setEmail", user.email);
     store.commit("user/setUsername", user.displayName);
+    store.commit("user/setImage", user.photoURL);
     store.commit("user/authUser");
+    return {
+      responseType: "success",
+      message: "User has been successfully created",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      responseType: "error",
+      message: "There was an error",
+    };
   }
 };
 
-export const getAllUsers = async (): Promise<void> => {
-  const { data } = await instanceApi.get("users?select=username,password");
+export const getAllUsers = async (): Promise<Record<string, unknown>> => {
+  try {
+    const q = query(collection(db, "users"));
+    onSnapshot(q, (querySnapshot) => {
+      const tempUser: IUser[] = [];
+      querySnapshot.forEach((doc) => {
+        tempUser.push({
+          id: doc.id,
+          ...doc.data(),
+        } as any);
+        store.commit("user/setUserData", tempUser);
+      });
+    });
 
-  store.commit("user/setUserData", data.users);
+    return {
+      responseType: "",
+      message: "",
+    };
+  } catch (error) {
+    return {
+      responseType: "error",
+      message: error,
+    };
+  }
 };
 
 export const getAllComments = async (): Promise<void> => {

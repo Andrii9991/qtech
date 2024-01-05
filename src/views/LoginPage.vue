@@ -40,20 +40,26 @@
 
     <BaseAccordion
       class="login-page__accordion"
-      title="You can't use created account. Use these credentials instead"
+      title="You can use this credentials to log in!"
     >
       <template #description>
         <ul
           class="user-credentials"
-          v-for="user in usersList"
+          v-for="(user, index) in usersList"
           :key="user.username"
         >
-          <h5>User №{{ user.id }}</h5>
-          <li>Username: {{ user.username }}</li>
+          <p class="user-index">{{ index + 1 }}.</p>
+          <li>Email: {{ user.email }}</li>
           <li>Password: {{ user.password }}</li>
         </ul>
       </template>
     </BaseAccordion>
+
+    <InformationPopUp
+      :isPopUpVisible.sync="isPopUpVisible"
+      :visualStyle="popUpVisualStyle"
+      :text="popUpText"
+    />
   </div>
 </template>
 
@@ -64,19 +70,24 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAccordion from "@/components/BaseAccordion.vue";
 import { login, getAllUsers } from "@/api/mainRequests";
 import { IUser } from "@/interfaces/users";
+import InformationPopUp from "@/components/InformationPopUp.vue";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
     BaseAccordion,
+    InformationPopUp,
   },
 })
 export default class LoginPage extends Vue {
   isActive = false;
-
+  isPopUpVisible = false;
+  popUpVisualStyle = "";
+  popUpText = "";
   emailError = false;
   passwordError = false;
+  timeOut: undefined | number = undefined;
 
   get usersList(): IUser[] {
     return this.$store.state.user.usersList;
@@ -108,22 +119,40 @@ export default class LoginPage extends Vue {
   }
 
   checkField(field: string): void {
-    // if (field === "username") this.nameError = this.username.length <= 2;
     if (field === "email") this.emailError = this.email.length <= 2;
     else if (field === "password")
       this.passwordError = this.password.length <= 2;
   }
 
   async loginAction(): Promise<void> {
-    await login();
+    const { message, responseType } = await login();
 
-    this.$router.push({
-      name: "AccountPage",
-    });
+    if (responseType === "success") {
+      this.popUpVisualStyle = "green";
+    } else {
+      this.popUpVisualStyle = "red";
+    }
+
+    this.popUpText = message as string;
+    this.isPopUpVisible = !this.isPopUpVisible;
+
+    this.timeOut = setTimeout(() => {
+      this.$router.push({
+        name: "AccountPage",
+      });
+    }, 1500);
   }
 
-  created(): void {
-    getAllUsers();
+  async created(): Promise<void> {
+    const result = await getAllUsers();
+    if (result.message) {
+      this.popUpText = result.message as string;
+      this.isPopUpVisible = !this.isPopUpVisible;
+    }
+  }
+
+  beforeDestroy() {
+    clearTimeout(this.timeOut);
   }
 
   toggle(): void {
@@ -179,17 +208,24 @@ export default class LoginPage extends Vue {
     margin-top: 32px;
 
     .user-credentials {
+      position: relative;
       display: flex;
+      justify-content: space-around;
       column-gap: 16px;
       margin: 10px 0;
 
       &:first-child {
         margin-top: 0;
       }
-    }
+      li {
+        list-style-type: none;
+      }
 
-    li {
-      list-style-type: none;
+      .user-index {
+        position: absolute;
+        left: 2px;
+        top: 4px;
+      }
     }
   }
 }
