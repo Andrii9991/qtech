@@ -44,7 +44,7 @@ export const login = async (): Promise<Record<string, unknown>> => {
   } catch (error) {
     return {
       responseType: "error",
-      message: error,
+      message: "There was an error",
     };
   }
 };
@@ -66,6 +66,7 @@ export const registration = async (): Promise<Record<string, unknown>> => {
       email: store.state.user.email,
       username: store.state.user.username,
       password: store.state.user.password,
+      photoURL: "https://robohash.org/Z73.png?set=set2",
     });
 
     store.commit("user/setEmail", user.email);
@@ -79,7 +80,7 @@ export const registration = async (): Promise<Record<string, unknown>> => {
   } catch (error) {
     return {
       responseType: "error",
-      message: error,
+      message: "There was an error",
     };
   }
 };

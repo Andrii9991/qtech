@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isPopUpVisible" :class="['information-popup', { visualStyle }]">
+  <div v-if="isPopUpVisible" :class="['information-popup', visualStyle]">
     <p>{{ text }}</p>
   </div>
 </template>
@@ -33,5 +33,9 @@ export default class InformationPopUp extends Vue {
 
 .red {
   background-color: $red;
+}
+
+.green {
+  background-color: $green;
 }
 </style>

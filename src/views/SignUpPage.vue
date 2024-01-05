@@ -21,7 +21,7 @@
       <BaseInput
         class="content__input"
         v-model="password"
-        label="Password (minimum 8 symbols)"
+        label="Password (minimum 6 symbols)"
         placeholder="Enter password"
         type="password"
       />
@@ -64,7 +64,7 @@ import InformationPopUp from "@/components/InformationPopUp.vue";
 export default class SignUpPage extends Vue {
   isPopUpVisible = false;
   popUpText = "";
-  popUpVisualStyle = ""; // в залежності який responseType такий буде і колір
+  popUpVisualStyle = "red";
 
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
@@ -87,18 +87,21 @@ export default class SignUpPage extends Vue {
   }
   async signUp(): Promise<void> {
     const { message, responseType } = await registration();
-    if (responseType !== "succses") {
-      this.popUpVisualStyle = "red";
-    } else {
+
+    if (responseType === "success") {
       this.popUpVisualStyle = "green";
+    } else {
+      this.popUpVisualStyle = "red";
     }
-    //якщо саксес то пусті. або червоний колір
+
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
 
-    this.$router.push({
-      name: "AccountPage",
-    });
+    setTimeout(() => {
+      this.$router.push({
+        name: "AccountPage",
+      });
+    }, 3000);
   }
 }
 </script>

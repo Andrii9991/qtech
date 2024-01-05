@@ -55,7 +55,11 @@
       </template>
     </BaseAccordion>
 
-    <InformationPopUp :isPopUpVisible.sync="isPopUpVisible" :text="popUpText" />
+    <InformationPopUp
+      :isPopUpVisible.sync="isPopUpVisible"
+      :visualStyle="popUpVisualStyle"
+      :text="popUpText"
+    />
   </div>
 </template>
 
@@ -79,6 +83,7 @@ import InformationPopUp from "@/components/InformationPopUp.vue";
 export default class LoginPage extends Vue {
   isActive = false;
   isPopUpVisible = false;
+  popUpVisualStyle = "";
   popUpText = "";
   emailError = false;
   passwordError = false;
@@ -113,18 +118,23 @@ export default class LoginPage extends Vue {
   }
 
   checkField(field: string): void {
-    // if (field === "username") this.nameError = this.username.length <= 2;
     if (field === "email") this.emailError = this.email.length <= 2;
     else if (field === "password")
       this.passwordError = this.password.length <= 2;
   }
 
   async loginAction(): Promise<void> {
-    const { message } = await login();
+    const { message, responseType } = await login();
+
+    if (responseType === "success") {
+      this.popUpVisualStyle = "green";
+    } else {
+      this.popUpVisualStyle = "red";
+    }
+
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
-    this.$parent?.$emit("popUpTriggired");
-    this.$router.push({
+    await this.$router.push({
       name: "AccountPage",
     });
   }
