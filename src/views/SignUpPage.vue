@@ -65,6 +65,7 @@ export default class SignUpPage extends Vue {
   isPopUpVisible = false;
   popUpText = "";
   popUpVisualStyle = "red";
+  timeOut: undefined | number = undefined;
 
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
@@ -97,15 +98,14 @@ export default class SignUpPage extends Vue {
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
 
-    const signUpDelay = setTimeout(() => {
+    this.timeOut = setTimeout(() => {
       this.$router.push({
         name: "AccountPage",
       });
     }, 1500);
-
-    setTimeout(() => {
-      clearTimeout(signUpDelay);
-    }, 1501);
+  }
+  beforeDestroy() {
+    clearTimeout(this.timeOut);
   }
 }
 </script>

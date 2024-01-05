@@ -87,6 +87,7 @@ export default class LoginPage extends Vue {
   popUpText = "";
   emailError = false;
   passwordError = false;
+  timeOut: undefined | number = undefined;
 
   get usersList(): IUser[] {
     return this.$store.state.user.usersList;
@@ -135,14 +136,11 @@ export default class LoginPage extends Vue {
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
 
-    const loginDelay = setTimeout(() => {
+    this.timeOut = setTimeout(() => {
       this.$router.push({
         name: "AccountPage",
       });
     }, 1500);
-    setTimeout(() => {
-      clearTimeout(loginDelay);
-    }, 1501);
   }
 
   async created(): Promise<void> {
@@ -151,6 +149,10 @@ export default class LoginPage extends Vue {
       this.popUpText = result.message as string;
       this.isPopUpVisible = !this.isPopUpVisible;
     }
+  }
+
+  beforeDestroy() {
+    clearTimeout(this.timeOut);
   }
 
   toggle(): void {
