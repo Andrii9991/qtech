@@ -134,9 +134,15 @@ export default class LoginPage extends Vue {
 
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
-    await this.$router.push({
-      name: "AccountPage",
-    });
+
+    const loginDelay = setTimeout(() => {
+      this.$router.push({
+        name: "AccountPage",
+      });
+    }, 1500);
+    setTimeout(() => {
+      clearTimeout(loginDelay);
+    }, 1501);
   }
 
   async created(): Promise<void> {

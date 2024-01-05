@@ -97,11 +97,15 @@ export default class SignUpPage extends Vue {
     this.popUpText = message as string;
     this.isPopUpVisible = !this.isPopUpVisible;
 
-    setTimeout(() => {
+    const signUpDelay = setTimeout(() => {
       this.$router.push({
         name: "AccountPage",
       });
-    }, 3000);
+    }, 1500);
+
+    setTimeout(() => {
+      clearTimeout(signUpDelay);
+    }, 1501);
   }
 }
 </script>
