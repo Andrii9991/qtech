@@ -9,7 +9,7 @@
       :interval="10"
       :railStyle="12"
       :minRange="100"
-      :width="200"
+      :width="150"
       :height="4"
       dotSize="16"
       @change="onChange"
@@ -50,7 +50,7 @@ export default class BaseRange extends Vue {
 
 <style lang="scss">
 .base-range {
-  width: 200px;
+  width: 150px;
 
   &__value {
     display: flex;

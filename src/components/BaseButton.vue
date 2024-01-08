@@ -28,8 +28,6 @@ export default class BaseButton extends Vue {
   cursor: pointer;
 
   &:hover {
-    background-color: $black;
-    color: $white;
     transform: scale(1.04);
   }
   &:disabled {

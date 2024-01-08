@@ -59,6 +59,7 @@ export default class AccountPage extends Vue {
   margin-top: 16px;
   color: $white;
   min-height: 100vh;
+  width: 100%;
   .account-page__container {
     display: flex;
     justify-content: space-around;

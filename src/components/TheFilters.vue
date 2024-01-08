@@ -1,31 +1,51 @@
 <template>
   <div class="filters">
-    <BaseSelect
-      :value.sync="selectedOptionCategory"
-      :options="Categories"
-      :areOptionsVisible.sync="areOptionsVisibleCategory"
-      @update:areOptionsVisible="toggleOptionCategory"
-      @update:value="onCategoryUpdate"
-      placeholder="Category"
+    <BaseButton
+      class="filters__burger-menu"
+      @click.native="onShowMenu"
+      text="Filters"
     >
-    </BaseSelect>
+    </BaseButton>
 
-    <BaseSelect
-      :value.sync="selectedOptionPrice"
-      :options="Prices"
-      :areOptionsVisible.sync="areOptionsVisiblePrice"
-      @update:areOptionsVisible="toggleOptionPrice"
-      @update:value="onPriceUpdate"
-      placeholder="Sort By price"
+    <div
+      class="filters__wrapper"
+      :class="{ 'filters-mobile-visible': isActive }"
     >
-    </BaseSelect>
-    <BaseRange
-      v-model="priceValue"
-      @input="onPriceChange"
-      :min="minPrice"
-      :max="maxPrice"
-    >
-    </BaseRange>
+      <BaseSelect
+        class="filter-category filter"
+        :value.sync="selectedOptionCategory"
+        :options="Categories"
+        :areOptionsVisible.sync="areOptionsVisibleCategory"
+        @update:areOptionsVisible="toggleOptionCategory"
+        @update:value="onCategoryUpdate"
+        placeholder="Category"
+      >
+      </BaseSelect>
+
+      <BaseSelect
+        class="filter-price filter"
+        :value.sync="selectedOptionPrice"
+        :options="Prices"
+        :areOptionsVisible.sync="areOptionsVisiblePrice"
+        @update:areOptionsVisible="toggleOptionPrice"
+        @update:value="onPriceUpdate"
+        placeholder="Sort By price"
+      >
+      </BaseSelect>
+      <BaseRange
+        class="filter-range"
+        v-model="priceValue"
+        @input="onPriceChange"
+        :min="minPrice"
+        :max="maxPrice"
+      >
+      </BaseRange>
+      <BaseButton
+        @click.native="onCloseMenu"
+        class="filters__burger-show"
+        text="Show"
+      ></BaseButton>
+    </div>
   </div>
 </template>
 
@@ -34,11 +54,13 @@ import { Component, Vue } from "vue-property-decorator";
 import BaseSelect from "@/components/BaseSelect.vue";
 import BaseRange from "@/components/BaseRange.vue";
 import { IOption } from "@/interfaces/options";
+import BaseButton from "./BaseButton.vue";
 
 @Component({
   components: {
     BaseSelect,
     BaseRange,
+    BaseButton,
   },
 })
 export default class TheFilters extends Vue {
@@ -46,6 +68,7 @@ export default class TheFilters extends Vue {
   selectedOptionPrice: IOption = {};
   areOptionsVisibleCategory = false;
   areOptionsVisiblePrice = false;
+  isActive = false;
 
   Categories = [
     { id: 1, name: "All" },
@@ -66,11 +89,13 @@ export default class TheFilters extends Vue {
   onCategoryUpdate() {
     this.$emit("sortCategory", this.selectedOptionCategory.name);
     this.selectedOptionPrice = {};
+    this.isActive = false;
   }
 
   onPriceUpdate() {
     this.$emit("sortPrice", this.selectedOptionPrice.name);
     this.selectedOptionCategory = {};
+    this.isActive = false;
   }
 
   toggleOptionCategory() {
@@ -84,29 +109,82 @@ export default class TheFilters extends Vue {
   onPriceChange(value: number): void {
     this.$emit("priceChange", value);
   }
+
+  onShowMenu() {
+    this.isActive = !this.isActive;
+  }
+  onCloseMenu() {
+    this.isActive = !this.isActive;
+  }
 }
 </script>
 <style scoped lang="scss">
 .filters {
+  position: relative;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: $grey-lite;
+  border-radius: 32px;
   min-height: 50px;
+  padding: 8px 16px;
+  background-color: $grey-lite;
 
-  .options {
+  .filters__burger-menu {
+    display: none;
+  }
+
+  &__wrapper {
     display: flex;
-    justify-content: center;
-    margin-bottom: 4px;
-    cursor: pointer;
-    transition-duration: 0.5s;
+    justify-content: space-between;
+    padding: 0 16px;
+    align-items: center;
+    width: 100%;
+    max-width: 1240px;
 
-    &:hover {
-      padding: 0 10px;
-      background-color: $grey;
-      color: $white;
-      border-radius: 40px;
+    .filters__burger-show {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .filters {
+    background-color: $black;
+    display: flex;
+    justify-content: flex-start;
+
+    .filters__wrapper {
+      position: absolute;
+      top: 0;
+      left: -250px;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+      width: 250px;
+      background-color: $grey-lite;
+      opacity: 0.9;
+      padding: 75px 20px 10px;
+
+      .filter {
+        padding: 10px 0;
+      }
+      .filter-range {
+        z-index: 0;
+        padding-bottom: 10px;
+      }
+      .filters__burger-show {
+        display: block;
+      }
+    }
+    .filters-mobile-visible {
+      transition: 0.5s;
+      transform: translateX(100%);
+    }
+
+    .filters__burger-menu {
+      display: block;
+      z-index: 2;
     }
   }
 }

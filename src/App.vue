@@ -2,7 +2,11 @@
   <div id="app">
     <TheHeader />
 
-    <router-view />
+    <div class="page">
+      <div class="page__wrapper">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,5 +48,19 @@ export default class App extends Vue {
   font-family: $font-family-default;
   font-style: normal;
   font-weight: 400;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1240px;
+  }
 }
 </style>

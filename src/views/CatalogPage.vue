@@ -134,15 +134,11 @@ export default class CatalogPage extends Vue {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
-  &__filters {
-    margin: 0px;
-    padding: 0px;
-  }
+  width: 100%;
 
   &__container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 30px;
     padding: 25px;
     .catalog-cart {
@@ -211,6 +207,12 @@ export default class CatalogPage extends Vue {
         }
       }
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .catalog-page__container {
+    padding-top: 10px;
   }
 }
 </style>
