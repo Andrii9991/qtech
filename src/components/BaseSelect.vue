@@ -76,10 +76,11 @@ export default class BaseSelect extends Vue {
       height: 10px;
       width: 10px;
       margin-right: 10px;
+      transform: rotate(180deg);
     }
 
     .open-select {
-      transform: rotate(180deg);
+      transform: rotate(360deg);
     }
   }
 

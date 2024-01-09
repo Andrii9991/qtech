@@ -13,7 +13,7 @@
         <router-link
           v-for="link in linksList"
           :key="link.name"
-          class="navigation__link"
+          class="navigation__link close"
           :to="{ name: link.name }"
           active-class="active-link"
         >
@@ -99,12 +99,11 @@ export default class TheHeader extends Vue {
 <style scoped lang="scss">
 .header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   background-color: $grey;
   padding: 0 16px;
-  height: 56px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-height: 56px;
 
   &__wrapper {
     display: flex;
@@ -172,12 +171,19 @@ export default class TheHeader extends Vue {
         background-color: $red;
         border-radius: 50px;
         padding: 0 6px;
-        // min-width: 12px;
         position: absolute;
         right: 20px;
         top: 0px;
       }
     }
+  }
+}
+@media (max-width: 767px) {
+  .active-link {
+    display: none;
+  }
+  .header__button {
+    display: none;
   }
 }
 </style>
