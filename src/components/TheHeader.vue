@@ -179,11 +179,5 @@ export default class TheHeader extends Vue {
   }
 }
 @media (max-width: 767px) {
-  .active-link {
-    display: none;
-  }
-  .header__button {
-    display: none;
-  }
 }
 </style>
