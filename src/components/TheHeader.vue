@@ -1,5 +1,6 @@
 <template>
   <header class="header">
+    <BaseButton class="header__adaptive-menu" text="Menu" />
     <div class="header__wrapper">
       <nav class="navigation">
         <router-link
@@ -99,11 +100,15 @@ export default class TheHeader extends Vue {
 <style scoped lang="scss">
 .header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   background-color: $grey;
   padding: 0 16px;
   min-height: 56px;
+
+  &__adaptive-menu {
+    display: none;
+  }
 
   &__wrapper {
     display: flex;
@@ -177,7 +182,5 @@ export default class TheHeader extends Vue {
       }
     }
   }
-}
-@media (max-width: 767px) {
 }
 </style>
