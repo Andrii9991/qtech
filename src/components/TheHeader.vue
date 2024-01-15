@@ -4,7 +4,7 @@
     <div class="header__wrapper">
       <nav class="navigation">
         <router-link
-          class="navigation__link"
+          class="navigation__link logo-link"
           active-class="active-link"
           :to="{ name: 'HomePage' }"
         >
@@ -14,7 +14,7 @@
         <router-link
           v-for="link in linksList"
           :key="link.name"
-          class="navigation__link close"
+          class="navigation__link"
           :to="{ name: link.name }"
           active-class="active-link"
         >
@@ -24,7 +24,7 @@
               :src="require(`@/design/images/${link.img}.svg`)"
               alt=""
             />
-            <p>{{ link.title }}</p>
+            <p class="icon-wrapper__title">{{ link.title }}</p>
           </div>
         </router-link>
       </nav>
@@ -134,6 +134,9 @@ export default class TheHeader extends Vue {
         border-radius: 40px;
       }
 
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
       .logo {
         width: 77px;
         height: 27px;
@@ -153,10 +156,6 @@ export default class TheHeader extends Vue {
       }
     }
 
-    .navigation__link:not(:last-child) {
-      margin-right: 16px;
-    }
-
     .active-link {
       color: $blue;
     }
@@ -167,6 +166,7 @@ export default class TheHeader extends Vue {
     .navigation__link {
       margin-left: 16px;
       position: relative;
+
       .counter-logo {
         width: 77px;
         height: 27px;
@@ -179,6 +179,45 @@ export default class TheHeader extends Vue {
         position: absolute;
         right: 20px;
         top: 0px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .header {
+    .navigation {
+      &__link {
+        margin-right: 0;
+        padding: 0;
+
+        &:not(:last-child) {
+          margin-right: 0px;
+        }
+        .icon-wrapper {
+          &__title {
+            display: none;
+          }
+
+          &__image {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .logo-link {
+        margin-right: 16px;
+      }
+    }
+
+    .actions {
+      .navigation__link {
+        margin-right: 0;
+
+        .counter-logo {
+          width: 36px;
+          height: 27px;
+        }
       }
     }
   }

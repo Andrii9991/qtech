@@ -2,8 +2,11 @@
   <div class="cart-page">
     <ul class="list">
       <li class="list__item" v-for="item in userCart" :key="item.id">
-        <img class="item__image" :src="item.images[0]" alt="" />
-        <h3 class="item__title">{{ item.title }}</h3>
+        <div class="list__item-content">
+          <img class="item__image" :src="item.images[0]" alt="" />
+          <h3 class="item__title">{{ item.title }}</h3>
+        </div>
+
         <div class="action">
           <h3 class="action__close" @click="removeItem(item.id)">X</h3>
           <div class="action__counter">
@@ -12,7 +15,6 @@
             <BaseButton @click.native="decreamnet(item.id)" text="-" />
             <h5 class="price">{{ item.price * (item.count || 1) }} $</h5>
           </div>
-
           <BaseButton
             class="action__buy"
             text="Proceed to checkout"
@@ -63,11 +65,13 @@ export default class CartPage extends Vue {
   margin-top: 16px;
   color: $white;
   min-height: 100vh;
+  width: 100%;
 
   .list {
     display: flex;
     flex-direction: column;
-    width: 1230px;
+    width: 100%;
+    margin: 16px;
 
     &__item {
       display: flex;
@@ -78,11 +82,19 @@ export default class CartPage extends Vue {
       border-radius: 20px;
       padding: 0 10px;
       margin: 10px 0;
-      .item__image {
-        max-width: 150px;
-        height: 150px;
-        border-radius: 20px;
-        padding: 10px;
+
+      &-content {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .item__image {
+          max-width: 150px;
+          height: 150px;
+          border-radius: 20px;
+          padding: 10px;
+        }
       }
       .action {
         display: flex;

@@ -2,6 +2,7 @@
   <div class="filters">
     <BaseButton
       class="filters__burger-menu"
+      :class="{ 'filter__burger-menu-visible': isActive }"
       @click.native="onShowMenu"
       text="Filters"
     >
@@ -155,16 +156,16 @@ export default class TheFilters extends Vue {
     justify-content: flex-start;
 
     .filters__wrapper {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: -250px;
       display: flex;
       flex-direction: column;
+      justify-content: space-evenly;
       z-index: 1;
       width: 250px;
+      height: 100vh;
       background-color: $grey-lite;
-      opacity: 0.9;
-      padding: 75px 20px 10px;
 
       .filter {
         padding: 10px 0;
@@ -185,6 +186,10 @@ export default class TheFilters extends Vue {
     .filters__burger-menu {
       display: block;
       z-index: 2;
+    }
+
+    .filter__burger-menu-visible {
+      display: none;
     }
   }
 }
