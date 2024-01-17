@@ -59,7 +59,9 @@ export default class AccountPage extends Vue {
   margin-top: 16px;
   color: $white;
   min-height: 100vh;
-  .account-page__container {
+  width: 100%;
+
+  &__container {
     display: flex;
     justify-content: space-around;
     max-width: 900px;
@@ -68,6 +70,7 @@ export default class AccountPage extends Vue {
     border-radius: 20px;
     box-shadow: 0 5px 15px 0 $grey-lite;
     padding: 20px 0;
+    margin: 10px;
 
     .user-navigation {
       display: flex;
@@ -99,6 +102,15 @@ export default class AccountPage extends Vue {
       &__item:not(:last-child) {
         margin-bottom: 20px;
       }
+    }
+  }
+}
+@media (max-width: 767px) {
+  .account-page {
+    .user-navigation__image {
+      max-width: 100px;
+      height: 100px;
+      margin: 8px 4px;
     }
   }
 }

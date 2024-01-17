@@ -1,19 +1,25 @@
 <template>
   <div id="app">
     <TheHeader />
-
-    <router-view />
+    <div class="page">
+      <div class="page__wrapper">
+        <router-view />
+      </div>
+    </div>
+    <TheFooter />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
 import { getAllProducts, getAllComments } from "@/api/mainRequests";
 
 @Component({
   components: {
     TheHeader,
+    TheFooter,
   },
 })
 export default class App extends Vue {
@@ -44,5 +50,20 @@ export default class App extends Vue {
   font-family: $font-family-default;
   font-style: normal;
   font-weight: 400;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1240px;
+  }
 }
 </style>

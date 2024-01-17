@@ -7,14 +7,16 @@
     <div class="product-view-page__content">
       <div class="carousel__wrapper">
         <carousel
+          class="image-wpapper"
+          v-model="currentSlide"
           :perPage="1"
           paginationColor="#ffffff"
           paginationActiveColor="#ffffff"
+          :centerMode="true"
+          :adjustableHeight="true"
           :autoplay="true"
           :autoplayTimeout="4000"
           :loop="true"
-          v-model="currentSlide"
-          class="image-wpapper"
         >
           <slide v-for="image in currentProduct.images" :key="image">
             <img class="image-wpapper__item" :src="image" alt="product-image" />
@@ -50,6 +52,7 @@
           />
         </div>
       </div>
+
       <p>{{ currentProduct.count }}</p>
     </div>
     <div class="product-view-page__comments">
@@ -135,7 +138,8 @@ export default class ProductViewPage extends Vue {
     width: 100%;
 
     .carousel__wrapper {
-      max-width: 400px;
+      text-align: center;
+      width: 400px;
     }
 
     .image-wpapper {
@@ -180,6 +184,34 @@ export default class ProductViewPage extends Vue {
 
       &__user {
         margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .product-view-page {
+    &__description {
+      max-width: 300px;
+      width: 100%;
+      white-space: pre-wrap;
+    }
+
+    &__content {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .content__characteristics {
+        .buttons {
+          margin: 10px 0 0 0;
+        }
+      }
+    }
+    &__comments {
+      max-width: 400px;
+      .comment {
+        width: 100%;
       }
     }
   }

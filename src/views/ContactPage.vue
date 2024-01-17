@@ -1,9 +1,5 @@
 <template>
-  <div>
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores odio quae
-    consequuntur rerum, explicabo dolor enim animi labore, sequi culpa harum
-    nemo totam necessitatibus tempora eos aperiam obcaecati. Laudantium, labore?
-  </div>
+  <div class="contact-page"></div>
 </template>
 
 <script lang="ts">
