@@ -4,7 +4,7 @@
       <carousel
         class="home-carousel__wrapper"
         v-model="currentSlide"
-        :perPage="test"
+        :perPage="widthWindow"
         :autoplay="true"
         :autoplayTimeout="4000"
         :loop="true"
@@ -76,7 +76,7 @@ import { Carousel, Slide } from "vue-carousel";
 })
 export default class HomePage extends Vue {
   currentSlide = 1;
-  test = window.innerWidth <= 767 ? 3 : 4;
+  widthWindow = window.innerWidth <= 767 ? 3 : 4;
 
   get productImages() {
     return this.$store.getters["products/getProductsImage"];
@@ -111,7 +111,7 @@ export default class HomePage extends Vue {
   }
   @Watch("window.innerWidth")
   onResize() {
-    this.test = window.innerWidth <= 767 ? 3 : 4;
+    this.widthWindow = window.innerWidth <= 767 ? 3 : 4;
   }
 
   mounted() {
@@ -146,6 +146,7 @@ export default class HomePage extends Vue {
 
         .image-wpapper__item {
           border-radius: 8px;
+          margin: 8px;
           width: 200px;
           height: 200px;
         }
