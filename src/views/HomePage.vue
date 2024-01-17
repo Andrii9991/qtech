@@ -239,8 +239,8 @@ export default class HomePage extends Vue {
           padding: 10px 0;
 
           .image-wpapper__item {
-            width: 110px;
-            height: 110px;
+            width: 140px;
+            height: 140px;
           }
         }
       }
