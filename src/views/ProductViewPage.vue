@@ -7,6 +7,8 @@
     <div class="product-view-page__content">
       <div class="carousel__wrapper">
         <carousel
+          class="image-wpapper"
+          v-model="currentSlide"
           :perPage="1"
           paginationColor="#ffffff"
           paginationActiveColor="#ffffff"
@@ -15,8 +17,6 @@
           :autoplay="true"
           :autoplayTimeout="4000"
           :loop="true"
-          v-model="currentSlide"
-          class="image-wpapper"
         >
           <slide v-for="image in currentProduct.images" :key="image">
             <img class="image-wpapper__item" :src="image" alt="product-image" />

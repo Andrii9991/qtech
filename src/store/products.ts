@@ -5,7 +5,12 @@ export default {
     productList: [],
     currentProduct: {},
   },
-  getters: {},
+  getters: {
+    getProductsImage(state: any) {
+      const productsImages = state.productList.map((item: any) => item.images);
+      return productsImages;
+    },
+  },
   mutations: {
     setProducts(state: any, products: IProduct[]): void {
       const cartItem = [...products];
