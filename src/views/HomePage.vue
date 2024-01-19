@@ -1,6 +1,7 @@
 <template>
   <div class="home-page">
     <div class="home-carousel">
+      <h1>Sales hit</h1>
       <carousel
         class="home-carousel__wrapper"
         v-model="currentSlide"
@@ -24,7 +25,10 @@
           />
           <p>{{ product.title }}</p>
           <p>{{ product.brand }}</p>
-          <p>{{ product.price }}$</p>
+          <div class="product__price">
+            <s>{{ product.price }}$</s>
+            <h4 class="product__price-actual">{{ product.price }}$</h4>
+          </div>
         </slide>
       </carousel>
     </div>
@@ -39,6 +43,7 @@
         <p class="home-cart__description">{{ product.description }}</p>
 
         <h3 class="home-cart__price">{{ product.price }} USD</h3>
+
         <div class="home-cart__buttons">
           <BaseButton
             class="button__detail"
@@ -58,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseSelect from "@/components/BaseSelect.vue";
 import TheFilters from "@/components/TheFilters.vue";
@@ -76,7 +81,7 @@ import { Carousel, Slide } from "vue-carousel";
 })
 export default class HomePage extends Vue {
   currentSlide = 1;
-  widthWindow = window.innerWidth <= 767 ? 3 : 4;
+  widthWindow = 5;
 
   get productImages() {
     return this.$store.getters["products/getProductsImage"];
@@ -109,13 +114,18 @@ export default class HomePage extends Vue {
     });
     this.$store.commit("products/setCurrentProduct", product);
   }
-  @Watch("window.innerWidth")
+
   onResize() {
-    this.widthWindow = window.innerWidth <= 767 ? 3 : 4;
+    if (window.innerWidth <= 992 && window.innerWidth > 767) {
+      this.widthWindow = 3;
+    } else if (window.innerWidth <= 767) {
+      this.widthWindow = 2;
+    }
   }
 
   mounted() {
-    window.addEventListener("resize", this.onResize);
+    this.onResize();
+    console.log(this.widthWindow);
   }
 
   beforeDestroy() {
@@ -137,18 +147,39 @@ export default class HomePage extends Vue {
     text-align: center;
 
     &__wrapper {
-      background-color: $grey;
-      height: 300px;
-      border-radius: 16px;
+      min-height: 300px;
+      border-radius: 24px;
       margin: 16px;
+
+      &:hover {
+        cursor: pointer;
+      }
       .item-content {
+        box-shadow: 0 0 0 4px $black inset;
         padding: 10px 0;
+        background-color: #1d1d1d;
+        border-radius: 16px;
 
         .image-wpapper__item {
           border-radius: 8px;
           margin: 8px;
+          box-shadow: 0 0 0 4px $black;
           width: 200px;
           height: 200px;
+          transition: 0.5s;
+
+          &:hover {
+            transform: scale(0.95);
+          }
+        }
+        .product__price {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 30px;
+
+          &-actual {
+            color: $red-price;
+          }
         }
       }
     }
@@ -167,7 +198,7 @@ export default class HomePage extends Vue {
       flex-direction: column;
       min-height: 240px;
       max-width: 450px;
-      border-radius: 40px;
+      border-radius: 24px;
       background-color: $grey;
       padding: 8px;
       transition-property: background-color, box-shadow;
@@ -179,7 +210,7 @@ export default class HomePage extends Vue {
         height: 200px;
         overflow: hidden;
         margin-bottom: 8px;
-        border-radius: 8px;
+        border-radius: 16px;
         box-shadow: 0 0 0 4px $black;
         transition-duration: 0.5s;
 
@@ -237,16 +268,26 @@ export default class HomePage extends Vue {
         margin: 8px;
         .item-content {
           padding: 10px 0;
-
-          .image-wpapper__item {
-            width: 140px;
-            height: 140px;
-          }
         }
       }
     }
     .home-page__container {
       padding-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .home-page {
+    .home-carousel {
+      &__wrapper {
+        .item-content {
+          .image-wpapper__item {
+            width: 130px;
+            height: 130px;
+          }
+        }
+      }
     }
   }
 }
