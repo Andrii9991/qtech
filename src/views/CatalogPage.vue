@@ -149,7 +149,7 @@ export default class CatalogPage extends Vue {
       flex-direction: column;
       min-height: 240px;
       max-width: 450px;
-      border-radius: 40px;
+      border-radius: 24px;
       background-color: $grey;
       padding: 8px;
       transition-property: background-color, box-shadow;
@@ -161,7 +161,7 @@ export default class CatalogPage extends Vue {
         height: 200px;
         overflow: hidden;
         margin-bottom: 8px;
-        border-radius: 8px;
+        border-radius: 16px;
         box-shadow: 0 0 0 4px $black;
         transition-duration: 0.5s;
 
