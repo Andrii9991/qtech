@@ -41,7 +41,6 @@ const routes: Array<RouteConfig> = [
     path: "/catalog/:name",
     name: "ProductViewPage",
     component: () => import("@/views/ProductViewPage.vue"),
-    // props: true
   },
   {
     path: "/sign-up",

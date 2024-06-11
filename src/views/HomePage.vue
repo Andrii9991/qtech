@@ -6,7 +6,6 @@
         class="home-carousel__wrapper"
         v-model="currentSlide"
         :perPage="widthWindow"
-        :autoplay="true"
         :autoplayTimeout="4000"
         :loop="true"
         :paginationEnabled="false"
@@ -292,7 +291,7 @@ export default class HomePage extends Vue {
             flex-direction: column;
 
             &__item {
-              max-width: 350px;
+              max-width: auto;
               height: 350px;
               border-radius: 8px;
               border-radius: 16px;
@@ -353,6 +352,9 @@ export default class HomePage extends Vue {
         border-radius: 16px;
         box-shadow: 0 0 0 4px $black;
         transition-duration: 0.5s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &:hover {
           border-radius: 16px;
@@ -365,8 +367,8 @@ export default class HomePage extends Vue {
         &__image {
           object-fit: cover;
           object-position: center;
-          height: 100%;
-          width: 100%;
+          height: 90%;
+          width: auto;
           transition: 0.5s;
         }
       }
