@@ -127,7 +127,7 @@ export default class SignUpPage extends Vue {
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: left;
-    max-width: 400px;
+    min-width: 400px;
     margin: 0 auto;
 
     &__input {
