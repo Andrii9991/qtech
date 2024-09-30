@@ -91,7 +91,7 @@
             class="image-wrap__image"
             @click="setProductAsCurrent(product)"
             :src="product.images[0]"
-            alt=""
+            alt="product"
           />
         </div>
 
@@ -303,6 +303,9 @@ export default class CatalogPage extends Vue {
       cursor: pointer;
 
       .image-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 200px;
         height: 200px;
         overflow: hidden;
@@ -322,8 +325,8 @@ export default class CatalogPage extends Vue {
         &__image {
           object-fit: cover;
           object-position: center;
-          height: 100%;
-          width: 100%;
+          height: 90%;
+          width: auto;
           transition: 0.5s;
         }
       }

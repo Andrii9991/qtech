@@ -239,12 +239,14 @@ export default class HomePage extends Vue {
         padding: 10px 0;
         background-color: #1d1d1d;
         border-radius: 16px;
+        // width: 200px;
+        // height: 400px;
 
         .image-wpapper__item {
           border-radius: 8px;
           margin: 8px;
-          box-shadow: 0 0 0 4px $black;
-          width: 200px;
+          // box-shadow: 0 0 0 4px $black;
+          width: auto;
           height: 200px;
           transition: 0.5s;
 
