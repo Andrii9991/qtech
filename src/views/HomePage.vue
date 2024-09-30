@@ -221,6 +221,7 @@ export default class HomePage extends Vue {
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  overflow: hidden;
 
   .home-carousel {
     margin-top: 16px;
@@ -305,7 +306,7 @@ export default class HomePage extends Vue {
           max-width: 350px;
 
           .characteristics__description {
-            margin-bottom: 10px;
+            margin: 10px 0;
           }
           .characteristics {
             width: 100%;
@@ -377,6 +378,9 @@ export default class HomePage extends Vue {
 
       &__description {
         padding: 15px 15px;
+        margin-bottom: 16px;
+        height: 95px;
+        overflow: hidden;
       }
       &__price {
         margin-bottom: 16px;

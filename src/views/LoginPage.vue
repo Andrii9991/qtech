@@ -45,10 +45,9 @@
       <template #description>
         <ul
           class="user-credentials"
-          v-for="(user, index) in usersList"
+          v-for="user in usersList"
           :key="user.username"
         >
-          <p class="user-index">{{ index + 1 }}.</p>
           <li>Email: {{ user.email }}</li>
           <li>Password: {{ user.password }}</li>
         </ul>
@@ -218,7 +217,10 @@ export default class LoginPage extends Vue {
         margin-top: 0;
       }
       li {
+        width: 50%;
+        padding: 8px;
         list-style-type: none;
+        justify-content: center;
       }
 
       .user-index {

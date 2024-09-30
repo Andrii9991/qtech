@@ -95,7 +95,7 @@
           />
         </div>
 
-        <h3 class="catalog-cart__title">{{ product.title }}</h3>
+        <h4 class="catalog-cart__title">{{ product.title }}</h4>
         <p class="catalog-cart__description">{{ product.description }}</p>
 
         <h3 class="catalog-cart__price">{{ product.price }} USD</h3>
@@ -333,7 +333,11 @@ export default class CatalogPage extends Vue {
 
       &__description {
         padding: 15px 15px;
+        margin-bottom: 16px;
+        height: 95px;
+        overflow: hidden;
       }
+
       &__price {
         margin-bottom: 16px;
       }
