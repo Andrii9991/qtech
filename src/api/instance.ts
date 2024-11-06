@@ -1,10 +1,11 @@
 import axios from "axios";
 
-export const actualUrl = 'https://dummyjson.com/'
+export const actualUrl = "https://dummyjson.com/";
+
 const defaultHeaders = {
-    accept: 'application/json',
-}
+  accept: "application/json",
+};
 export const instanceApi = axios.create({
-    baseURL: actualUrl,
-    headers: defaultHeaders,
-})
+  baseURL: actualUrl,
+  headers: defaultHeaders,
+});
