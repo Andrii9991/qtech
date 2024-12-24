@@ -32,6 +32,20 @@
           styleButton="black"
           text="Login"
         />
+
+        <span class="helper-logic">or connect with Social Media</span>
+
+        <BaseButton
+          class="googleLogin-button"
+          @click.native="googleLoginAction"
+          styleButton="black"
+          text="Login with Google"
+        ></BaseButton>
+
+        <button><i class="pi pi-google" style="color: red"></i></button>
+      </div>
+      <div class="sign-up_route">
+        <span class="title_sign-in">Not registered?</span>
         <router-link class="login-link" :to="{ name: 'SignUpPage' }">
           Sign up now
         </router-link>
@@ -63,11 +77,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAccordion from "@/components/BaseAccordion.vue";
-import { login, getAllUsers } from "@/api/mainRequests";
+import "primeicons/primeicons.css";
+
+import { Component, Vue } from "vue-property-decorator";
+import { login, googleLogin } from "@/api/mainRequests";
 import { IUser } from "@/interfaces/users";
 import InformationPopUp from "@/components/InformationPopUp.vue";
 
@@ -126,29 +142,38 @@ export default class LoginPage extends Vue {
   async loginAction(): Promise<void> {
     const { message, responseType } = await login();
 
-    if (responseType === "success") {
-      this.popUpVisualStyle = "green";
-    } else {
-      this.popUpVisualStyle = "red";
-    }
+    this.$toast.open({
+      message: message as string,
+      type: responseType as string, // success, info, warning, error
+      duration: 3000, // Час у мс (за замовчуванням: 5000)
+    });
 
-    this.popUpText = message as string;
-    this.isPopUpVisible = !this.isPopUpVisible;
-
-    this.timeOut = setTimeout(() => {
-      this.$router.push({
-        name: "AccountPage",
-      });
-    }, 1500);
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
 
-  async created(): Promise<void> {
-    const result = await getAllUsers();
-    if (result.message) {
-      this.popUpText = result.message as string;
-      this.isPopUpVisible = !this.isPopUpVisible;
-    }
+  async googleLoginAction(): Promise<void> {
+    const { message, responseType } = await googleLogin();
+
+    this.$toast.open({
+      message: message as string,
+      type: responseType as string, // success, info, warning, error
+      duration: 3000, // Час у мс (за замовчуванням: 5000)
+      position: "top-right",
+    });
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
+
+  // async created(): Promise<void> {
+  //   const result = await getAllUsers();
+  //   if (result.message) {
+  //     this.popUpText = result.message as string;
+  //     this.isPopUpVisible = !this.isPopUpVisible;
+  //   }
+  // }
 
   beforeDestroy() {
     clearTimeout(this.timeOut);
@@ -191,15 +216,33 @@ export default class LoginPage extends Vue {
       display: flex;
       flex-direction: column;
       min-height: 32px;
+      margin-bottom: 16px;
 
       .login-button {
         width: 100%;
+        font-weight: 500;
       }
-      .login-link {
-        color: $black;
-        text-decoration: none;
+
+      .helper-logic {
         text-align: center;
-        margin-top: 10px;
+        color: $black;
+        font-weight: 400;
+        margin: 10px 0 10px 0;
+      }
+
+      .googleLogin-button {
+        width: 100%;
+        font-weight: 500;
+      }
+    }
+
+    .sign-up_route {
+      display: flex;
+      justify-content: center;
+
+      .title_sign-in {
+        margin-right: 6px;
+        color: $black;
       }
     }
   }

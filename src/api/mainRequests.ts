@@ -1,15 +1,14 @@
 import store from "@/store";
 import { instanceApi } from "./instance";
 import { AxiosResponse } from "axios";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { collection, query, onSnapshot, addDoc } from "firebase/firestore";
-import { db } from "@/FireBase/Config";
 import { IUser } from "@/interfaces/users";
+import {
+  auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "../firebase";
 
 export const getAllProducts = async (): Promise<AxiosResponse> => {
   const responsePhones = await instanceApi.get("products/category/smartphones");
@@ -20,13 +19,13 @@ export const getAllProducts = async (): Promise<AxiosResponse> => {
   const allResponses = phonesList.concat(laptopsList);
 
   store.commit("products/setProducts", allResponses);
-  return responsePhones;
+  return allResponses;
 };
 
 export const login = async (): Promise<Record<string, unknown>> => {
   try {
     const { user } = await signInWithEmailAndPassword(
-      getAuth(),
+      auth,
       store.state.user.email,
       store.state.user.password
     );
@@ -49,25 +48,41 @@ export const login = async (): Promise<Record<string, unknown>> => {
   }
 };
 
+export const googleLogin = async (): Promise<Record<string, unknown>> => {
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const { user } = await await signInWithPopup(auth, provider);
+
+    const token = await user.getIdToken();
+
+    console.log(token);
+    console.log(user);
+    store.commit("user/setEmail", user.email);
+    store.commit("user/setUsername", user.displayName);
+    store.commit("user/authUser");
+
+    instanceApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    return {
+      responseType: "success",
+      message: "You have successfully logged in",
+    };
+  } catch (error) {
+    return {
+      responseType: "error",
+      message: "There was an error",
+    };
+  }
+};
+
 export const registration = async (): Promise<Record<string, unknown>> => {
   try {
     const { user } = await createUserWithEmailAndPassword(
-      getAuth(),
+      auth,
       store.state.user.email,
       store.state.user.password
     );
-
-    await updateProfile(user, {
-      displayName: store.state.user.username,
-      photoURL: "https://robohash.org/Z73.png?set=set2",
-    });
-
-    addDoc(collection(db, "users"), {
-      email: store.state.user.email,
-      username: store.state.user.username,
-      password: store.state.user.password,
-      photoURL: "https://robohash.org/Z73.png?set=set2",
-    });
 
     store.commit("user/setEmail", user.email);
     store.commit("user/setUsername", user.displayName);
@@ -81,32 +96,6 @@ export const registration = async (): Promise<Record<string, unknown>> => {
     return {
       responseType: "error",
       message: "There was an error",
-    };
-  }
-};
-
-export const getAllUsers = async (): Promise<Record<string, unknown>> => {
-  try {
-    const q = query(collection(db, "users"));
-    onSnapshot(q, (querySnapshot) => {
-      const tempUser: IUser[] = [];
-      querySnapshot.forEach((doc) => {
-        tempUser.push({
-          id: doc.id,
-          ...doc.data(),
-        } as any);
-        store.commit("user/setUserData", tempUser);
-      });
-    });
-
-    return {
-      responseType: "",
-      message: "",
-    };
-  } catch (error) {
-    return {
-      responseType: "error",
-      message: error,
     };
   }
 };
