@@ -48,7 +48,9 @@ export const login = async (): Promise<Record<string, unknown>> => {
   }
 };
 
-export const googleLogin = async (): Promise<Record<string, unknown>> => {
+export const googleAuth = async (
+  method: "login" | "signup"
+): Promise<Record<string, unknown>> => {
   const provider = new GoogleAuthProvider();
 
   try {
@@ -66,7 +68,10 @@ export const googleLogin = async (): Promise<Record<string, unknown>> => {
 
     return {
       responseType: "success",
-      message: "You have successfully logged in",
+      message:
+        method === "login"
+          ? "You have successfully logged in"
+          : "You have successfully signed up",
     };
   } catch (error) {
     return {
