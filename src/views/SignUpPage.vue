@@ -33,40 +33,41 @@
           styleButton="black"
           text="Sign Up"
         />
+        <div class="divider">
+          <div class="line"></div>
+          <span class="helper-logic">or </span>
+          <div class="line"></div>
+        </div>
 
+        <BaseButton
+          class="googleLogin-button"
+          @click.native="googleSignUpAction"
+          styleButton="light-blue"
+          text="Sign up with Google"
+          :iconVisible="true"
+        >
+        </BaseButton>
         <router-link class="sign-in-link" :to="{ name: 'LoginPage' }">
           I have an account
         </router-link>
       </div>
     </div>
-    <InformationPopUp
-      :isPopUpVisible.sync="isPopUpVisible"
-      :visualStyle="popUpVisualStyle"
-      :text="popUpText"
-    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { registration, googleAuth } from "@/api/mainRequests";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import { registration } from "@/api/mainRequests";
-import InformationPopUp from "@/components/InformationPopUp.vue";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
-    InformationPopUp,
   },
 })
 export default class SignUpPage extends Vue {
-  isPopUpVisible = false;
-  popUpText = "";
-  popUpVisualStyle = "red";
-  timeOut: undefined | number = undefined;
-
   set username(value: string) {
     this.$store.commit("user/setUsername", value);
   }
@@ -89,23 +90,30 @@ export default class SignUpPage extends Vue {
   async signUp(): Promise<void> {
     const { message, responseType } = await registration();
 
-    if (responseType === "success") {
-      this.popUpVisualStyle = "green";
-    } else {
-      this.popUpVisualStyle = "red";
-    }
+    this.$toast.open({
+      message: message as string,
+      type: responseType as string,
+      duration: 3000,
+      position: "top-right",
+    });
 
-    this.popUpText = message as string;
-    this.isPopUpVisible = !this.isPopUpVisible;
-
-    this.timeOut = setTimeout(() => {
-      this.$router.push({
-        name: "AccountPage",
-      });
-    }, 1500);
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
-  beforeDestroy() {
-    clearTimeout(this.timeOut);
+
+  async googleSignUpAction(): Promise<void> {
+    const { message, responseType } = await googleAuth("signup");
+
+    this.$toast.open({
+      message: message as string,
+      type: responseType as string,
+      duration: 3000,
+      position: "top-right",
+    });
+    this.$router.push({
+      name: "AccountPage",
+    });
   }
 }
 </script>
@@ -146,10 +154,28 @@ export default class SignUpPage extends Vue {
         margin-bottom: 10px;
       }
 
+      .divider {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .line {
+          flex: 1;
+          height: 1px;
+          background-color: #cfdfe2;
+        }
+        .helper-logic {
+          text-align: center;
+          color: $black;
+          font-weight: 400;
+          margin: 10px 10px;
+        }
+      }
       .sign-in-link {
         text-align: center;
         color: $black;
         text-decoration: none;
+        margin-top: 20px;
       }
     }
   }

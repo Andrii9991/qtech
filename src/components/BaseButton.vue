@@ -1,5 +1,6 @@
 <template>
   <button :class="['base-button', styleButton, size]" :disabled="isDisebled">
+    <i v-if="iconVisible" class="pi pi-google" style="color: red"></i>
     {{ text }}
   </button>
 </template>
@@ -13,13 +14,14 @@ export default class BaseButton extends Vue {
   @Prop({ default: "" }) styleButton!: string;
   @Prop({ default: "" }) size!: string;
   @Prop({ default: false }) isDisebled!: boolean;
+  @Prop({ default: false }) iconVisible!: boolean;
 }
 </script>
 
 <style scoped lang="scss">
 .base-button {
   padding: 8px;
-  border-radius: 40px;
+  border-radius: 12px;
   background: none;
   background-color: $white;
   color: $black;
@@ -61,9 +63,17 @@ export default class BaseButton extends Vue {
   }
 }
 
+.light-blue {
+  background-color: #f3f9fa;
+}
+
 .small {
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
+}
+
+.pi-google {
+  margin: 4px 12px 0 12px;
 }
 </style>

@@ -9,7 +9,7 @@
         @checkField="checkField('email')"
         :isError="emailError"
         label="Email"
-        placeholder="Enter email"
+        placeholder="Example@email.com"
         errorMsg="The email must be more than 6 characters"
       />
 
@@ -21,7 +21,7 @@
         label="Password"
         placeholder="Enter password"
         type="password"
-        errorMsg="The password must be more than 2 characters"
+        errorMsg="The password must be more than 6 characters"
       />
 
       <div class="content__buttons">
@@ -32,17 +32,20 @@
           styleButton="black"
           text="Login"
         />
-
-        <span class="helper-logic">or connect with Social Media</span>
+        <div class="divider">
+          <div class="line"></div>
+          <span class="helper-logic">or </span>
+          <div class="line"></div>
+        </div>
 
         <BaseButton
           class="googleLogin-button"
           @click.native="googleLoginAction"
-          styleButton="black"
+          styleButton="light-blue"
           text="Login with Google"
-        ></BaseButton>
-
-        <button><i class="pi pi-google" style="color: red"></i></button>
+          :iconVisible="true"
+        >
+        </BaseButton>
       </div>
       <div class="sign-up_route">
         <span class="title_sign-in">Not registered?</span>
@@ -51,58 +54,29 @@
         </router-link>
       </div>
     </div>
-
-    <!-- <BaseAccordion
-      class="login-page__accordion"
-      title="You can use this credentials to log in!"
-    >
-      <template #description>
-        <ul
-          class="user-credentials"
-          v-for="user in usersList"
-          :key="user.username"
-        >
-          <li>Email: {{ user.email }}</li>
-          <li>Password: {{ user.password }}</li>
-        </ul>
-      </template>
-    </BaseAccordion> -->
-
-    <InformationPopUp
-      :isPopUpVisible.sync="isPopUpVisible"
-      :visualStyle="popUpVisualStyle"
-      :text="popUpText"
-    />
   </div>
 </template>
 
 <script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { login, googleAuth } from "@/api/mainRequests";
+import { IUser } from "@/interfaces/users";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAccordion from "@/components/BaseAccordion.vue";
 import "primeicons/primeicons.css";
-
-import { Component, Vue } from "vue-property-decorator";
-import { login, googleLogin } from "@/api/mainRequests";
-import { IUser } from "@/interfaces/users";
-import InformationPopUp from "@/components/InformationPopUp.vue";
 
 @Component({
   components: {
     BaseButton,
     BaseInput,
     BaseAccordion,
-    InformationPopUp,
   },
 })
 export default class LoginPage extends Vue {
   isActive = false;
-  isPopUpVisible = false;
-  popUpVisualStyle = "";
-  popUpText = "";
   emailError = false;
   passwordError = false;
-  timeOut: undefined | number = undefined;
 
   get usersList(): IUser[] {
     return this.$store.state.user.usersList;
@@ -144,8 +118,9 @@ export default class LoginPage extends Vue {
 
     this.$toast.open({
       message: message as string,
-      type: responseType as string, // success, info, warning, error
-      duration: 3000, // Час у мс (за замовчуванням: 5000)
+      type: responseType as string,
+      duration: 3000,
+      position: "top-right",
     });
 
     this.$router.push({
@@ -154,29 +129,17 @@ export default class LoginPage extends Vue {
   }
 
   async googleLoginAction(): Promise<void> {
-    const { message, responseType } = await googleLogin();
+    const { message, responseType } = await googleAuth("login");
 
     this.$toast.open({
       message: message as string,
-      type: responseType as string, // success, info, warning, error
-      duration: 3000, // Час у мс (за замовчуванням: 5000)
+      type: responseType as string,
+      duration: 3000,
       position: "top-right",
     });
     this.$router.push({
       name: "AccountPage",
     });
-  }
-
-  // async created(): Promise<void> {
-  //   const result = await getAllUsers();
-  //   if (result.message) {
-  //     this.popUpText = result.message as string;
-  //     this.isPopUpVisible = !this.isPopUpVisible;
-  //   }
-  // }
-
-  beforeDestroy() {
-    clearTimeout(this.timeOut);
   }
 
   toggle(): void {
@@ -208,6 +171,13 @@ export default class LoginPage extends Vue {
     min-width: 400px;
     margin: 0 auto;
 
+    @media (max-width: 767px) {
+      min-width: 340px;
+    }
+    @media (max-width: 480px) {
+      min-width: 330px;
+    }
+
     &__input {
       margin-bottom: 16px;
     }
@@ -227,12 +197,24 @@ export default class LoginPage extends Vue {
         text-align: center;
         color: $black;
         font-weight: 400;
-        margin: 10px 0 10px 0;
+        margin: 10px 10px;
       }
 
       .googleLogin-button {
         width: 100%;
         font-weight: 500;
+      }
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .line {
+        flex: 1;
+        height: 1px;
+        background-color: #cfdfe2;
       }
     }
 
