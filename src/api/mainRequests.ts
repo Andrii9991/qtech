@@ -1,7 +1,6 @@
 import store from "@/store";
 import { instanceApi } from "./instance";
 import { AxiosResponse } from "axios";
-import { IUser } from "@/interfaces/users";
 import {
   auth,
   signInWithEmailAndPassword,
