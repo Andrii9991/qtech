@@ -228,32 +228,5 @@ export default class LoginPage extends Vue {
       }
     }
   }
-  &__accordion {
-    margin-top: 32px;
-
-    .user-credentials {
-      position: relative;
-      display: flex;
-      justify-content: space-around;
-      column-gap: 16px;
-      margin: 10px 0;
-
-      &:first-child {
-        margin-top: 0;
-      }
-      li {
-        width: 50%;
-        padding: 8px;
-        list-style-type: none;
-        justify-content: center;
-      }
-
-      .user-index {
-        position: absolute;
-        left: 2px;
-        top: 4px;
-      }
-    }
-  }
 }
 </style>

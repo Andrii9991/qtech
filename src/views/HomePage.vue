@@ -5,11 +5,18 @@
       <carousel
         class="home-carousel__wrapper"
         v-model="currentSlide"
-        :perPage="widthWindow"
+        :perPage="1"
         :autoplayTimeout="4000"
         :loop="true"
+        :navigationEnabled="true"
         :paginationEnabled="false"
         :minSwipeDistance="1"
+        :perPageCustom="[
+          [1199, 5],
+          [980, 4],
+          [767, 3],
+          [340, 2],
+        ]"
       >
         <slide
           class="item-content"
@@ -22,12 +29,10 @@
             :src="product.images[0]"
             alt="product-image"
           />
-          <p>{{ product.title }}</p>
-          <p>{{ product.brand }}</p>
-          <div class="product__price">
-            <s>{{ product.price }}$</s>
-            <h4 class="product__price-actual">{{ product.price }}$</h4>
-          </div>
+          <p class="product-title">{{ product.title }}</p>
+          <p class="product-brand">{{ product.brand }}</p>
+
+          <h4 class="product__price-actual">{{ product.price }}$</h4>
         </slide>
       </carousel>
     </div>
@@ -167,9 +172,6 @@ export default class HomePage extends Vue {
     return this.$store.state.products.currentProduct;
   }
 
-  minRangePrice = 0;
-  maxRangePrice = 0;
-
   get productList(): IProduct[] {
     return this.$store.state.products.productList;
   }
@@ -188,28 +190,13 @@ export default class HomePage extends Vue {
   }
 
   setProductAsCurrent(product: IProduct): void {
-    this.isModalVisible = true;
+    this.$router.push({
+      name: "ProductViewPage",
+      params: {
+        name: product.title,
+      },
+    });
     this.$store.commit("products/setCurrentProduct", product);
-  }
-
-  onCloseModal() {
-    this.isModalVisible = !this.isModalVisible;
-  }
-
-  onResize() {
-    if (window.innerWidth <= 992 && window.innerWidth > 767) {
-      this.widthWindow = 3;
-    } else if (window.innerWidth <= 767) {
-      this.widthWindow = 2;
-    }
-  }
-
-  mounted() {
-    this.onResize();
-  }
-
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
   }
 }
 </script>
@@ -240,13 +227,21 @@ export default class HomePage extends Vue {
         padding: 10px 0;
         background-color: #1d1d1d;
         border-radius: 16px;
-        // width: 200px;
-        // height: 400px;
+
+        .product-title {
+          font-size: 14px;
+          font-weight: 500;
+          min-height: 40px;
+        }
+
+        .product-brand {
+          font-size: 14px;
+          font-weight: 300;
+        }
 
         .image-wpapper__item {
           border-radius: 8px;
           margin: 8px;
-          // box-shadow: 0 0 0 4px $black;
           width: auto;
           height: 200px;
           transition: 0.5s;
@@ -255,14 +250,9 @@ export default class HomePage extends Vue {
             transform: scale(0.95);
           }
         }
-        .product__price {
-          display: flex;
-          justify-content: space-between;
-          padding: 10px 30px;
-
-          &-actual {
-            color: $red-price;
-          }
+        .product__price-actual {
+          color: $red-price;
+          margin-top: 12px;
         }
       }
     }
@@ -353,7 +343,6 @@ export default class HomePage extends Vue {
         overflow: hidden;
         margin-bottom: 8px;
         border-radius: 16px;
-        box-shadow: 0 0 0 4px $black;
         transition-duration: 0.5s;
         display: flex;
         justify-content: center;
@@ -436,14 +425,29 @@ export default class HomePage extends Vue {
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   .home-page {
     .home-carousel {
       &__wrapper {
         .item-content {
           .image-wpapper__item {
-            width: 130px;
-            height: 130px;
+            width: auto;
+            height: 160px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .home-page {
+    .home-carousel {
+      &__wrapper {
+        .item-content {
+          .image-wpapper__item {
+            width: auto;
+            height: 120px;
           }
         }
       }

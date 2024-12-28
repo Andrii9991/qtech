@@ -138,6 +138,13 @@ export default class SignUpPage extends Vue {
     min-width: 400px;
     margin: 0 auto;
 
+    @media (max-width: 767px) {
+      min-width: 340px;
+    }
+    @media (max-width: 480px) {
+      min-width: 330px;
+    }
+
     &__input {
       margin-bottom: 16px;
     }
