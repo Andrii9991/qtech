@@ -38,7 +38,7 @@
     </div>
 
     <div class="current-product__modal">
-      <BaseModal
+      <!-- <BaseModal
         class="current-product__wrapper"
         v-if="isModalVisible"
         @closeModal="onCloseModal"
@@ -107,7 +107,7 @@
             <p>{{ currentProduct.count }}</p>
           </div>
         </template>
-      </BaseModal>
+      </BaseModal> -->
     </div>
 
     <div class="home-page__container">
