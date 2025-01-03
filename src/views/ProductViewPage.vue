@@ -59,6 +59,21 @@
             </div>
           </div>
         </div>
+        <div class="availability-block">
+          <span class="availability">{{
+            currentProduct.availabilityStatus
+          }}</span>
+
+          <img
+            class="availability-icon"
+            src="../design/images/product/check_small.svg"
+            alt=""
+          />
+        </div>
+
+        <div class="shipping-block">
+          <span class="shipping">{{ currentProduct.shippingInformation }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -68,7 +83,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import BaseButton from "@/components/BaseButton.vue";
 import { IProduct } from "@/interfaces/products";
-import { IComment } from "@/interfaces/comments";
 import { Carousel, Slide } from "vue-carousel";
 
 @Component({
@@ -86,18 +100,6 @@ export default class ProductViewPage extends Vue {
   }
   get count(): IProduct {
     return this.$store.getters["cart/getCountsArray"];
-  }
-
-  get allComments(): IComment[] {
-    return this.$store.state.comments.allComments;
-  }
-
-  get randomComments() {
-    const randomComments = [...this.allComments];
-
-    randomComments.sort(() => Math.random() - 0.5);
-
-    return randomComments.slice(0, 5);
   }
 
   addToCart(): void {
@@ -252,6 +254,29 @@ export default class ProductViewPage extends Vue {
               font-weight: 200;
             }
           }
+        }
+      }
+      .availability-block {
+        display: flex;
+        align-items: center;
+        margin-top: 32px;
+        margin-bottom: 16px;
+        .availability {
+          font-size: 14px;
+          font-weight: 400;
+        }
+
+        .availability-icon {
+          width: 30px;
+          height: 30px;
+          margin-left: 20px;
+        }
+      }
+      .shipping-block {
+        .shipping {
+          font-size: 12px;
+          font-weight: 400;
+          color: gray;
         }
       }
     }

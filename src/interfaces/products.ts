@@ -9,4 +9,6 @@ export interface IProduct {
   id: number;
   count?: number;
   body: string;
+  availabilityStatus: string;
+  shippingInformation: string;
 }
