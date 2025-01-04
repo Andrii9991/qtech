@@ -7,78 +7,7 @@
       @priceChange="onPriceChange"
     />
 
-    <div class="current-product__modal">
-      <BaseModal
-        class="current-product__wrapper"
-        v-if="isModalVisible"
-        @closeModal="onCloseModal"
-        :title="currentProduct.title"
-      >
-        <template #content>
-          <div class="product-content">
-            <div class="product-content__carousel-wrapper">
-              <carousel
-                class="image-wpapper"
-                v-model="currentSlide"
-                :perPage="1"
-                :paginationEnabled="false"
-                :centerMode="true"
-                :adjustableHeight="true"
-                :autoplay="true"
-                :autoplayTimeout="4000"
-                :loop="true"
-              >
-                <slide v-for="image in currentProduct.images" :key="image">
-                  <img
-                    class="image-wpapper__item"
-                    :src="image"
-                    alt="product-image"
-                  />
-                </slide>
-              </carousel>
-            </div>
-
-            <div class="content__characteristics">
-              <h3>Description</h3>
-              <p class="characteristics__description">
-                {{ currentProduct.description }}
-              </p>
-              <ul class="characteristics">
-                <h3>About this item:</h3>
-
-                <li class="characteristics__brand">
-                  Brand: {{ currentProduct.brand }}
-                </li>
-                <li class="characteristics__category">
-                  Category: {{ currentProduct.category }}
-                </li>
-                <li class="characteristics__ratign">
-                  Ratind: {{ currentProduct.rating }}
-                </li>
-              </ul>
-
-              <div class="buttons">
-                <BaseButton
-                  class="buy-button button"
-                  styleButton="red"
-                  text="Buy now"
-                />
-                <BaseButton
-                  class="bag-button button"
-                  @click.native="addToCart(currentProduct)"
-                  :isDisebled="(currentProduct.count || 0) > 0 ? true : false"
-                  :text="
-                    (currentProduct.count || 0) > 0 ? 'In cart' : 'Add to cart'
-                  "
-                />
-              </div>
-            </div>
-
-            <p>{{ currentProduct.count }}</p>
-          </div>
-        </template>
-      </BaseModal>
-    </div>
+    <div class="current-product__modal"></div>
 
     <div class="catalog-page__container">
       <div
@@ -229,64 +158,6 @@ export default class CatalogPage extends Vue {
   min-height: 100vh;
   width: 100%;
 
-  .current-product__modal {
-    display: flex;
-    margin: 16px;
-    justify-content: center;
-    align-items: center;
-    .current-product__wrapper {
-      max-width: 900px;
-      width: 100%;
-      top: 50px;
-      margin: 16px;
-
-      background-color: $grey;
-      .product-content {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 24px;
-        width: 100%;
-
-        &__carousel-wrapper {
-          text-align: center;
-          width: 400px;
-          .image-wpapper {
-            display: flex;
-            flex-direction: column;
-
-            &__item {
-              max-width: 350px;
-              height: 350px;
-              border-radius: 8px;
-              border-radius: 16px;
-              padding: 10px;
-            }
-          }
-        }
-        .content__characteristics {
-          max-width: 350px;
-
-          .characteristics__description {
-            margin-bottom: 10px;
-          }
-          .characteristics {
-            width: 100%;
-            list-style: none;
-          }
-          .buttons {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            margin-top: 10px;
-            .button {
-              margin-bottom: 20px;
-            }
-          }
-        }
-      }
-    }
-  }
-
   &__container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -316,7 +187,6 @@ export default class CatalogPage extends Vue {
         overflow: hidden;
         margin-bottom: 8px;
         border-radius: 16px;
-        box-shadow: 0 0 0 4px $black;
         transition-duration: 0.5s;
 
         &:hover {
