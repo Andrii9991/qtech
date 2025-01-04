@@ -42,11 +42,13 @@
           </div>
           <div class="icons__wrapper">
             <div class="reviews-button">
-              <img
-                class="rewiews-icon"
-                src="../design/images/product/chat_bubble.svg"
-                alt=""
-              />
+              <a href="#reviews">
+                <img
+                  class="rewiews-icon"
+                  src="../design/images/product/chat_bubble.svg"
+                  alt=""
+                />
+              </a>
               <span class="reviews-title">Reviews</span>
             </div>
             <div class="favorite-button">
@@ -55,6 +57,7 @@
                 src="../design/images/product/favourite 3.svg"
                 alt=""
               />
+
               <span class="favorite-title">Favorite</span>
             </div>
           </div>
@@ -65,6 +68,7 @@
           }}</span>
 
           <img
+            v-if="currentProduct.availabilityStatus === 'In Stock'"
             class="availability-icon"
             src="../design/images/product/check_small.svg"
             alt=""
@@ -73,6 +77,45 @@
 
         <div class="shipping-block">
           <span class="shipping">{{ currentProduct.shippingInformation }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-view-page__reviews" id="reviews">
+      <strong class="reviews-title">REVIEWS</strong>
+      <div class="reviews-wrapper">
+        <div
+          class="reviews-content"
+          v-for="comment in comments"
+          :key="comment.reviewerEmail"
+        >
+          <div class="left-block">
+            <strong class="reviewe-name">{{ comment.reviewerName }}</strong>
+            <div class="reviewe-rating">
+              <span
+                v-for="i in 5"
+                :key="i"
+                class="star"
+                :class="i <= comment.rating ? 'filled' : ''"
+              >
+                ★
+              </span>
+            </div>
+
+            <span class="reviewe-comment">{{ comment.comment }}</span>
+          </div>
+
+          <div class="right-block">
+            <img
+              class="icon"
+              src="../design/images/product/thumb_up.svg"
+              alt=""
+            />
+            <img
+              class="icon"
+              src="../design/images/product/thumb_down.svg"
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -94,6 +137,7 @@ import { Carousel, Slide } from "vue-carousel";
 })
 export default class ProductViewPage extends Vue {
   currentSlide = 1;
+  comments = this.currentProduct.reviews;
 
   get currentProduct(): IProduct {
     return this.$store.state.products.currentProduct;
@@ -119,6 +163,7 @@ export default class ProductViewPage extends Vue {
 
   mounted() {
     console.log(this.currentProduct);
+    console.log(this.comments);
   }
 }
 </script>
@@ -128,24 +173,19 @@ export default class ProductViewPage extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 106px 86px;
-  color: $white;
-  margin-top: 16px;
-  width: 1240px;
-  margin-top: 126px;
-  height: 840px;
-  border-radius: 50px;
-  background-color: $grey;
-
-  &__title {
-    margin-bottom: 16px;
-  }
 
   &__content {
     display: flex;
     justify-content: space-between;
     margin-top: 24px;
-    width: 100%;
+    background-color: $grey;
+    padding: 106px 86px;
+    color: $white;
+    margin-top: 16px;
+    width: 1240px;
+    margin-top: 126px;
+    height: 840px;
+    border-radius: 50px;
 
     .carousel__wrapper {
       text-align: center;
@@ -277,6 +317,73 @@ export default class ProductViewPage extends Vue {
           font-size: 12px;
           font-weight: 400;
           color: gray;
+        }
+      }
+    }
+  }
+
+  &__reviews {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .reviews-title {
+      font-size: 40px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .reviews-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      background-color: $grey;
+      width: 1240px;
+      height: 174px;
+      border-radius: 50px;
+      padding: 28px 62px;
+      margin-block-start: 22px;
+
+      .left-block {
+        display: flex;
+        flex-direction: column;
+        .reviewe-name {
+          margin-bottom: 14px;
+          color: $white;
+          font-size: 20px;
+        }
+
+        .reviewe-rating {
+          display: flex;
+          margin-bottom: 20px;
+          .star {
+            display: flex;
+            font-size: 20px;
+            color: #e0e0e0; /* Сірий для порожніх зірочок */
+          }
+
+          .star.filled {
+            color: #ffcc00; /* Золотий для заповнених зірочок */
+          }
+        }
+
+        .reviewe-comment {
+          font-size: 14px;
+          color: $white;
+        }
+      }
+
+      .right-block {
+        .icon {
+          margin-left: 10px;
+          width: 24px;
+          height: 24px;
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
         }
       }
     }
