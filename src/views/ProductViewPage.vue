@@ -10,7 +10,6 @@
           paginationActiveColor="#ffffff"
           :centerMode="true"
           :adjustableHeight="true"
-          :autoplay="true"
           :autoplayTimeout="4000"
           :loop="true"
         >
@@ -82,40 +81,38 @@
     </div>
     <div class="product-view-page__reviews" id="reviews">
       <strong class="reviews-title">REVIEWS</strong>
-      <div class="reviews-wrapper">
-        <div
-          class="reviews-content"
-          v-for="comment in comments"
-          :key="comment.reviewerEmail"
-        >
-          <div class="left-block">
-            <strong class="reviewe-name">{{ comment.reviewerName }}</strong>
-            <div class="reviewe-rating">
-              <span
-                v-for="i in 5"
-                :key="i"
-                class="star"
-                :class="i <= comment.rating ? 'filled' : ''"
-              >
-                ★
-              </span>
-            </div>
 
-            <span class="reviewe-comment">{{ comment.comment }}</span>
+      <div
+        class="reviews-wrapper"
+        v-for="comment in comments"
+        :key="comment.reviewerEmail"
+      >
+        <div class="reviews-content">
+          <strong class="reviewe-name">{{ comment.reviewerName }}</strong>
+          <div class="reviewe-rating">
+            <span
+              v-for="i in 5"
+              :key="i"
+              class="star"
+              :class="i <= comment.rating ? 'filled' : ''"
+            >
+              ★
+            </span>
           </div>
 
-          <div class="right-block">
-            <img
-              class="icon"
-              src="../design/images/product/thumb_up.svg"
-              alt=""
-            />
-            <img
-              class="icon"
-              src="../design/images/product/thumb_down.svg"
-              alt=""
-            />
-          </div>
+          <span class="reviewe-comment">{{ comment.comment }}</span>
+        </div>
+        <div class="reviews-actions">
+          <img
+            class="icon"
+            src="../design/images/product/thumb_up.svg"
+            alt=""
+          />
+          <img
+            class="icon"
+            src="../design/images/product/thumb_down.svg"
+            alt=""
+          />
         </div>
       </div>
     </div>
@@ -169,10 +166,15 @@ export default class ProductViewPage extends Vue {
 </script>
 
 <style lang="scss">
+$tablet: 768px;
+$mobile: 480px;
 .product-view-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 20px;
+  overflow-x: hidden;
 
   &__content {
     display: flex;
@@ -181,53 +183,82 @@ export default class ProductViewPage extends Vue {
     background-color: $grey;
     padding: 106px 86px;
     color: $white;
-    margin-top: 16px;
-    width: 1240px;
-    margin-top: 126px;
+    max-width: 1240px;
+    width: 100%;
+    margin: 126px 24px 0 24px;
     height: 840px;
     border-radius: 50px;
 
     .carousel__wrapper {
+      display: flex;
+      justify-content: center;
       text-align: center;
-      width: 545px;
-      height: 572px;
+      // width: 100%;
+      // max-width: 545px;
       border-radius: 50px;
-      background-color: $white;
-      box-shadow: 2px 6px 6px $black;
+      overflow-x: hidden;
 
       .image-wpapper {
         display: flex;
 
         &__item {
-          height: 570px;
+          max-height: 470px;
+          height: 100%;
           width: auto;
-          border-radius: 8px;
-          border-radius: 16px;
           padding: 10px;
+
+          @media (max-width: $tablet) {
+            max-height: 350px;
+            height: 100%;
+          }
         }
+
+        @media (max-width: $tablet) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      @media (max-width: $tablet) {
+        max-height: 350px;
+        height: 100%;
       }
     }
 
     .content__wrapper {
       display: flex;
       flex-direction: column;
-      width: 100%;
       margin-left: 60px;
 
       .product__rating-line {
         margin-bottom: 24px;
+
+        @media (max-width: $mobile) {
+          font-size: 16px;
+          margin-bottom: 14px;
+        }
       }
 
       .product__title {
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 24px;
+
+        @media (max-width: $mobile) {
+          font-size: 16px;
+          font-weight: 500;
+          margin-bottom: 16px;
+        }
       }
 
       .product__description {
         font-size: 16px;
         font-weight: 200;
         margin-bottom: 70px;
+        @media (max-width: $tablet) {
+          margin-bottom: 8px;
+        }
       }
 
       .product__price {
@@ -235,6 +266,11 @@ export default class ProductViewPage extends Vue {
         font-weight: 700;
         margin-bottom: 32px;
         color: #c82121;
+
+        @media (max-width: $tablet) {
+          margin-bottom: 8px;
+          font-size: 24px;
+        }
       }
 
       .buttons {
@@ -242,17 +278,42 @@ export default class ProductViewPage extends Vue {
         grid-template-columns: 70% 30%;
         gap: 16px; /* Відстань між секціями */
         align-items: center;
+
+        @media (max-width: $mobile) {
+          gap: 8px;
+          grid-template-columns: 65% 35%;
+        }
         .buttons__wrapper {
           display: flex;
           flex-direction: column;
 
           .button {
             margin-bottom: 20px;
-            width: 300px;
+            max-width: 300px;
+            width: 100%;
             height: 64px;
             border-radius: 50px;
             font-size: 24px;
             font-weight: 600;
+            @media (max-width: $tablet) {
+              margin-bottom: 10px;
+              font-size: 18px;
+              max-width: 170px;
+              width: 100%;
+              height: 52px;
+              margin-right: 12px;
+            }
+
+            @media (max-width: $mobile) {
+              margin-bottom: 8px;
+              font-size: 10px;
+              margin-right: 10px;
+              padding: 6px 16px;
+            }
+          }
+
+          @media (max-width: $tablet) {
+            flex-direction: row;
           }
         }
 
@@ -261,15 +322,36 @@ export default class ProductViewPage extends Vue {
           flex-direction: column;
           margin-left: 30px;
 
+          @media (max-width: $tablet) {
+            flex-direction: row;
+            margin-left: 12px;
+          }
+
+          @media (max-width: $mobile) {
+            flex-direction: row;
+            margin-left: 6px;
+          }
+
           .reviews-button {
             display: flex;
             flex-direction: column;
             margin-bottom: 26px;
 
+            @media (max-width: $tablet) {
+              margin-bottom: 14px;
+              margin-right: 12px;
+            }
+
             .rewiews-icon {
               margin-bottom: 6px;
               width: 39px;
               height: 39px;
+
+              @media (max-width: $tablet) {
+                margin-bottom: 8px;
+                width: 30px;
+                height: 30px;
+              }
             }
 
             .reviews-title {
@@ -281,12 +363,17 @@ export default class ProductViewPage extends Vue {
           .favorite-button {
             display: flex;
             flex-direction: column;
-            // margin-top: 16px;
 
             .favorite-icon {
               margin-bottom: 6px;
               width: 39px;
               height: 39px;
+
+              @media (max-width: $tablet) {
+                width: 30px;
+                height: 30px;
+                margin-bottom: 15px;
+              }
             }
 
             .favorite-title {
@@ -301,6 +388,11 @@ export default class ProductViewPage extends Vue {
         align-items: center;
         margin-top: 32px;
         margin-bottom: 16px;
+
+        @media (max-width: 767px) {
+          margin-top: 12px;
+          margin-bottom: 8px;
+        }
         .availability {
           font-size: 14px;
           font-weight: 400;
@@ -319,94 +411,114 @@ export default class ProductViewPage extends Vue {
           color: gray;
         }
       }
+
+      @media (max-width: $tablet) {
+        margin: 16px;
+      }
+
+      @media (max-width: $mobile) {
+        margin: 10px;
+      }
     }
   }
 
-  &__reviews {
-    margin-top: 36px;
+  @media (max-width: $tablet) {
+    &__content {
+      padding: 12px;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .product-view-page__reviews {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 36px;
+    // padding: 16px;
+    border-radius: 16px;
+    width: 100%;
 
     .reviews-title {
-      font-size: 40px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 16px;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 24px;
+      color: $white;
     }
-    .reviews-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      background-color: $grey;
-      width: 1240px;
-      height: 174px;
-      border-radius: 50px;
-      padding: 28px 62px;
-      margin-block-start: 22px;
 
-      .left-block {
+    .reviews-wrapper {
+      display: grid;
+      grid-template-areas: "content actions";
+      grid-template-columns: 3fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 28px 62px;
+      background-color: $grey;
+      max-width: 1240px;
+      width: 100%;
+      border-radius: 50px;
+      margin-bottom: 16px;
+
+      .reviews-content {
+        grid-area: content;
         display: flex;
         flex-direction: column;
+        gap: 8px;
+
         .reviewe-name {
-          margin-bottom: 14px;
-          color: $white;
           font-size: 20px;
+          font-weight: bold;
+          color: $white;
         }
 
         .reviewe-rating {
           display: flex;
-          margin-bottom: 20px;
-          .star {
-            display: flex;
-            font-size: 20px;
-            color: #e0e0e0; /* Сірий для порожніх зірочок */
-          }
+          gap: 4px;
 
-          .star.filled {
-            color: #ffcc00; /* Золотий для заповнених зірочок */
+          .star {
+            font-size: 16px;
+            color: #ccc;
+
+            &.filled {
+              color: #ffc107; /* Жовті зірки */
+            }
           }
         }
 
         .reviewe-comment {
-          font-size: 14px;
+          font-size: 16px;
           color: $white;
+          font-weight: 200;
         }
       }
 
-      .right-block {
+      .reviews-actions {
+        grid-area: actions;
+        display: flex;
+        flex-direction: column; /* Кнопки в стовпчик */
+        gap: 8px;
+        justify-content: center; /* Центруємо кнопки */
+
         .icon {
-          margin-left: 10px;
           width: 24px;
           height: 24px;
+          cursor: pointer;
 
           &:hover {
-            cursor: pointer;
-            transform: scale(1.1);
+            filter: brightness(0.8);
           }
         }
       }
     }
-  }
-}
-
-@media (max-width: 767px) {
-  .product-view-page {
-    &__description {
-      max-width: 300px;
-      width: 100%;
-      white-space: pre-wrap;
+    @media (max-width: 768px) {
+      .reviews-wrapper {
+        padding: 16px 48px;
+      }
     }
 
-    &__content {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .content__wrapper {
-        .buttons {
-          margin: 10px 0 0 0;
-        }
+    @media (max-width: 576px) {
+      .reviews-wrapper {
+        padding: 12px 32px;
       }
     }
   }
