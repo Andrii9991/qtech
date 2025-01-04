@@ -2,8 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-
 import ToastPlugin from "vue-toast-notification";
+import "primeicons/primeicons.css";
 import "vue-toast-notification/dist/theme-bootstrap.css";
 
 Vue.config.productionTip = false;

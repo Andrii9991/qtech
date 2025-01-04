@@ -192,7 +192,12 @@ export default class CatalogPage extends Vue {
   }
 
   setProductAsCurrent(product: IProduct): void {
-    this.isModalVisible = true;
+    this.$router.push({
+      name: "ProductViewPage",
+      params: {
+        name: product.title,
+      },
+    });
     this.$store.commit("products/setCurrentProduct", product);
   }
 

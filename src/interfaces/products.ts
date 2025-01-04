@@ -9,4 +9,15 @@ export interface IProduct {
   id: number;
   count?: number;
   body: string;
+  availabilityStatus: string;
+  shippingInformation: string;
+  reviews: IReview[];
+}
+
+export interface IReview {
+  reviewerName: string;
+  comment: string;
+  date: string;
+  reviewerEmail: string;
+  rating: number;
 }
