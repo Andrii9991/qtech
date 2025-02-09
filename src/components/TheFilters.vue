@@ -141,7 +141,7 @@ export default class TheFilters extends Vue {
     padding: 0 16px;
     align-items: center;
     width: 100%;
-    max-width: 1240px;
+    /* max-width: 1240px; */
 
     .filters__burger-show {
       display: none;

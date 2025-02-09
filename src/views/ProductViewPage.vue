@@ -7,7 +7,9 @@
           v-model="currentSlide"
           :perPage="1"
           paginationColor="#ffffff"
-          paginationActiveColor="#ffffff"
+          paginationActiveColor="#87CEEB"
+          :navigationEnabled="true"
+          :autoplay="true"
           :centerMode="true"
           :adjustableHeight="true"
           :autoplayTimeout="4000"
@@ -29,6 +31,7 @@
               class="buy-button button"
               styleButton="red"
               text="BUY NOW"
+              isDisebled
             />
             <BaseButton
               class="bag-button button"
@@ -50,7 +53,7 @@
               </a>
               <span class="reviews-title">Reviews</span>
             </div>
-            <div class="favorite-button">
+            <div @click="soon" class="favorite-button">
               <img
                 class="favorite-icon"
                 src="../design/images/product/favourite 3.svg"
@@ -102,7 +105,7 @@
 
           <span class="reviewe-comment">{{ comment.comment }}</span>
         </div>
-        <div class="reviews-actions">
+        <div @click="soon" class="reviews-actions">
           <img
             class="icon"
             src="../design/images/product/thumb_up.svg"
@@ -121,9 +124,9 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import BaseButton from "@/components/BaseButton.vue";
 import { IProduct } from "@/interfaces/products";
 import { Carousel, Slide } from "vue-carousel";
+import BaseButton from "@/components/BaseButton.vue";
 
 @Component({
   components: {
@@ -158,9 +161,12 @@ export default class ProductViewPage extends Vue {
     if (this.currentSlide > 0) this.currentSlide--;
   }
 
-  mounted() {
-    console.log(this.currentProduct);
-    console.log(this.comments);
+  soon(): void {
+    this.$toast.open({
+      message: "Comming soon...",
+      duration: 2000,
+      position: "top-right",
+    });
   }
 }
 </script>
